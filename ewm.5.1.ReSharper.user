@@ -1,0 +1,46 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="Page" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.Page">
+      <Item value="IsPostBack" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="63C95081-706E-493A-B8FE-0A6688595806/f:Default.aspx" caret="434" fromTop="15" />
+      <File id="E98126B2-AF17-4783-96B9-856D6744DCA3/d:util/f:QRCodeUtility.cs" caret="3096" fromTop="16" />
+      <File id="63C95081-706E-493A-B8FE-0A6688595806/f:Default.aspx.cs" caret="580" fromTop="9" />
+      <File id="E98126B2-AF17-4783-96B9-856D6744DCA3/f:QRCodeEncoder.cs" caret="29225" fromTop="9" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="63C95081-706E-493A-B8FE-0A6688595806/f:Default.aspx.cs" caret="400" fromTop="13" />
+      <File id="63C95081-706E-493A-B8FE-0A6688595806/f:Default.aspx.cs" caret="872" fromTop="29" />
+      <File id="63C95081-706E-493A-B8FE-0A6688595806/f:Default.aspx.cs" caret="1213" fromTop="18" />
+      <File id="E98126B2-AF17-4783-96B9-856D6744DCA3/f:QRCodeEncoder.cs" caret="20328" fromTop="0" />
+      <File id="E98126B2-AF17-4783-96B9-856D6744DCA3/f:QRCodeEncoder.cs" caret="29817" fromTop="20" />
+      <File id="63C95081-706E-493A-B8FE-0A6688595806/f:Default.aspx.cs" caret="1213" fromTop="16" />
+      <File id="63C95081-706E-493A-B8FE-0A6688595806/f:Default.aspx.cs" caret="872" fromTop="5" />
+      <File id="E98126B2-AF17-4783-96B9-856D6744DCA3/f:QRCodeEncoder.cs" caret="29657" fromTop="20" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+</Configuration>

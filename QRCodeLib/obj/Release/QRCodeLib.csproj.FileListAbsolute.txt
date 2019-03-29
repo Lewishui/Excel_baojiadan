@@ -1,0 +1,16 @@
+D:\Devlop\身份证阅读器二次开发软件说明\ewm\QRCodeLib\obj\Release\ThoughtWorks.QRCode.frmtest.resources
+D:\Devlop\身份证阅读器二次开发软件说明\ewm\QRCodeLib\obj\Release\ThoughtWorks.QRCode.Properties.Resources.resources
+D:\Devlop\身份证阅读器二次开发软件说明\ewm\QRCodeLib\obj\Release\QRCodeLib.csproj.GenerateResource.Cache
+D:\Devlop\身份证阅读器二次开发软件说明\ewm\QRCodeLib\obj\Release\ThoughtWorks.QRCode.dll
+D:\Devlop\身份证阅读器二次开发软件说明\ewm\QRCodeLib\obj\Release\ThoughtWorks.QRCode.pdb
+D:\Devlop\身份证阅读器二次开发软件说明\ewm\QRCodeLib\ThoughtWorks.QRCode.dll
+D:\Devlop\身份证阅读器二次开发软件说明\ewm\QRCodeLib\ThoughtWorks.QRCode.pdb
+D:\Devlop\身份证阅读器二次开发软件说明\ewm\QRCodeLib\obj\Release\QRCodeLib.csprojResolveAssemblyReference.cache
+D:\Devlop\asp.net单网页设计\ewm\QRCodeLib\obj\Release\QRCodeLib.csprojResolveAssemblyReference.cache
+D:\Devlop\asp.net单网页设计\ewm\QRCodeLib\obj\Release\ThoughtWorks.QRCode.frmtest.resources
+D:\Devlop\asp.net单网页设计\ewm\QRCodeLib\obj\Release\ThoughtWorks.QRCode.Properties.Resources.resources
+D:\Devlop\asp.net单网页设计\ewm\QRCodeLib\obj\Release\QRCodeLib.csproj.GenerateResource.Cache
+D:\Devlop\asp.net单网页设计\ewm\QRCodeLib\obj\Release\ThoughtWorks.QRCode.dll
+D:\Devlop\asp.net单网页设计\ewm\QRCodeLib\obj\Release\ThoughtWorks.QRCode.pdb
+D:\Devlop\asp.net单网页设计\ewm\QRCodeLib\ThoughtWorks.QRCode.dll
+D:\Devlop\asp.net单网页设计\ewm\QRCodeLib\ThoughtWorks.QRCode.pdb

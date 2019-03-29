@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{63C95081-706E-493A-B8FE-0A6688595806}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRCodeLib", "QRCodeLib\QRCodeLib.csproj", "{E98126B2-AF17-4783-96B9-856D6744DCA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clsBuiness", "clsBuiness\clsBuiness.csproj", "{E7BBC086-51FE-4B4A-A4BB-94CCB17B76B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDZdb", "SDZdb\SDZdb.csproj", "{0A37E57D-9E55-4378-935D-ACD76FAB4609}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "China_System.Common", "China_System.Common\China_System.Common.csproj", "{6D44B559-6900-4076-B906-565D758F43B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QCAuto", "QCAuto\QCAuto.csproj", "{2CC9E842-7346-4EAC-9F63-ACC91C0478F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63C95081-706E-493A-B8FE-0A6688595806}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63C95081-706E-493A-B8FE-0A6688595806}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63C95081-706E-493A-B8FE-0A6688595806}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63C95081-706E-493A-B8FE-0A6688595806}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E98126B2-AF17-4783-96B9-856D6744DCA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E98126B2-AF17-4783-96B9-856D6744DCA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E98126B2-AF17-4783-96B9-856D6744DCA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E98126B2-AF17-4783-96B9-856D6744DCA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7BBC086-51FE-4B4A-A4BB-94CCB17B76B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7BBC086-51FE-4B4A-A4BB-94CCB17B76B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7BBC086-51FE-4B4A-A4BB-94CCB17B76B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7BBC086-51FE-4B4A-A4BB-94CCB17B76B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A37E57D-9E55-4378-935D-ACD76FAB4609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A37E57D-9E55-4378-935D-ACD76FAB4609}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A37E57D-9E55-4378-935D-ACD76FAB4609}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A37E57D-9E55-4378-935D-ACD76FAB4609}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D44B559-6900-4076-B906-565D758F43B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D44B559-6900-4076-B906-565D758F43B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D44B559-6900-4076-B906-565D758F43B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D44B559-6900-4076-B906-565D758F43B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CC9E842-7346-4EAC-9F63-ACC91C0478F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CC9E842-7346-4EAC-9F63-ACC91C0478F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CC9E842-7346-4EAC-9F63-ACC91C0478F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CC9E842-7346-4EAC-9F63-ACC91C0478F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

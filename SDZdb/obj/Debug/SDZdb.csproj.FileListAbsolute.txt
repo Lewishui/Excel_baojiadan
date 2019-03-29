@@ -1,0 +1,13 @@
+D:\Devlop\身份证阅读器二次开发软件说明\ewm\SDZdb\bin\Debug\SDZdb.dll
+D:\Devlop\身份证阅读器二次开发软件说明\ewm\SDZdb\bin\Debug\SDZdb.pdb
+D:\Devlop\身份证阅读器二次开发软件说明\ewm\SDZdb\obj\Debug\SDZdb.dll
+D:\Devlop\身份证阅读器二次开发软件说明\ewm\SDZdb\obj\Debug\SDZdb.pdb
+D:\Devlop\asp.net单网页设计\ewm\SDZdb\bin\Debug\SDZdb.dll
+D:\Devlop\asp.net单网页设计\ewm\SDZdb\bin\Debug\SDZdb.pdb
+D:\Devlop\asp.net单网页设计\ewm\SDZdb\obj\Debug\SDZdb.dll
+D:\Devlop\asp.net单网页设计\ewm\SDZdb\obj\Debug\SDZdb.pdb
+D:\Devlop\VBA_tool\报价单\ewm\SDZdb\bin\Debug\SDZdb.dll
+D:\Devlop\VBA_tool\报价单\ewm\SDZdb\bin\Debug\SDZdb.pdb
+D:\Devlop\VBA_tool\报价单\ewm\SDZdb\obj\Debug\SDZdb.dll
+D:\Devlop\VBA_tool\报价单\ewm\SDZdb\obj\Debug\SDZdb.pdb
+D:\Devlop\VBA_tool\报价单\ewm\SDZdb\obj\Debug\SDZdb.csprojResolveAssemblyReference.cache
