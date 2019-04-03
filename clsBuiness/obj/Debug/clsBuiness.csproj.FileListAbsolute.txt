@@ -23,3 +23,12 @@ D:\Devlop\VBA_tool\报价单\ewm\clsBuiness\bin\Debug\SDZdb.pdb
 D:\Devlop\VBA_tool\报价单\ewm\clsBuiness\obj\Debug\clsBuiness.csprojResolveAssemblyReference.cache
 D:\Devlop\VBA_tool\报价单\ewm\clsBuiness\obj\Debug\clsBuiness.dll
 D:\Devlop\VBA_tool\报价单\ewm\clsBuiness\obj\Debug\clsBuiness.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\bin\Debug\clsBuiness.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\bin\Debug\clsBuiness.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\bin\Debug\China_System.Common.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\bin\Debug\SDZdb.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\bin\Debug\China_System.Common.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\bin\Debug\SDZdb.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.csprojResolveAssemblyReference.cache
+D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.pdb

@@ -38,3 +38,10 @@ D:\Devlop\VBA_tool\报价单\ewm\China_System.Common\bin\Debug\SDZdb.pdb
 D:\Devlop\VBA_tool\报价单\ewm\China_System.Common\obj\Debug\China_System.Common.csprojResolveAssemblyReference.cache
 D:\Devlop\VBA_tool\报价单\ewm\China_System.Common\obj\Debug\China_System.Common.dll
 D:\Devlop\VBA_tool\报价单\ewm\China_System.Common\obj\Debug\China_System.Common.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\bin\Debug\China_System.Common.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\bin\Debug\China_System.Common.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\bin\Debug\SDZdb.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\bin\Debug\SDZdb.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.csprojResolveAssemblyReference.cache
+D:\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.pdb

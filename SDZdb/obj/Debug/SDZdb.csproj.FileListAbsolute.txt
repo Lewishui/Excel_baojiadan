@@ -11,3 +11,8 @@ D:\Devlop\VBA_tool\报价单\ewm\SDZdb\bin\Debug\SDZdb.pdb
 D:\Devlop\VBA_tool\报价单\ewm\SDZdb\obj\Debug\SDZdb.dll
 D:\Devlop\VBA_tool\报价单\ewm\SDZdb\obj\Debug\SDZdb.pdb
 D:\Devlop\VBA_tool\报价单\ewm\SDZdb\obj\Debug\SDZdb.csprojResolveAssemblyReference.cache
+D:\Devlop\报价单\ewm\Excel_baojiadan\SDZdb\bin\Debug\SDZdb.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\SDZdb\bin\Debug\SDZdb.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.csprojResolveAssemblyReference.cache
+D:\Devlop\报价单\ewm\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.pdb

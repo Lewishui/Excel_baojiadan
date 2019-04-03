@@ -46,8 +46,8 @@ namespace QCAuto
             int timeTotal = ts.Days;
             if (timeTotal < 0)
             {
-                MessageBox.Show("缺失系统文件，或电脑系统更新导致，请联系开发人员 !", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                //MessageBox.Show("缺失系统文件，或电脑系统更新导致，请联系开发人员 !", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //return;
             }
 
             #endregion
