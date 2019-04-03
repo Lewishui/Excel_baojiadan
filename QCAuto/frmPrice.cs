@@ -69,7 +69,7 @@ namespace QCAuto
 
 
             Local_IP();
-           ZFCEPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "System\\报价单.xlsx");
+         //  ZFCEPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "System\\报价单.xlsx");
             if (!File.Exists(ZFCEPath))
             {
                 MessageBox.Show("没有找到此路径或此文件，请保证共享文件存在!");
@@ -80,7 +80,7 @@ namespace QCAuto
         }
         private void Local_IP()
         {
-            string A_Path = AppDomain.CurrentDomain.BaseDirectory + "IP.txt";
+            string A_Path = AppDomain.CurrentDomain.BaseDirectory + "ip.txt";
             string[] fileText = File.ReadAllLines(A_Path);
             if (fileText.Length > 0 && fileText[0] != null && fileText[0] != "")
             {
