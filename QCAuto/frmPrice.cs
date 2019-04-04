@@ -32,7 +32,9 @@ namespace QCAuto
         private bool backGroundRunResult;
         //private AxSHDocVw.AxWebBrowser axWebBrowser1;
         string ZFCEPath;
+        List<cls_sixzhuanjiagebiao_info> MAPPINGResult;
 
+        private China_System.Common.clsCommHelp.SortableBindingList<cls_sixzhuanjiagebiao_info> sortabledinningsOrderList;
         Excel.Application oApp;
         Excel.Workbooks oBooks;
         Excel.Workbook oBook;
@@ -69,7 +71,7 @@ namespace QCAuto
 
 
             Local_IP();
-         //  ZFCEPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "System\\报价单.xlsx");
+            //ZFCEPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "System\\报价单反馈问题.xlsx");
             if (!File.Exists(ZFCEPath))
             {
                 MessageBox.Show("没有找到此路径或此文件，请保证共享文件存在!");
@@ -644,17 +646,31 @@ namespace QCAuto
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             toolStripLabel1.Text = "读取中，请耐心等待...(打开快慢受网络情况影响)";
+            MAPPINGResult = new List<cls_sixzhuanjiagebiao_info>();
 
-            List<cls_sixzhuanjiagebiao_info> MAPPINGResult = GetKEYnfo(ZFCEPath);
+            MAPPINGResult = GetKEYnfo(ZFCEPath);
 
             toolStripLabel1.Text = "读取完成";
-            dataGridView1.AutoGenerateColumns = false;
 
-            dataGridView1.DataSource = MAPPINGResult;
+            showdav1(MAPPINGResult);
+
+
+            //dataGridView1.AutoGenerateColumns = false;
+
+            //dataGridView1.DataSource = MAPPINGResult;
 
             this.tabControl1.SelectedIndex = 1;
 
 
+        }
+
+        private void showdav1(List<cls_sixzhuanjiagebiao_info> MAPPINGResult)
+        {
+            sortabledinningsOrderList = new China_System.Common.clsCommHelp.SortableBindingList<cls_sixzhuanjiagebiao_info>(MAPPINGResult);
+            this.bindingSource1.DataSource = this.sortabledinningsOrderList;
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.DataSource = this.bindingSource1;
+            this.toolStripLabel1.Text = "共计:" + MAPPINGResult.Count;
         }
 
         public List<cls_sixzhuanjiagebiao_info> GetKEYnfo(string Alist)
@@ -828,9 +844,9 @@ namespace QCAuto
 
                         temp.zuzuangbizhong_C = "";
                         if (o[i, 3] != null)
-                            temp.zuzuangbizhong_C = o[i,3].ToString().Trim();
+                            temp.zuzuangbizhong_C = o[i, 3].ToString().Trim();
 
-                        if (temp.zuzuangbizhong_C == null || temp.zuzuangbizhong_C == "")
+                        if (temp.touxing_B == null || temp.touxing_B == "")
                             continue;
 
                         temp.shapianbizhong_D = "";
@@ -851,12 +867,12 @@ namespace QCAuto
                         if (o[i, 7] != null)
                             temp.guige_I = o[i, 7].ToString().Trim();
                         temp.bizhong_J = "";
-                        if (o[i,8] != null)
+                        if (o[i, 8] != null)
                             temp.bizhong_J = o[i, 8].ToString().Trim();
 
                         temp.ganjia_K = "";
                         if (o[i, 9] != null)
-                            temp.ganjia_K = String.Format("{0:N2}", Convert.ToDouble(Math.Round(Convert.ToDouble(o[i,9].ToString()), 2).ToString())); //o[i, 8].ToString().Trim();
+                            temp.ganjia_K = String.Format("{0:N2}", Convert.ToDouble(Math.Round(Convert.ToDouble(o[i, 9].ToString()), 2).ToString())); //o[i, 8].ToString().Trim();
 
 
                         temp.handianpiandunjia_G = "";
@@ -868,9 +884,9 @@ namespace QCAuto
                         temp.dunjia_L = "";
                         if (o[i, 11] != null)
                             temp.dunjia_L = o[i, 11].ToString().Trim();
-                        
-                       
-                        
+
+
+
                         #endregion
                         #endregion
                         MAPPINGResult.Add(temp);
@@ -930,6 +946,51 @@ namespace QCAuto
                     frmMessageShow.setStatus(clsConstant.Dialog_Status_Enable);
                 }
             }
+        }
+
+        private void filterButton_Click(object sender, EventArgs e)
+        {
+            List<cls_sixzhuanjiagebiao_info> Result = new List<cls_sixzhuanjiagebiao_info>();
+
+              
+
+
+            var ioState = this.textBox8.Text;
+            var ioState2 = this.textBox1.Text;
+
+
+            if (ioState.Length == 0 && ioState2.Length == 0)
+                return;
+
+
+            if (ioState.Length > 0 && ioState2.Length > 0)
+                Result = MAPPINGResult.Where(o => o.Order_id != null && o.Order_id.Contains(ioState) && o.guige_I != null && o.guige_I.Contains(ioState2)).ToList();
+            else if (ioState.Length > 0)
+            {
+                Result = MAPPINGResult.Where(o => (o.Order_id != null && o.Order_id.Contains(ioState))).ToList();
+
+
+            }
+            else if (ioState2.Length > 0)
+            {
+                Result = MAPPINGResult.Where(o => (o.guige_I != null && o.guige_I.Contains(ioState2))).ToList();
+
+
+            }
+            if (Result.Count > 0)
+                showdav1(Result);
+            else
+            {
+                showdav1(Result);
+                toolStripLabel1.Text = "没有查询到！";
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            showdav1(MAPPINGResult);
+
         }
 
 
