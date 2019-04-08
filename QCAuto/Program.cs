@@ -53,7 +53,8 @@ namespace QCAuto
             #endregion
 
 
-            Application.Run(new frmPrice(pass));
+            //Application.Run(new frmPrice(pass));//报价单
+            Application.Run(new frmJiaqizhuantongjibiao(pass));//加气砖统计表
         }
     }
 }

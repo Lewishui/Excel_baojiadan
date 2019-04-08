@@ -43,3 +43,17 @@ D:\Devlop\VBA_tool\报价单\ewm\QRCodeLib\China_System.Common.dll
 D:\Devlop\VBA_tool\报价单\ewm\QRCodeLib\clsBuiness.pdb
 D:\Devlop\VBA_tool\报价单\ewm\QRCodeLib\SDZdb.pdb
 D:\Devlop\VBA_tool\报价单\ewm\QRCodeLib\China_System.Common.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\obj\Debug\QRCodeLib.csprojResolveAssemblyReference.cache
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\obj\Debug\ThoughtWorks.QRCode.frmtest.resources
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\obj\Debug\ThoughtWorks.QRCode.Properties.Resources.resources
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\obj\Debug\QRCodeLib.csproj.GenerateResource.Cache
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\obj\Debug\ThoughtWorks.QRCode.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\obj\Debug\ThoughtWorks.QRCode.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\ThoughtWorks.QRCode.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\ThoughtWorks.QRCode.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\clsBuiness.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\SDZdb.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\China_System.Common.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\clsBuiness.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\SDZdb.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\China_System.Common.pdb

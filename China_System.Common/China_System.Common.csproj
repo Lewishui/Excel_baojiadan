@@ -47,6 +47,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -64,6 +66,7 @@
     <Compile Include="clsShowMessage.cs" />
     <Compile Include="MockEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedTool .cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SDZdb\SDZdb.csproj">
