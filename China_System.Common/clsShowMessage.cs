@@ -15,9 +15,9 @@ namespace China_System.Common
         public const string MSG_004 = "Login...";
         public const string MSG_005 = "Login OK !";
         public const string MSG_006 = "System Initialize...... ";
-        public const string MSG_007 = " 读取中，请稍后....";
+        public const string MSG_007 = " 读取中，请耐心等待(打开快慢受网络和表格大小情况影响)....";
         public const string MSG_008 = "Reading Exce File，Waiting  ";
-        public const string MSG_009 = "Well， System Process Successful.";
+        public const string MSG_009 = "读取完成！.";
         public const string MSG_010 = "System Synchronous Data Successful !";
         public const string MSG_011 = " Reading Raw Data and Check   ....";
         public const string MSG_012 = "System Update Successful !";

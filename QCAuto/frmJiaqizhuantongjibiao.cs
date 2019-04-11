@@ -1,5 +1,6 @@
 ﻿using China_System.Common;
 using clsBuiness;
+using ISR_System;
 using Microsoft.Office.Interop.Excel;
 using SDZdb;
 using Spire.Xls;
@@ -15,6 +16,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -22,6 +24,10 @@ namespace QCAuto
 {
     public partial class frmJiaqizhuantongjibiao : Form
     {
+        private AxDSOFramer.AxFramerControl m_axFramerControl = new AxDSOFramer.AxFramerControl();
+
+        private WbBlockNewUrl MyWebBrower;
+        Thread thOpen;
         // 消息显示窗体
         private frmMessageShow frmMessageShow;
 
@@ -44,45 +50,157 @@ namespace QCAuto
         string pass;
         string netuser;
         string netpassword;
+        int axFramerControl1_is = 0;
 
         public frmJiaqizhuantongjibiao(string password)
         {
-            InitializeComponent();
-            
-            //tabControl1.TabPages[0].Parent = null;
-            if (password == "123")
+            try
             {
-                tabControl1.TabPages[0].Parent = null;
+                //bat_dsoframer();
 
-                toolStripButton10.Visible = false;
+                InitializeComponent();
 
 
-                toolStripButton11.Visible = false;
+                pass = password;
+                Local_IP();
+                int ssd = 0;
+                tabControl1.TabPages[2].Parent = null;//调用的是 AxDSOFramer  也好用，但是打开保存后共享Excel就变位只读了
+                tabControl1.TabPages[2].Parent = null;//统计表wb 按钮好用
+
+                //ZFCEPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "加气砖统计表\\2019年加气砖统计表.xlsx");
+                //ssd = 1;
+                if (ssd == 0)
+                {
+                    string[] ob = Regex.Split(ZFCEPath, @"\\", RegexOptions.IgnoreCase);
+                    //bool status = SharedTool.connectState(@"\\192.168.1.2", @"administrator", "333333");
+                    string ipadd = "\\\\" + ob[2];
+                    bool status = SharedTool.connectState(ipadd, @netuser, netpassword);
+
+                    if (!File.Exists(ZFCEPath) && status != true)
+                    {
+                        MessageBox.Show("没有找到此路径或此文件，请保证共享文件存在!");
+                        System.Environment.Exit(0);
+                        return;
+                    }
+                }
+
+
+                #region 好用但是弹窗有结果
+                //string cmd = @"regsvr32 C:\Windows\SysWOW64\dsoframer.ocx";
+                //string output = "";
+
+                //RunCmd(cmd, out output);
+                #endregion
+
             }
-            else
+            catch (Exception ex)
             {
-                tabControl1.TabPages[2].Parent = null;
+                MessageBox.Show("" + ex);
 
-                //toolStripButton1.Visible = false;
-
+                throw;
             }
-            pass = password;
-            Local_IP();
-            //  ZFCEPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "加气砖统计表\\2019年加气砖统计表.xlsx");
-
-            string[] ob = Regex.Split(ZFCEPath, @"\\", RegexOptions.IgnoreCase);
-            //bool status = SharedTool.connectState(@"\\192.168.1.2", @"administrator", "333333");
-            string ipadd = "\\\\" + ob[2];
-            bool status = SharedTool.connectState(ipadd, @netuser, netpassword);
-
-            if (!File.Exists(ZFCEPath) && status != true)
-            {
-                MessageBox.Show("没有找到此路径或此文件，请保证共享文件存在!");
-                System.Environment.Exit(0);
-                return;
-            }
-
         }
+
+        private static void bat_dsoframer()
+        {
+            string c = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dsoframer.ocx");
+            string destFile = @"C:\Windows\SysWOW64" + "\\dsoframer.ocx";
+
+            int io = 0;
+
+            if (Directory.Exists(destFile))
+            {
+                File.Copy(c, destFile, true);//覆盖模式
+                io = 1;
+            }
+            destFile = @"C:\windows\system32" + "\\dsoframer.ocx";
+
+
+            if (Directory.Exists(destFile))
+            {
+                File.Copy(c, destFile, true);//覆盖模式
+                io = 1;
+            }
+
+            //此方法不弹窗会静默执行
+            if (io == 1)
+                bat();
+        }
+        public static void RunCmd(string cmd, out string output)
+        {
+            try
+            {
+                string CmdPath = @"C:\Windows\System32\cmd.exe";
+                cmd = cmd.Trim().TrimEnd('&') + "&exit";//说明：不管命令是否成功均执行exit命令，否则当调用ReadToEnd()方法时，会处于假死状态
+                using (Process p = new Process())
+                {
+                    p.StartInfo.FileName = CmdPath;
+                    p.StartInfo.UseShellExecute = false;        //是否使用操作系统shell启动
+                    p.StartInfo.RedirectStandardInput = true;   //接受来自调用程序的输入信息
+                    p.StartInfo.RedirectStandardOutput = true;  //由调用程序获取输出信息
+                    p.StartInfo.RedirectStandardError = true;   //重定向标准错误输出
+                    p.StartInfo.CreateNoWindow = true;          //不显示程序窗口
+                    p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    p.Start();//启动程序
+
+                    //向cmd窗口写入命令
+                    p.StandardInput.WriteLine(cmd);
+                    p.StandardInput.AutoFlush = true;
+
+                    //获取cmd窗口的输出信息
+                    output = p.StandardOutput.ReadToEnd();
+                    p.WaitForExit();//等待程序执行完退出进程
+                    p.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("EX:数据库配置失败 ：" + ex);
+
+
+                throw;
+            }
+        }
+        public static void bat()
+        {
+            try
+            {
+                string c = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dos64.bat");
+
+                if (File.Exists(c))
+                {
+                    //System.Diagnostics.Process.Start(folderpath + "\\saptis.exe");
+
+                    System.Diagnostics.Process p = new System.Diagnostics.Process();
+                    p.StartInfo.WorkingDirectory = c;
+                    p.StartInfo.UseShellExecute = true;
+                    p.StartInfo.FileName = c;
+                    p.Start();
+                    p.WaitForExit();
+                }
+                c = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dos32.bat");
+
+
+                if (File.Exists(c))
+                {
+
+                    System.Diagnostics.Process p = new System.Diagnostics.Process();
+                    p.StartInfo.WorkingDirectory = c;
+                    p.StartInfo.UseShellExecute = true;
+                    p.StartInfo.FileName = c;
+                    p.Start();
+                    p.WaitForExit();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("EX:数据库配置失败 ：" + ex);
+
+
+                throw;
+            }
+        }
+
         private void Local_IP()
         {
             string A_Path = AppDomain.CurrentDomain.BaseDirectory + "加气砖统计表\\ip.txt";
@@ -297,6 +415,18 @@ namespace QCAuto
         }
         private void ExcelExit()
         {
+            if (this.axFramerControl1 != null)
+                this.axFramerControl1.Close();
+            if (this.m_axFramerControl != null && axFramerControl1_is == 1)
+            {
+                Save();
+                this.m_axFramerControl.Close();
+
+
+            }
+            if (webBrowser1.Document != null)
+                webBrowser1.Stop();
+
             NAR(oSheet);
             if (oBook != null)
             {
@@ -311,12 +441,24 @@ namespace QCAuto
             Debug.WriteLine("Sleeping...");
             // System.Threading.Thread.Sleep(5000);
             Debug.WriteLine("End Excel");
-            webBrowser1.Stop();
-            webBrowser1.Dispose();
+            //webBrowser1.Stop();
+            //webBrowser1.Dispose();
             System.Environment.Exit(0);
 
 
 
+        }
+        public void Save()
+        {
+            try
+            {
+                //先保存
+                this.m_axFramerControl.Save(true, true, "", "");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         private void NAR(Object o)
         {
@@ -325,215 +467,6 @@ namespace QCAuto
             finally { o = null; }
         }
 
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            try
-            {
-                #region 1
-                //object o = oWebBrowser;
-
-
-                //Object oDocument = o.GetType().InvokeMember("Document", BindingFlags.GetProperty, null, o, null);
-                //Object oApplication = o.GetType().InvokeMember("Application", BindingFlags.GetProperty, null, oDocument, null);
-                ////Excel.Application eApp = (Excel.Application)oApplication;
-                ////eApp.UserControl = true;
-
-
-                //Object refmissing = System.Reflection.Missing.Value;
-                //object[] args = new object[4];
-                //args[0] = SHDocVw.OLECMDID.OLECMDID_HIDETOOLBARS;
-                //args[1] = SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER;
-                //args[2] = refmissing;
-                //args[3] = refmissing;
-
-
-                //object axWebBrowser = this.webBrowser1.ActiveXInstance;
-
-                //axWebBrowser.GetType().InvokeMember("ExecWB",
-                //    BindingFlags.InvokeMethod, null, axWebBrowser, args);
-
-
-                //object Application = axWebBrowser.GetType().InvokeMember("Document",
-                //    BindingFlags.GetProperty, null, axWebBrowser, null);
-
-                //Excel.Workbook wbb = (Excel.Workbook)oApplication;
-                //Excel.ApplicationClass excel = wbb.Application as Excel.ApplicationClass;
-                //Excel.Workbook wb = excel.Workbooks[1];
-                //Excel.Worksheet ws = wb.Worksheets[1] as Excel.Worksheet;
-                //ws.Cells.Font.Name = "Verdana";
-                //ws.Cells.Font.Size = 14;
-                //ws.Cells.Font.Bold = true;
-                //Excel.Range range = ws.Cells;
-
-                //Excel.Range oCell = range[10, 10] as Excel.Range;
-                //oCell.Value2 = "你好"; 
-                #endregion
-
-
-
-                #region is good
-
-                Microsoft.Office.Interop.Excel.Workbook wbb = null;
-                Object refmissing = System.Reflection.Missing.Value;
-
-                object[] args = new object[4];
-
-                args[0] = SHDocVw.OLECMDID.OLECMDID_HIDETOOLBARS;
-
-                args[1] = SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER;
-
-                args[2] = refmissing;
-
-                args[3] = refmissing;
-
-                object axWebBrowser = this.webBrowser1.ActiveXInstance;
-
-                axWebBrowser.GetType().InvokeMember("ExecWB", BindingFlags.InvokeMethod, null, axWebBrowser, args);
-
-                object oApplication = axWebBrowser.GetType().InvokeMember("Document", BindingFlags.GetProperty, null, axWebBrowser, null);
-
-                wbb = (Microsoft.Office.Interop.Excel.Workbook)oApplication;
-
-                Microsoft.Office.Interop.Excel.Worksheet WS = (Microsoft.Office.Interop.Excel.Worksheet)wbb.Worksheets[1];
-
-
-                Microsoft.Office.Interop.Excel.Range rng;
-
-                rng = WS.Range[WS.Cells[1, 1], WS.Cells[WS.UsedRange.Rows.Count, 16]];
-                int rowCount = WS.UsedRange.Rows.Count;
-                object[,] o = new object[1, 1];
-                o = (object[,])rng.Value2;
-
-                //Excel.Application eApp = (Excel.Application)oApplication;
-                //  clsCommHelp.CloseExcel(eApp, wbb);
-                // for (int i = 2; i <= rowCount; i++)
-                {
-                    cls_sixzhuanjiagebiao_info temp = new cls_sixzhuanjiagebiao_info();
-
-                    //temp.touxing_B = "";
-                    //if (o[i, 2] != null)
-                    //    temp.touxing_B = o[i, 2].ToString().Trim();// o[i, 2].ToString().Trim();
-                    if (pass == "123")
-                    {
-                        Microsoft.Office.Interop.Excel.Range cloumnrng = WS.Range[WS.Cells[1, 1], WS.Cells[WS.UsedRange.Rows.Count, 1]];
-                        cloumnrng.EntireColumn.Hidden = false;
-
-
-                        cloumnrng = WS.Range[WS.Cells[1, 2], WS.Cells[WS.UsedRange.Rows.Count, 2]];
-                        cloumnrng.EntireColumn.Hidden = true;
-
-                        cloumnrng = WS.Range[WS.Cells[1, 3], WS.Cells[WS.UsedRange.Rows.Count, 3]];
-                        cloumnrng.EntireColumn.Hidden = true;
-
-                        cloumnrng = WS.Range[WS.Cells[1, 4], WS.Cells[WS.UsedRange.Rows.Count, 4]];
-                        cloumnrng.EntireColumn.Hidden = true;
-
-                        cloumnrng = WS.Range[WS.Cells[1, 5], WS.Cells[WS.UsedRange.Rows.Count, 5]];
-                        cloumnrng.EntireColumn.Hidden = true;
-
-
-
-                        cloumnrng = WS.Range[WS.Cells[1, 6], WS.Cells[WS.UsedRange.Rows.Count, 6]];
-                        cloumnrng.EntireColumn.Hidden = true;
-
-
-                        cloumnrng = WS.Range[WS.Cells[1, 8], WS.Cells[WS.UsedRange.Rows.Count, 8]];
-                        cloumnrng.EntireColumn.Hidden = true;
-
-
-                        cloumnrng = WS.Range[WS.Cells[1, 9], WS.Cells[WS.UsedRange.Rows.Count, 9]];
-                        cloumnrng.EntireColumn.Hidden = true;
-
-
-                        cloumnrng = WS.Range[WS.Cells[1, 10], WS.Cells[WS.UsedRange.Rows.Count, 10]];
-                        cloumnrng.EntireColumn.Hidden = true;
-
-
-                        cloumnrng = WS.Range[WS.Cells[1, 11], WS.Cells[WS.UsedRange.Rows.Count, 11]];
-                        cloumnrng.EntireColumn.Hidden = true;
-
-                    }
-                    else
-                    {
-                        Microsoft.Office.Interop.Excel.Range cloumnrng = WS.Range[WS.Cells[1, 1], WS.Cells[WS.UsedRange.Rows.Count, 1]];
-                        cloumnrng.EntireColumn.Hidden = false;
-
-
-                        cloumnrng = WS.Range[WS.Cells[1, 2], WS.Cells[WS.UsedRange.Rows.Count, 2]];
-                        cloumnrng.EntireColumn.Hidden = false;
-
-                        cloumnrng = WS.Range[WS.Cells[1, 3], WS.Cells[WS.UsedRange.Rows.Count, 3]];
-                        cloumnrng.EntireColumn.Hidden = false;
-
-                        cloumnrng = WS.Range[WS.Cells[1, 4], WS.Cells[WS.UsedRange.Rows.Count, 4]];
-                        cloumnrng.EntireColumn.Hidden = false;
-
-                        cloumnrng = WS.Range[WS.Cells[1, 5], WS.Cells[WS.UsedRange.Rows.Count, 5]];
-                        cloumnrng.EntireColumn.Hidden = false;
-
-
-                        cloumnrng = WS.Range[WS.Cells[1, 6], WS.Cells[WS.UsedRange.Rows.Count, 6]];
-                        cloumnrng.EntireColumn.Hidden = false;
-
-
-                        cloumnrng = WS.Range[WS.Cells[1, 8], WS.Cells[WS.UsedRange.Rows.Count, 8]];
-                        cloumnrng.EntireColumn.Hidden = false;
-
-
-                        cloumnrng = WS.Range[WS.Cells[1, 9], WS.Cells[WS.UsedRange.Rows.Count, 9]];
-                        cloumnrng.EntireColumn.Hidden = false;
-
-
-                        cloumnrng = WS.Range[WS.Cells[1, 10], WS.Cells[WS.UsedRange.Rows.Count, 10]];
-                        cloumnrng.EntireColumn.Hidden = false;
-
-
-                        cloumnrng = WS.Range[WS.Cells[1, 11], WS.Cells[WS.UsedRange.Rows.Count, 11]];
-                        cloumnrng.EntireColumn.Hidden = false;
-
-                    }
-                    oBook = wbb;
-                    //oApp = (Excel.Application)oApplication;
-                    //  Excel.Application eApp = (Excel.Application)oApplication;
-
-                    oSheet = WS;
-
-                }
-                #endregion
-
-                //设置工作表保护密码，并指定不受密码保护（即允许用户编辑）的单元格区域 
-                //WS.Protect("123", WS.Range["B2:AZ65535"], "");
-
-                //WS.Protect("123", true);
-                //WS.Protect("123", SheetProtectionType.All);
-                //Microsoft.Office.Interop.Excel.AllowEditRanges ranges = WS.Protection.AllowEditRanges;
-                //ranges.Add("Information", WS.Range["B2:E6"], Type.Missing);
-
-
-
-                ////初始化一个工作簿并加载一个实例
-                //Spire.Xls.Workbook book = new Spire.Xls.Workbook();
-                //book.LoadFromFile("test.xlsx");
-
-                ////获取工作簿中第一个工作表
-                //Spire.Xls.Worksheet sheet = book.Worksheets[0];
-
-                //sheet.AddAllowEditRange("AAA", sheet.Range["B2:E6"], "");
-                //sheet.Protect("AAA", SheetProtectionType.All); 
-
-
-            }
-            catch (Exception ex)
-            {
-
-                toolStripLabel2.Text = "请关闭所有Excel，然后点击【强制刷新】按钮，如还出现异常再次点击【强制刷新】按钮";
-
-                MessageBox.Show("请关闭所有Excel，然后点击【强制刷新】按钮");
-                return;
-
-                throw;
-            }
-        }
 
         private void frmPrice_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -549,71 +482,7 @@ namespace QCAuto
 
         }
 
-        private void toolStripButton10_Click(object sender, EventArgs e)
-        {
-            toolStripLabel2.Text = "读取中，请耐心等待...(打开快慢受网络情况影响)";
 
-            this.webBrowser1.Navigate(ZFCEPath);
-
-            toolStripLabel2.Text = "读取完成,马上显示";
-            this.tabControl1.SelectedIndex = 1;
-            return;
-
-
-            try
-            {
-
-
-                InitialBackGroundWorker();
-                Control.CheckForIllegalCrossThreadCalls = false;
-                bgWorker.DoWork += new DoWorkEventHandler(CheckBankCharge);
-
-                bgWorker.RunWorkerAsync();
-                // 启动消息显示画面
-                frmMessageShow = new frmMessageShow(clsShowMessage.MSG_001,
-                                                    clsShowMessage.MSG_007,
-                                                    clsConstant.Dialog_Status_Disable);
-                frmMessageShow.ShowDialog();
-                // 数据读取成功后在画面显示
-                if (blnBackGroundWorkIsOK)
-                {
-
-                    this.tabControl1.SelectedIndex = 1;
-
-
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-            // Inputexcel(null);
-
-            //  webBrowser1 = new WebBrowser();
-
-            //Object refmissing = System.Reflection.Missing.Value;
-
-
-
-            //object axWebBrowser = this.webBrowser1.ActiveXInstance; 
-        }
-        private void CheckBankCharge(object sender, DoWorkEventArgs e)
-        {
-            DateTime oldDate = DateTime.Now;
-
-            this.webBrowser1.Navigate(ZFCEPath);
-
-
-            DateTime FinishTime = DateTime.Now;  //   
-            TimeSpan s = DateTime.Now - oldDate;
-            string timei = s.Minutes.ToString() + ":" + s.Seconds.ToString();
-
-
-            string Showtime = clsShowMessage.MSG_029 + timei.ToString();
-            bgWorker.ReportProgress(clsConstant.Thread_Progress_OK, clsShowMessage.MSG_009 + "\r\n" + Showtime);
-        }
 
         private void toolStripButton12_Click(object sender, EventArgs e)
         {
@@ -630,14 +499,14 @@ namespace QCAuto
 
         private void toolStripButton11_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("是否已经保存其他桌面Excel文件，, 继续 ?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (MessageBox.Show("是否已经保存其他桌面Excel文件, 继续 ?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
 
             }
             else
                 return;
 
-            toolStripLabel2.Text = "刷新中,请稍等...";
+            toolStripLabel3.Text = "刷新中,请稍等...";
 
             string folderpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ClearTask.bat");
 
@@ -647,39 +516,16 @@ namespace QCAuto
             p.StartInfo.FileName = folderpath;
             p.Start();
 
-            toolStripButton10_Click(null, EventArgs.Empty);
+            if (this.tabControl1.SelectedIndex == 2)
+                toolStripButton1_Click_1(null, EventArgs.Empty);
+            //if (this.tabControl1.SelectedIndex == 1)
+            else
 
+                toolStripButton4_Click(null, EventArgs.Empty);
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            toolStripLabel1.Text = "读取中，请耐心等待...(打开快慢受网络情况影响)";
-            MAPPINGResult = new List<cls_sixzhuanjiagebiao_info>();
-
-            MAPPINGResult = GetKEYnfo(ZFCEPath);
-
-            toolStripLabel1.Text = "读取完成";
-
-            showdav1(MAPPINGResult);
 
 
-            //dataGridView1.AutoGenerateColumns = false;
-
-            //dataGridView1.DataSource = MAPPINGResult;
-
-            this.tabControl1.SelectedIndex = 1;
-
-
-        }
-
-        private void showdav1(List<cls_sixzhuanjiagebiao_info> MAPPINGResult)
-        {
-            sortabledinningsOrderList = new China_System.Common.clsCommHelp.SortableBindingList<cls_sixzhuanjiagebiao_info>(MAPPINGResult);
-            this.bindingSource1.DataSource = this.sortabledinningsOrderList;
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.DataSource = this.bindingSource1;
-            this.toolStripLabel1.Text = "共计:" + MAPPINGResult.Count;
-        }
 
         public List<cls_sixzhuanjiagebiao_info> GetKEYnfo(string Alist)
         {
@@ -956,52 +802,378 @@ namespace QCAuto
             }
         }
 
-        private void filterButton_Click(object sender, EventArgs e)
+
+
+
+        private void toolStripButton1_Click_1(object sender, EventArgs e)
         {
-            List<cls_sixzhuanjiagebiao_info> Result = new List<cls_sixzhuanjiagebiao_info>();
+            axFramerControl1_is = 1;
+
+            this.tabControl1.SelectedIndex = 1;
+            toolStripLabel1.Text = "读取中，请耐心等待...(打开快慢受网络情况影响)";
+
+
+            Init(ZFCEPath);
+            //this.axFramerControl1.Open(ZFCEPath);
+            toolStripLabel1.Text = "读取完成,马上显示";
+            this.tabControl1.SelectedIndex = 1;
+
+            MessageBox.Show("读取完成，请查看", "信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            return;
+
+            try
+            {
+
+
+                InitialBackGroundWorker();
+                Control.CheckForIllegalCrossThreadCalls = false;
+                bgWorker.DoWork += new DoWorkEventHandler(CheckBankCharge);
+
+                bgWorker.RunWorkerAsync();
+                // 启动消息显示画面
+                frmMessageShow = new frmMessageShow(clsShowMessage.MSG_001,
+                                                    clsShowMessage.MSG_007,
+                                                    clsConstant.Dialog_Status_Disable);
+                frmMessageShow.ShowDialog();
+                // 数据读取成功后在画面显示
+                if (blnBackGroundWorkIsOK)
+                {
+                    this.tabControl1.SelectedIndex = 1;
+                    this.WindowState = FormWindowState.Maximized;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private void CheckBankCharge(object sender, DoWorkEventArgs e)
+        {
+            DateTime oldDate = DateTime.Now;
 
 
 
 
-            var ioState = this.textBox8.Text;
-            var ioState2 = this.textBox1.Text;
+            AddOfficeControl();
+
+            //InitOfficeControl(ZFCEPath);
+
+            //this.axFramerControl1.Open(ZFCEPath);
+            //this.axFramerControl1.ShowView(0);
+            //var WorkBook = this.axFramerControl1.ActiveDocument as Workbook;
+            //(WorkBook.Sheets[2] as Worksheet).Activate();
 
 
-            if (ioState.Length == 0 && ioState2.Length == 0)
+            DateTime FinishTime = DateTime.Now;  //   
+            TimeSpan s = DateTime.Now - oldDate;
+            string timei = s.Minutes.ToString() + ":" + s.Seconds.ToString();
+
+
+            string Showtime = clsShowMessage.MSG_029 + timei.ToString();
+            bgWorker.ReportProgress(clsConstant.Thread_Progress_OK, clsShowMessage.MSG_009 + "\r\n" + Showtime);
+        }
+        public void Init(string _sFilePath)
+        {
+            try
+            {
+
+                AddOfficeControl();
+                //这里一定要先把dso控件加到界面上才能初始化dso控件,
+                //这个dso控件在没有被show出来之前是不能进行初始化操作的,很奇怪为什么作者这样考虑.....
+                //InitOfficeControl(_sFilePath);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private void AddOfficeControl()
+        {
+            try
+            {
+
+                ((System.ComponentModel.ISupportInitialize)(this.m_axFramerControl)).BeginInit();
+                this.Controls.Add(m_axFramerControl);
+                ((System.ComponentModel.ISupportInitialize)(this.m_axFramerControl)).EndInit();
+
+
+                //((System.ComponentModel.ISupportInitialize)(this.m_axFramerControl)).BeginInit();
+                // this.tabControl1.TabPages[2].Controls.Add(m_axFramerControl);
+                this.panel1.Controls.Add(m_axFramerControl);
+                //((System.ComponentModel.ISupportInitialize)(this.m_axFramerControl)).EndInit();
+                m_axFramerControl.Dock = DockStyle.Fill;
+                m_axFramerControl.Titlebar = false;
+                //m_axFramerControl.Menubar = false;
+                //m_axFramerControl.Toolbars = true;
+
+                m_axFramerControl.Open(ZFCEPath, false, "Excel.Sheet", "", "");
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("服务器出现意外情况"))
+
+                    throw ex;
+            }
+        }
+        private void InitOfficeControl(string _sFilePath)
+        {
+            try
+            {
+                if (m_axFramerControl == null)
+                {
+                    throw new ApplicationException("请先初始化office控件对象！");
+                }
+
+                //this.m_axFramerControl.SetMenuDisplay(48);
+                //这个方法很特别，一个组合菜单控制方法，我还没有找到参数的规律，有兴趣的朋友可以研究一下
+                string sExt = System.IO.Path.GetExtension(_sFilePath).Replace(".", "");
+                //this.m_axFramerControl.CreateNew(this.LoadOpenFileType(sExt));//创建新的文件
+
+                this.m_axFramerControl.Open(_sFilePath, false, this.LoadOpenFileType(sExt), "", "");//打开文件
+
+                //隐藏标题
+                this.m_axFramerControl.Titlebar = false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private string LoadOpenFileType(string _sExten)
+        {
+            try
+            {
+                string sOpenType = "";
+                switch (_sExten.ToLower())
+                {
+                    case "xls":
+                        sOpenType = "Excel.Sheet";
+                        break;
+                    case "doc":
+                        sOpenType = "Word.Document";
+                        break;
+                    case "ppt":
+                        sOpenType = "PowerPoint.Show";
+                        break;
+                    case "vsd":
+                        sOpenType = "Visio.Drawing";
+                        break;
+                    default:
+                        sOpenType = "Word.Document";
+                        break;
+                }
+                return sOpenType;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void frmJiaqizhuantongjibiao_Load(object sender, EventArgs e)
+        {
+            //thOpen = new Thread(new ThreadStart(FOpen));
+            //((System.ComponentModel.ISupportInitialize)(this.m_axFramerControl)).BeginInit();
+            //m_axFramerControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            //m_axFramerControl.Enabled = true;
+            //m_axFramerControl.Location = new System.Drawing.Point(0, 0);
+            //this.tabControl1.TabPages[2].Name = "spc_Excel";
+
+
+            //this.tabControl1.TabPages[2].Controls.Add(m_axFramerControl);
+            ////m_axFramerControl.Titlebar = false;
+            ////m_axFramerControl.Menubar = false;
+            ////m_axFramerControl.Toolbars = true;
+
+            //((System.ComponentModel.ISupportInitialize)(this.m_axFramerControl)).EndInit();
+
+
+            ////启动现成加载EXCEL
+            //thOpen.Start();
+        }
+        private void FOpen()
+        {
+
+            lock (m_axFramerControl)
+            {
+                try
+                {
+                    m_axFramerControl.Open(ZFCEPath, false, "Excel.Sheet", "", "");
+                    //xBook = (Workbook)m_axFramerControl.ActiveDocument;
+                    //// xSheet = (xBook.Worksheets[1]);
+                    //xSheet = (Worksheet)xBook.ActiveSheet;
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+
+            }
+
+
+        }
+
+        private void toolStripButton2_Click_1(object sender, EventArgs e)
+        {
+            if (this.m_axFramerControl != null)
+            {
+                Save();
+
+                toolStripLabel1.Text = "已保存";
+
+            }
+        }
+
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
+        void MyWebBrower_BeforeNewWindow2(object sender, WebBrowserExtendedNavigatingEventArgs e)
+        {
+            #region 在原有窗口导航出新页
+            e.Cancel = true;//http://pro.wwpack-crest.hp.com/wwpak.online/regResults.aspx
+            //MyWebBrower.Navigate(e.Url);
+            #endregion
+        }
+        protected void AnalysisWebInfo2(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            try
+            {
+                Microsoft.Office.Interop.Excel.Workbook wbb = null;
+                Object refmissing = System.Reflection.Missing.Value;
+
+                object[] args = new object[4];
+
+                args[0] = SHDocVw.OLECMDID.OLECMDID_HIDETOOLBARS;
+
+                args[1] = SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER;
+
+                args[2] = refmissing;
+
+                args[3] = refmissing;
+                object axWebBrowser = this.MyWebBrower.ActiveXInstance;
+
+                axWebBrowser.GetType().InvokeMember("ExecWB", BindingFlags.InvokeMethod, null, axWebBrowser, args);
+
+
+                object oApplication = axWebBrowser.GetType().InvokeMember("Document", BindingFlags.GetProperty, null, axWebBrowser, null);
+
+                wbb = (Microsoft.Office.Interop.Excel.Workbook)oApplication;
+
+                Microsoft.Office.Interop.Excel.Worksheet WS = (Microsoft.Office.Interop.Excel.Worksheet)wbb.Worksheets[1];
+                oBook = wbb;
+
+                //Microsoft.Office.Interop.Excel.Application ExcelApp;
+                //ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+              //  oApp = (Microsoft.Office.Interop.Excel.Application)oApplication;
+
+                oSheet = WS;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("异常出现：可以关闭桌面左右Excel 然后点击【强制刷新按钮】重试" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 
 
-            if (ioState.Length > 0 && ioState2.Length > 0)
-                Result = MAPPINGResult.Where(o => o.Order_id != null && o.Order_id.Contains(ioState) && o.guige_I != null && o.guige_I.Contains(ioState2)).ToList();
-            else if (ioState.Length > 0)
-            {
-                Result = MAPPINGResult.Where(o => (o.Order_id != null && o.Order_id.Contains(ioState))).ToList();
-
-
-            }
-            else if (ioState2.Length > 0)
-            {
-                Result = MAPPINGResult.Where(o => (o.guige_I != null && o.guige_I.Contains(ioState2))).ToList();
-
-
-            }
-            if (Result.Count > 0)
-                showdav1(Result);
-            else
-            {
-                showdav1(Result);
-                toolStripLabel1.Text = "没有查询到！";
+                throw;
             }
 
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void toolStripButton3_Click_1(object sender, EventArgs e)
         {
-            showdav1(MAPPINGResult);
+            try
+            {
+                MyWebBrower = new WbBlockNewUrl();
+                MyWebBrower.ScriptErrorsSuppressed = true;
+                MyWebBrower.BeforeNewWindow += new EventHandler<WebBrowserExtendedNavigatingEventArgs>(MyWebBrower_BeforeNewWindow2);
+                MyWebBrower.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(AnalysisWebInfo2);
+                MyWebBrower.Dock = DockStyle.Fill;
+                MyWebBrower.IsWebBrowserContextMenuEnabled = true;
 
+
+
+                MyWebBrower.Url = new Uri(ZFCEPath);
+
+                this.panel1.Controls.Add(MyWebBrower);
+
+                toolStripLabel2.Text = "读取中，请耐心等待...(打开快慢受网络情况影响)";
+                this.tabControl1.SelectedIndex = 2;
+
+                //this.webBrowser1.Navigate(ZFCEPath);
+
+                toolStripLabel2.Text = "读取完成,马上显示";
+
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("异常：" + ex);
+
+                return;
+
+                throw;
+            }
         }
 
+        private void webBrowser1_DocumentCompleted_1(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            try
+            {
+                Microsoft.Office.Interop.Excel.Workbook wbb = null;
+                Object refmissing = System.Reflection.Missing.Value;
+
+                object[] args = new object[4];
+
+                args[0] = SHDocVw.OLECMDID.OLECMDID_HIDETOOLBARS;
+
+                args[1] = SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER;
+
+                args[2] = refmissing;
+
+                args[3] = refmissing;
+                object axWebBrowser = this.webBrowser1.ActiveXInstance;
+
+                axWebBrowser.GetType().InvokeMember("ExecWB", BindingFlags.InvokeMethod, null, axWebBrowser, args);
 
 
+                object oApplication = axWebBrowser.GetType().InvokeMember("Document", BindingFlags.GetProperty, null, axWebBrowser, null);
+
+                wbb = (Microsoft.Office.Interop.Excel.Workbook)oApplication;
+
+                Microsoft.Office.Interop.Excel.Worksheet WS = (Microsoft.Office.Interop.Excel.Worksheet)wbb.Worksheets[1];
+                oBook = wbb;
+
+                //Microsoft.Office.Interop.Excel.Application ExcelApp;
+                //ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+                //oApp = (Microsoft.Office.Interop.Excel.Application)oApplication;
+         
+                oSheet = WS;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("异常出现：可以关闭桌面左右Excel 然后点击【强制刷新按钮】重试" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+
+
+                throw;
+            }
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            this.panel1.Controls.Add(MyWebBrower);
+
+            toolStripLabel2.Text = "读取中，请耐心等待...(打开快慢受网络情况影响)";
+            this.tabControl1.SelectedIndex = 1;
+
+            this.webBrowser1.Navigate(ZFCEPath);
+
+            toolStripLabel2.Text = "读取完成,马上显示";
+
+        }
     }
 }
