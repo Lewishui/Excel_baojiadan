@@ -42,7 +42,7 @@ namespace QCAuto
             string endday = DateTime.Now.ToString("yyyy/MM/dd");
             dt3 = Convert.ToDateTime(endday);
             DateTime dt2;
-            dt2 = Convert.ToDateTime("2019/4/20");
+            dt2 = Convert.ToDateTime("2019/4/17");
 
             TimeSpan ts = dt2 - dt3;
             int timeTotal = ts.Days;
@@ -56,7 +56,8 @@ namespace QCAuto
 
 
             //Application.Run(new frmPrice(pass));//报价单
-            Application.Run(new frmJiaqizhuantongjibiao(pass));//加气砖统计表
+            //Application.Run(new frmJiaqizhuantongjibiao(pass));//加气砖统计表
+            Application.Run(new frmshengfengshengchan(pass));//圣丰生产管理系统表
         }
         private static void bat_dsoframer()
         {

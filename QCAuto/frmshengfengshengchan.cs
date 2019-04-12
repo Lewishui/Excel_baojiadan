@@ -22,7 +22,7 @@ using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 namespace QCAuto
 {
-    public partial class frmJiaqizhuantongjibiao : Form
+    public partial class frmshengfengshengchan : Form
     {
         private AxDSOFramer.AxFramerControl m_axFramerControl = new AxDSOFramer.AxFramerControl();
 
@@ -52,7 +52,7 @@ namespace QCAuto
         string netpassword;
         int axFramerControl1_is = 0;
 
-        public frmJiaqizhuantongjibiao(string password)
+        public frmshengfengshengchan(string password)
         {
             try
             {
@@ -203,7 +203,7 @@ namespace QCAuto
 
         private void Local_IP()
         {
-            string A_Path = AppDomain.CurrentDomain.BaseDirectory + "加气砖统计表\\ip.txt";
+            string A_Path = AppDomain.CurrentDomain.BaseDirectory + "圣丰生产管理系统表\\ip.txt";
             string[] fileText = File.ReadAllLines(A_Path);
             if (fileText.Length > 0 && fileText[0] != null && fileText[0] != "")
             {
@@ -430,11 +430,19 @@ namespace QCAuto
             NAR(oSheet);
             if (oBook != null)
             {
-                oBook.Close(false);
-                NAR(oBook);
-                NAR(oBooks);
-                if (oApp != null)
-                    oApp.Quit();
+                try
+                {
+                    oBook.Close(false);
+                    NAR(oBook);
+                    NAR(oBooks);
+                    if (oApp != null)
+                        oApp.Quit();
+                }
+                catch
+                {
+
+
+                }
             }
             if (oApp != null)
                 NAR(oApp);
@@ -1068,7 +1076,7 @@ namespace QCAuto
 
                 //Microsoft.Office.Interop.Excel.Application ExcelApp;
                 //ExcelApp = new Microsoft.Office.Interop.Excel.Application();
-              //  oApp = (Microsoft.Office.Interop.Excel.Application)oApplication;
+                //  oApp = (Microsoft.Office.Interop.Excel.Application)oApplication;
 
                 oSheet = WS;
 
@@ -1150,7 +1158,7 @@ namespace QCAuto
                 //Microsoft.Office.Interop.Excel.Application ExcelApp;
                 //ExcelApp = new Microsoft.Office.Interop.Excel.Application();
                 //oApp = (Microsoft.Office.Interop.Excel.Application)oApplication;
-         
+
                 oSheet = WS;
             }
             catch (Exception ex)
@@ -1174,6 +1182,50 @@ namespace QCAuto
 
             toolStripLabel2.Text = "读取完成,马上显示";
 
+        }
+
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+            this.tabControl1.SelectedIndex = 1;
+            if (MessageBox.Show("是否已经保存其他桌面Excel文件, 继续 ?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+
+            }
+            else
+                return;
+
+            toolStripLabel2.Text = "查询中,请稍等...";
+
+            string folderpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ClearTask.bat");
+
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.WorkingDirectory = folderpath;
+            p.StartInfo.UseShellExecute = true;
+            p.StartInfo.FileName = folderpath;
+            p.Start();
+
+            Thread.Sleep(2000);
+
+            string c = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "圣丰生产管理系统表.xlsm");
+            string destFile = ZFCEPath.Replace("xlsx", "xlsm");
+            // destFile = @"C:\Windows" + "\\dsoframer.ocx";
+
+            int io = 0;
+
+            if (File.Exists(destFile))
+            {
+                toolStripLabel2.Text = "打开中,马上显示";
+                File.Copy(destFile, c, true);//覆盖模式
+                io = 1;
+
+                if (io == 1)
+                {
+
+                    Thread.Sleep(8000);
+                    System.Diagnostics.Process.Start(c);
+
+                }
+            }
         }
     }
 }
