@@ -215,7 +215,7 @@ namespace QCAuto
             var counties6 = ShowResults.Select(s => new MockEntity { ShortName = s.kuanhao, FullName = s.kuanhao }).Distinct().ToList();
             counties6.Insert(0, new MockEntity { ShortName = "全部", FullName = "全部" });
 
-         
+
             this.comboBox2.DisplayMember = "FullName";
             this.comboBox2.ValueMember = "ShortName";
             this.comboBox2.DataSource = counties6;
@@ -319,7 +319,7 @@ namespace QCAuto
         }
         private void KEYFile(object sender, DoWorkEventArgs e)
         {
-           // kucunResults = new List<cls_kucun_info>();
+            // kucunResults = new List<cls_kucun_info>();
 
             //初始化信息
             clsAllnew BusinessHelp = new clsAllnew();
@@ -1118,7 +1118,7 @@ namespace QCAuto
         {
             if (comboBox1.Text.Length > 0 && comboBox1.Text.Contains("全部"))
             {
-               
+
                 dav2show(xiaoshouResults);
             }
 
@@ -1141,7 +1141,7 @@ namespace QCAuto
         }
         private void dav2show(List<cls_xiaoshou_info> ShowResults)
         {
-        
+
 
             //销售 显示
 
@@ -1204,6 +1204,39 @@ namespace QCAuto
         private void comboBox2_TextChanged(object sender, EventArgs e)
         {
             combox2change();
+
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int s = this.tabControl1.SelectedIndex;
+            if (s == 0)
+            {
+                if (dataGridView.DataSource != null)
+                    toolStripLabel1.Text = "条数： " + dataGridView.RowCount;
+
+            }
+            else if (s == 1)
+            {
+                if (dataGridView3.DataSource != null)
+                    toolStripLabel1.Text = "条数： " + dataGridView3.RowCount;
+
+
+            }
+            else if (s == 2)
+            {
+                if (dataGridView2.DataSource != null)
+                    toolStripLabel1.Text = "条数： " + dataGridView2.RowCount;
+
+
+            }
+            else if (s == 3)
+            {
+                if (dataGridView1.DataSource != null)
+                    toolStripLabel1.Text = "条数： " + dataGridView1.RowCount;
+
+
+            }
 
         }
     }
