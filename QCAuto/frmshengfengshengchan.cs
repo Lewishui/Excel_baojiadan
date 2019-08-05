@@ -474,8 +474,7 @@ namespace QCAuto
             catch { }
             finally { o = null; }
         }
-
-
+ 
         private void frmPrice_FormClosing(object sender, FormClosingEventArgs e)
         {
             ExcelExit();
@@ -489,9 +488,7 @@ namespace QCAuto
             axWebBrowser2.ExecWB(SHDocVw.OLECMDID.OLECMDID_HIDETOOLBARS, SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, ref refmissing, ref refmissing);
 
         }
-
-
-
+ 
         private void toolStripButton12_Click(object sender, EventArgs e)
         {
             ExcelExit();
@@ -531,10 +528,7 @@ namespace QCAuto
 
                 toolStripButton4_Click(null, EventArgs.Empty);
         }
-
-
-
-
+ 
         public List<cls_sixzhuanjiagebiao_info> GetKEYnfo(string Alist)
         {
 
@@ -809,10 +803,7 @@ namespace QCAuto
                 }
             }
         }
-
-
-
-
+ 
         private void toolStripButton1_Click_1(object sender, EventArgs e)
         {
             axFramerControl1_is = 1;
@@ -1226,6 +1217,30 @@ namespace QCAuto
 
                 }
             }
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            this.tabControl1.SelectedIndex = 1;
+            if (MessageBox.Show("是否已经保存其他桌面Excel文件, 继续 ?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+
+            }
+            else
+                return;
+
+            toolStripLabel2.Text = "查询中,请稍等...";
+
+            string folderpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ClearTask.bat");
+
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.WorkingDirectory = folderpath;
+            p.StartInfo.UseShellExecute = true;
+            p.StartInfo.FileName = folderpath;
+            p.Start();
+
+            MessageBox.Show("已关闭");
+
         }
     }
 }

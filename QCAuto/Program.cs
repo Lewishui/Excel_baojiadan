@@ -18,7 +18,7 @@ namespace QCAuto
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            Sunisoft.IrisSkin.SkinEngine se = null;
             string pass = "";
 
             var form = new Login();
@@ -33,8 +33,11 @@ namespace QCAuto
                 Application.Exit();
             if (pass == null || pass == "")
                 return;
-
-            bat_dsoframer();
+            //暂时不用到dsoframer.ocx
+            //  bat_dsoframer();
+            se = new Sunisoft.IrisSkin.SkinEngine();
+            se.SkinAllForm = true;
+            se.SkinFile = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""), "PageColor1.ssk");
 
             #region Noway
             DateTime oldDate = DateTime.Now;
@@ -42,14 +45,14 @@ namespace QCAuto
             string endday = DateTime.Now.ToString("yyyy/MM/dd");
             dt3 = Convert.ToDateTime(endday);
             DateTime dt2;
-            dt2 = Convert.ToDateTime("2019/4/17");
+            dt2 = Convert.ToDateTime("2019/6/25");
 
             TimeSpan ts = dt2 - dt3;
             int timeTotal = ts.Days;
             if (timeTotal < 0)
             {
-                MessageBox.Show("缺失系统文件，或电脑系统更新导致，请联系开发人员 !", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+               //MessageBox.Show("缺失系统文件，或电脑系统更新导致，请联系开发人员 !", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               //return;
             }
 
             #endregion
@@ -57,13 +60,19 @@ namespace QCAuto
 
             //Application.Run(new frmPrice(pass));//报价单
             //Application.Run(new frmJiaqizhuantongjibiao(pass));//加气砖统计表
-            Application.Run(new frmshengfengshengchan(pass));//圣丰生产管理系统表
+            //Application.Run(new frmshengfengshengchan(pass));//圣丰生产管理系统表
+            //Application.Run(new frmquanshengcailiao(pass));//全晟新材料有限公司
+            //Application.Run(new frmGPS改造项目基本信息(pass));//GPS改造项目基本信息-5-13
+            //Application.Run(new frmhljlc_excelcovet_json(pass));//hljlc   01-项目计划汇总表.xlsm
+            //Application.Run(new frmNVZhuangAuto(pass));//徐圣博  女装6.3-2.xlsx
+            Application.Run(new frm调拨系统(pass));//key恒淘宝  调拨系统 D:\Devlop\VBA_tool\杂七杂八\antaxtep
         }
         private static void bat_dsoframer()
         {
             string c = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dsoframer.ocx");
             string destFile = @"C:\Windows\SysWOW64" + "\\dsoframer.ocx";
-           // destFile = @"C:\Windows" + "\\dsoframer.ocx";
+            // destFile = @"C:\Windows" + "\\dsoframer.ocx";
+            string destFile2 = @"C:\Windows\SysWOW64";
 
             int io = 0;
 
@@ -71,7 +80,7 @@ namespace QCAuto
             {
 
             }
-            else
+            else if (Directory.Exists(destFile2))
             {
 
                 File.Copy(c, destFile, true);//覆盖模式
@@ -79,19 +88,20 @@ namespace QCAuto
             }
             destFile = @"C:\windows\system32" + "\\dsoframer.ocx";
 
+            destFile2 = @"C:\windows\system32";
 
-            if ( File.Exists(destFile))
+            if (File.Exists(destFile))
             {
 
             }
-            else
+            else if (Directory.Exists(destFile2))
             {
                 File.Copy(c, destFile, true);//覆盖模式
                 io = 1;
             }
 
             //此方法不弹窗会静默执行
-           if (io == 1)
+            if (io == 1)
                 bat();
         }
         public static void bat()
@@ -130,7 +140,7 @@ namespace QCAuto
 
                 if (File.Exists(c))
                 {
-                   // System.Diagnostics.Process.Start("regedit.exe", " /s " + cnew);
+                    // System.Diagnostics.Process.Start("regedit.exe", " /s " + cnew);
 
                     //System.Diagnostics.Process p = new System.Diagnostics.Process();
                     //p.StartInfo.WorkingDirectory = c;
@@ -141,7 +151,7 @@ namespace QCAuto
                     string cmd = "reg import " + cnew;
                     string output = "";
 
-                   RunCmd(cmd, out output);
+                    RunCmd(cmd, out output);
                 }
 
             }
@@ -188,7 +198,7 @@ namespace QCAuto
                 throw;
             }
         }
-      
+
 
     }
 }

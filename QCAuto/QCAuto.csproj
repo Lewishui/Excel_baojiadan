@@ -36,6 +36,15 @@
     <ApplicationIcon>35.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Interop.Microsoft.Office.Interop.Word, Version=8.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\dll\Interop.Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
+    <Reference Include="IrisSkin2, Version=2006.3.22.45, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dll\IrisSkin2.dll</HintPath>
+    </Reference>
     <Reference Include="Spire.Common, Version=2.2.12.61040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <HintPath>..\packages\FreeSpire.XLS.9.2.1\lib\net40\Spire.Common.dll</HintPath>
       <Private>True</Private>
@@ -54,6 +63,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,19 +74,58 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>C:\Test\测试功能专用\dll\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmChangequilty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChangequilty.Designer.cs">
+      <DependentUpon>frmChangequilty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmGPS改造项目基本信息.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGPS改造项目基本信息.Designer.cs">
+      <DependentUpon>frmGPS改造项目基本信息.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmhljlc_excelcovet_json.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmhljlc_excelcovet_json.Designer.cs">
+      <DependentUpon>frmhljlc_excelcovet_json.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmImportFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmImportFile.Designer.cs">
+      <DependentUpon>frmImportFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMessageShow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMessageShow.Designer.cs">
       <DependentUpon>frmMessageShow.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmNVZhuangAuto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNVZhuangAuto.Designer.cs">
+      <DependentUpon>frmNVZhuangAuto.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPrice.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmPrice.Designer.cs">
       <DependentUpon>frmPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm调拨系统.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm调拨系统.Designer.cs">
+      <DependentUpon>frm调拨系统.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -96,11 +147,35 @@
     <Compile Include="frmshengfengshengchan.Designer.cs">
       <DependentUpon>frmshengfengshengchan.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmquanshengcailiao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmquanshengcailiao.Designer.cs">
+      <DependentUpon>frmquanshengcailiao.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="frmChangequilty.resx">
+      <DependentUpon>frmChangequilty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGPS改造项目基本信息.resx">
+      <DependentUpon>frmGPS改造项目基本信息.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmhljlc_excelcovet_json.resx">
+      <DependentUpon>frmhljlc_excelcovet_json.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmImportFile.resx">
+      <DependentUpon>frmImportFile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMessageShow.resx">
       <DependentUpon>frmMessageShow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmNVZhuangAuto.resx">
+      <DependentUpon>frmNVZhuangAuto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPrice.resx">
       <DependentUpon>frmPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm调拨系统.resx">
+      <DependentUpon>frm调拨系统.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -120,6 +195,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmshengfengshengchan.resx">
       <DependentUpon>frmshengfengshengchan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmquanshengcailiao.resx">
+      <DependentUpon>frmquanshengcailiao.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -226,6 +304,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="35.ico" />
+    <None Include="Resources\psd.jpg" />
+    <None Include="Resources\gbg.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

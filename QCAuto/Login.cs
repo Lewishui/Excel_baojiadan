@@ -123,5 +123,22 @@ namespace QCAuto
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+           
+
+        }
+
+        private void textBox1_Enter(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+          //  button1_Click(null, EventArgs.Empty);
+
+        }
     }
 }

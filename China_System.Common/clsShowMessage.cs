@@ -36,7 +36,7 @@ namespace China_System.Common
         public const string MSG_025 = "System save is Complete ，Please Confirm～";
         public const string MSG_027 = " No Remind !";
         public const string MSG_028 = "Read OK !";
-        public const string MSG_029 = "The time-consuming：";
+        public const string MSG_029 = "本次花费时间：";
         public const string MSG_030 = "System Error";
     }
 }

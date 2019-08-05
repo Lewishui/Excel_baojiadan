@@ -471,8 +471,7 @@ namespace QCAuto
         private void frmPrice_FormClosing(object sender, FormClosingEventArgs e)
         {
             ExcelExit();
-
-
+ 
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -481,9 +480,7 @@ namespace QCAuto
             axWebBrowser2.ExecWB(SHDocVw.OLECMDID.OLECMDID_HIDETOOLBARS, SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, ref refmissing, ref refmissing);
 
         }
-
-
-
+ 
         private void toolStripButton12_Click(object sender, EventArgs e)
         {
             ExcelExit();
@@ -523,10 +520,7 @@ namespace QCAuto
 
                 toolStripButton4_Click(null, EventArgs.Empty);
         }
-
-
-
-
+ 
         public List<cls_sixzhuanjiagebiao_info> GetKEYnfo(string Alist)
         {
 
@@ -801,10 +795,7 @@ namespace QCAuto
                 }
             }
         }
-
-
-
-
+ 
         private void toolStripButton1_Click_1(object sender, EventArgs e)
         {
             axFramerControl1_is = 1;
@@ -824,8 +815,7 @@ namespace QCAuto
 
             try
             {
-
-
+ 
                 InitialBackGroundWorker();
                 Control.CheckForIllegalCrossThreadCalls = false;
                 bgWorker.DoWork += new DoWorkEventHandler(CheckBankCharge);
@@ -851,10 +841,7 @@ namespace QCAuto
         private void CheckBankCharge(object sender, DoWorkEventArgs e)
         {
             DateTime oldDate = DateTime.Now;
-
-
-
-
+ 
             AddOfficeControl();
 
             //InitOfficeControl(ZFCEPath);
@@ -1012,8 +999,7 @@ namespace QCAuto
                 }
 
             }
-
-
+ 
         }
 
         private void toolStripButton2_Click_1(object sender, EventArgs e)
