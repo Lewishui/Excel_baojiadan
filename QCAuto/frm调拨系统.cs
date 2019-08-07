@@ -470,6 +470,8 @@ namespace QCAuto
                 qtyTable.Columns.Add("款号", System.Type.GetType("System.String"));//0
                 qtyTable.Columns.Add("性别", System.Type.GetType("System.String"));//0
                 qtyTable.Columns.Add("尺码", System.Type.GetType("System.String"));//0
+                qtyTable.Columns.Add("颜色", System.Type.GetType("System.String"));//0
+                qtyTable.Columns.Add("年份", System.Type.GetType("System.String"));//0
                 //销
                 for (int i = 0; i < farenvalue.Count; i++)
                     qtyTable.Columns.Add(farenvalue[i]+"(销)", System.Type.GetType("System.String"));//0
@@ -490,7 +492,7 @@ namespace QCAuto
                 mdzz = farenvalue;
                     
                 qtyTable.Columns.Add("汇总(库)", System.Type.GetType("System.String"));//0
-                qtyTable.Columns.Add("剩余", System.Type.GetType("System.String"));//0
+           //     qtyTable.Columns.Add("剩余", System.Type.GetType("System.String"));//0
 
                 qtyTable.Columns.Add("调货信息", System.Type.GetType("System.String"));//0
 
@@ -515,7 +517,9 @@ namespace QCAuto
                     qtyTable.Rows[jk][0] = temp.kuanhao;
                     qtyTable.Rows[jk][1] = temp.xingbie;
                     qtyTable.Rows[jk][2] = temp.cima;
-
+                    qtyTable.Rows[jk][3] = temp.yanse;
+                    qtyTable.Rows[jk][4] = temp.nianfen;
+                   // qtyTable.Rows[jk][2] = temp.yanse;
                     //qtyTable.Rows[jk + 1][0] = "库";
                     //qtyTable.Rows[jk + 1][1] = temp.kuanhao;
                     //qtyTable.Rows[jk + 1][2] = temp.xingbie;
@@ -564,8 +568,8 @@ namespace QCAuto
 
                         }
 
-                        qtyTable.Rows[jk][3 + i] = item.fendianming_xiaoshou;
-
+                        qtyTable.Rows[jk][5 + i] = item.fendianming_xiaoshou;
+                        ///-----
 
 
                         //库存
@@ -581,8 +585,8 @@ namespace QCAuto
                             item.kucun_shengyu = Convert.ToString(nullableQty1);
                         }
                         //  qtyTable.Rows[jk+1][4 + i] = item.kucun_shengyu;
-                        qtyTable.Rows[jk][8 + i] = item.kucun_shengyu;
-
+                        qtyTable.Rows[jk][10 + i] = item.kucun_shengyu;
+                        //------
                         #endregion
 
                         xiaoshouhuizong = xiaoshouhuizong + nullableQty;
@@ -592,12 +596,12 @@ namespace QCAuto
 
 
                     //写入汇总
-                    qtyTable.Rows[jk][3 + farenvalue.Count] = Convert.ToString(xiaoshouhuizong);
+                    qtyTable.Rows[jk][5 + farenvalue.Count] = Convert.ToString(xiaoshouhuizong);
                     //qtyTable.Rows[jk + 1][10 + farenvalue.Count] = Convert.ToString(kucunhuizong);
                     //qtyTable.Rows[jk + 1][10 + farenvalue.Count + 1] = Convert.ToString(kucunhuizong - xiaoshouhuizong);
-                    qtyTable.Rows[jk][8 + farenvalue.Count] = Convert.ToString(kucunhuizong);
-                    qtyTable.Rows[jk][8 + farenvalue.Count + 1] = Convert.ToString(kucunhuizong - xiaoshouhuizong);
-
+                    qtyTable.Rows[jk][10 + farenvalue.Count] = Convert.ToString(kucunhuizong);
+               //     qtyTable.Rows[jk][8 + farenvalue.Count + 1] = Convert.ToString(kucunhuizong - xiaoshouhuizong);
+                    //-------
 
                     jk = jk + 1;
 
@@ -609,7 +613,7 @@ namespace QCAuto
                 #endregion
             }
 
-
+           
 
 
             foreach (cls_diaobo_info temp in ShowResults)
@@ -620,14 +624,27 @@ namespace QCAuto
                 }
             }
 
-
-
-
-
+       //     MessageBox.Show(qtyTable.Rows[1][9].ToString());
+       
+                qtyTable.Rows.Add(qtyTable.NewRow());
+                int hz_x = 0;
+                int hz_k = 0;
+                for (int i = 0; i < qtyTable.Rows.Count-1; i++)
+                {
+                    if (qtyTable.Rows[i][9] == null) {
+                        hz_x += 0;
+                        hz_k += 0;
+                    }
+                    hz_x += Convert.ToInt32(qtyTable.Rows[i][9]);
+                    hz_k += Convert.ToInt32(qtyTable.Rows[i][14]);
+                }
+                qtyTable.Rows[(qtyTable.Rows.Count - 1)][9] = hz_x;
+                qtyTable.Rows[(qtyTable.Rows.Count - 1)][14] = hz_k;
+           
 
             return null;
 
-
+           
         }
         public List<cls_kucun_info> ReadfindngFile(string instertext)
         {
@@ -898,8 +915,32 @@ namespace QCAuto
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-           // downall(dataGridView);
 
+            int s = this.tabControl1.SelectedIndex;
+
+            if (s == 0)
+            {
+                downall(this.dataGridView3);
+
+            }
+            else if (s == 1)
+            {
+
+                downall(this.dataGridView4);
+
+            }
+            else if (s == 2)
+            {
+
+                downall(this.dataGridView2);
+
+            }
+            else if (s == 3)
+            {
+
+                downall(this.dataGridView1);
+
+            }
         }
 
         private void downall(DataGridView dataGridView2)
@@ -1075,6 +1116,7 @@ namespace QCAuto
 
         private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+         
             if (Convert.ToInt32(dataGridView3.CurrentCell.ColumnIndex.ToString()) >= 3 && Convert.ToInt32(dataGridView3.CurrentCell.ColumnIndex.ToString()) <= 3 + f_count - 1)
             {
                
@@ -1102,7 +1144,7 @@ namespace QCAuto
             dataGridView3.Rows[RowRemark].Cells["调货信息"].Value = value + "-" + MU + "[" + chageva + "]";
             try
             {
-                dataGridView3.Rows[RowRemark].Cells["剩余"].Value = Convert.ToInt32(sls) - Convert.ToInt32(chageva);
+             //   dataGridView3.Rows[RowRemark].Cells["剩余"].Value = Convert.ToInt32(sls) - Convert.ToInt32(chageva);
             }
             catch (FormatException)
             {
