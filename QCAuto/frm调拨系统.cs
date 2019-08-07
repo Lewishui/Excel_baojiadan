@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace QCAuto
 {
@@ -33,7 +34,7 @@ namespace QCAuto
 
         private China_System.Common.clsCommHelp.SortableBindingList<cls_xiaoshou_info> xiaoshou_sortabledinningsOrderList;
         private China_System.Common.clsCommHelp.SortableBindingList<cls_kucun_info> kucun_sortabledinningsOrderList;
-
+        public List<string> mdzz = new List<string>();
 
         List<cls_xiaoshou_info> ALllResults;
         int RowRemark = 0;
@@ -45,19 +46,28 @@ namespace QCAuto
         List<cls_kucun_info> kuncun_xiaoshouResults;
         DataTable qtyTable;
         DataTable allqtyTable;
-
+        int f_count;
+        int cc;
+       
+        string[] mz = new string[0];
+        DataTable shib = new DataTable();
         public frm调拨系统(string password)
         {
             InitializeComponent();
 
-            checkedListBox1.Items.Clear();
+            //checkedListBox1.Items.Clear();
 
-            for (int j = 0; j < dataGridView.ColumnCount; j++)
-            {
-                string MU = dataGridView.Columns[j].HeaderText;
+            //for (int j = 0; j < dataGridView.ColumnCount; j++)
+            //{
+            //    string MU = dataGridView.Columns[j].HeaderText;
 
-                checkedListBox1.Items.Add(MU);
-            }
+            //    checkedListBox1.Items.Add(MU);
+            //}
+        }
+
+        public frm调拨系统()
+        {
+            // TODO: Complete member initialization
         }
 
         private void webBrowser1_DocumentCompleted_1(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -184,9 +194,9 @@ namespace QCAuto
             var counties = ShowResults.Select(s => new MockEntity { ShortName = s.kuanhao, FullName = s.kuanhao }).Distinct().ToList();
             counties.Insert(0, new MockEntity { ShortName = "全部", FullName = "全部" });
 
-            this.comboBox3.DisplayMember = "FullName";
-            this.comboBox3.ValueMember = "ShortName";
-            this.comboBox3.DataSource = counties;
+            //this.comboBox3.DisplayMember = "FullName";
+            //this.comboBox3.ValueMember = "ShortName";
+            //this.comboBox3.DataSource = counties;
 
 
             var counties1 = ShowResults.Select(s => new MockEntity { ShortName = s.kuanhao, FullName = s.kuanhao }).Distinct().ToList();
@@ -255,16 +265,16 @@ namespace QCAuto
             sortabledinningsOrderList = new China_System.Common.clsCommHelp.SortableBindingList<cls_diaobo_info>(ShowResults);
             this.bindingSource1.DataSource = this.sortabledinningsOrderList;
             //   this.dataGridView.DataSource = null;
-            this.dataGridView.AutoGenerateColumns = false;
-            this.dataGridView.DataSource = this.bindingSource1;
-            if (dataGridView.DataSource != null)
-                toolStripLabel1.Text = "条数： " + dataGridView.RowCount;
-            int s = this.tabControl1.SelectedIndex;
-            if (s == 0)
-            {
-                if (dataGridView.DataSource != null)
-                    toolStripLabel1.Text = "条数： " + dataGridView.RowCount;
-            }
+            //this.dataGridView.AutoGenerateColumns = false;
+            //this.dataGridView.DataSource = this.bindingSource1;
+            //if (dataGridView.DataSource != null)
+            //    toolStripLabel1.Text = "条数： " + dataGridView.RowCount;
+            //int s = this.tabControl1.SelectedIndex;
+            //if (s == 0)
+            //{
+            //    if (dataGridView.DataSource != null)
+            //        toolStripLabel1.Text = "条数： " + dataGridView.RowCount;
+            //}
 
 
 
@@ -300,7 +310,7 @@ namespace QCAuto
             {
                 string MU = dataGridView3.Columns[j].HeaderText;
 
-                checkedListBox2.Items.Add(MU);
+              //  checkedListBox2.Items.Add(MU);
             }
             int s = this.tabControl1.SelectedIndex;
             if (s == 0)
@@ -337,6 +347,29 @@ namespace QCAuto
 
         public List<cls_kucun_info> Buiness_Bankcharge(ref BackgroundWorker bgWorker, string casetype, string Password, string USER)
         {
+            shib.Columns.Add("类别", System.Type.GetType("System.String"));//0
+            shib.Columns.Add("调出店名", System.Type.GetType("System.String"));//0
+            shib.Columns.Add("入库店名", System.Type.GetType("System.String"));//0
+            shib.Columns.Add("35(S)", System.Type.GetType("System.String"));//1
+            shib.Columns.Add("36(M)", System.Type.GetType("System.String"));//2
+            shib.Columns.Add("37(L)", System.Type.GetType("System.String"));//3
+            shib.Columns.Add("38(XL)", System.Type.GetType("System.String"));//4
+            shib.Columns.Add("39(2XL)", System.Type.GetType("System.String"));//5
+            shib.Columns.Add("40(3XL)", System.Type.GetType("System.String"));//6
+            shib.Columns.Add("41(4XL)", System.Type.GetType("System.String"));//7
+            shib.Columns.Add("42(5XL)", System.Type.GetType("System.String"));//8
+            shib.Columns.Add("43(6XL)", System.Type.GetType("System.String"));//9
+            shib.Columns.Add("44(7XL)", System.Type.GetType("System.String"));//10
+            shib.Columns.Add("45(8XL)", System.Type.GetType("System.String"));//11
+            shib.Columns.Add("46(9XL)", System.Type.GetType("System.String"));//12
+            shib.Columns.Add("47(10XL)", System.Type.GetType("System.String"));//13
+            shib.Columns.Add("48(11XL)", System.Type.GetType("System.String"));//14
+            shib.Rows.Add(shib.NewRow());
+
+
+
+
+
             string fin = "";
             xiaoshouResults = new List<cls_xiaoshou_info>();
             kucunResults = new List<cls_kucun_info>();
@@ -433,16 +466,30 @@ namespace QCAuto
                 #region 显示2
                 qtyTable = new DataTable();
 
-                qtyTable.Columns.Add("类型", System.Type.GetType("System.String"));//0
+           //     qtyTable.Columns.Add("类型", System.Type.GetType("System.String"));//0
                 qtyTable.Columns.Add("款号", System.Type.GetType("System.String"));//0
                 qtyTable.Columns.Add("性别", System.Type.GetType("System.String"));//0
                 qtyTable.Columns.Add("尺码", System.Type.GetType("System.String"));//0
                 //销
                 for (int i = 0; i < farenvalue.Count; i++)
-                    qtyTable.Columns.Add(farenvalue[i], System.Type.GetType("System.String"));//0
+                    qtyTable.Columns.Add(farenvalue[i]+"(销)", System.Type.GetType("System.String"));//0
 
+              //  f_count = farenvalue.Count;
 
-                qtyTable.Columns.Add("汇总", System.Type.GetType("System.String"));//0
+                qtyTable.Columns.Add("汇总(销)", System.Type.GetType("System.String"));//0
+            //    qtyTable.Columns.Add("剩余(销)", System.Type.GetType("System.String"));//0
+
+                //库
+                for (int i = 0; i < farenvalue.Count; i++)
+                {
+                    qtyTable.Columns.Add(farenvalue[i] + "(库)", System.Type.GetType("System.String"));//0
+                    
+                   // MessageBox.Show(mz[i]);
+                }
+                f_count = farenvalue.Count;
+                mdzz = farenvalue;
+                    
+                qtyTable.Columns.Add("汇总(库)", System.Type.GetType("System.String"));//0
                 qtyTable.Columns.Add("剩余", System.Type.GetType("System.String"));//0
 
                 qtyTable.Columns.Add("调货信息", System.Type.GetType("System.String"));//0
@@ -461,19 +508,25 @@ namespace QCAuto
                     }
 
                     qtyTable.Rows.Add(qtyTable.NewRow());
-                    qtyTable.Rows.Add(qtyTable.NewRow());
+                 //   qtyTable.Rows.Add(qtyTable.NewRow());
 
-                    qtyTable.Rows[jk][0] = "销";
+                   // qtyTable.Rows[jk][0] = "销";
 
-                    qtyTable.Rows[jk][1] = temp.kuanhao;
-                    qtyTable.Rows[jk][2] = temp.xingbie;
-                    qtyTable.Rows[jk][3] = temp.cima;
+                    qtyTable.Rows[jk][0] = temp.kuanhao;
+                    qtyTable.Rows[jk][1] = temp.xingbie;
+                    qtyTable.Rows[jk][2] = temp.cima;
 
-                    qtyTable.Rows[jk + 1][0] = "库";
-                    qtyTable.Rows[jk + 1][1] = temp.kuanhao;
-                    qtyTable.Rows[jk + 1][2] = temp.xingbie;
-                    qtyTable.Rows[jk + 1][3] = temp.cima;
+                    //qtyTable.Rows[jk + 1][0] = "库";
+                    //qtyTable.Rows[jk + 1][1] = temp.kuanhao;
+                    //qtyTable.Rows[jk + 1][2] = temp.xingbie;
+                    //qtyTable.Rows[jk + 1][3] = temp.cima;
 
+
+
+                    //qtyTable.Rows[jk][9] = "库";
+                    //qtyTable.Rows[jk][10] = temp.kuanhao;
+                    //qtyTable.Rows[jk][11] = temp.xingbie;
+                    //qtyTable.Rows[jk][12] = temp.cima;
 
 
                     double xiaoshouhuizong = 0;
@@ -511,7 +564,7 @@ namespace QCAuto
 
                         }
 
-                        qtyTable.Rows[jk][4 + i] = item.fendianming_xiaoshou;
+                        qtyTable.Rows[jk][3 + i] = item.fendianming_xiaoshou;
 
 
 
@@ -527,7 +580,8 @@ namespace QCAuto
                         {
                             item.kucun_shengyu = Convert.ToString(nullableQty1);
                         }
-                        qtyTable.Rows[jk + 1][4 + i] = item.kucun_shengyu;
+                        //  qtyTable.Rows[jk+1][4 + i] = item.kucun_shengyu;
+                        qtyTable.Rows[jk][8 + i] = item.kucun_shengyu;
 
                         #endregion
 
@@ -538,13 +592,14 @@ namespace QCAuto
 
 
                     //写入汇总
-                    qtyTable.Rows[jk][4 + farenvalue.Count] = Convert.ToString(xiaoshouhuizong);
-                    qtyTable.Rows[jk + 1][4 + farenvalue.Count] = Convert.ToString(kucunhuizong);
-                    qtyTable.Rows[jk + 1][4 + farenvalue.Count + 1] = Convert.ToString(kucunhuizong - xiaoshouhuizong);
+                    qtyTable.Rows[jk][3 + farenvalue.Count] = Convert.ToString(xiaoshouhuizong);
+                    //qtyTable.Rows[jk + 1][10 + farenvalue.Count] = Convert.ToString(kucunhuizong);
+                    //qtyTable.Rows[jk + 1][10 + farenvalue.Count + 1] = Convert.ToString(kucunhuizong - xiaoshouhuizong);
+                    qtyTable.Rows[jk][8 + farenvalue.Count] = Convert.ToString(kucunhuizong);
+                    qtyTable.Rows[jk][8 + farenvalue.Count + 1] = Convert.ToString(kucunhuizong - xiaoshouhuizong);
 
 
-
-                    jk = jk + 2;
+                    jk = jk + 1;
 
 
                 }
@@ -843,7 +898,7 @@ namespace QCAuto
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            downall(dataGridView);
+           // downall(dataGridView);
 
         }
 
@@ -905,21 +960,21 @@ namespace QCAuto
 
         private void combox3change()
         {
-            if (comboBox3.Text.Length > 0 && comboBox3.Text.Contains("全部"))
-            {
-                davshow(ShowResults);
+            //if (comboBox3.Text.Length > 0 && comboBox3.Text.Contains("全部"))
+            //{
+            //    davshow(ShowResults);
 
-            }
+            //}
 
-            else
-            {
-                FilterShowResults = new List<cls_diaobo_info>();
+            //else
+            //{
+            //    FilterShowResults = new List<cls_diaobo_info>();
 
-                FilterShowResults = this.ShowResults.Where(s => s.kuanhao != null && s.kuanhao.ToString().StartsWith(comboBox3.Text.ToString())).ToList();
+            //    FilterShowResults = this.ShowResults.Where(s => s.kuanhao != null && s.kuanhao.ToString().StartsWith(comboBox3.Text.ToString())).ToList();
 
-                davshow(FilterShowResults);
+            //    davshow(FilterShowResults);
 
-            }
+            //}
         }
 
         private void comboBox3_TextChanged(object sender, EventArgs e)
@@ -936,33 +991,33 @@ namespace QCAuto
         private void checkedListBox1_SelectedValueChanged(object sender, EventArgs e)
         {
             List<string> alist = new List<string>();
-            if (this.checkedListBox1.CheckedItems.Count > 0)
-            {
-                foreach (string status in this.checkedListBox1.CheckedItems)
-                {
-                    alist.Add(status);
-                }
-                //选择显示列
-            }
+            //if (this.checkedListBox1.CheckedItems.Count > 0)
+            //{
+            //    foreach (string status in this.checkedListBox1.CheckedItems)
+            //    {
+            //        alist.Add(status);
+            //    }
+            //    //选择显示列
+            //}
 
-            for (int j = 0; j < dataGridView.ColumnCount; j++)
-            {
-                dataGridView.Columns[j].Visible = true;
+            //for (int j = 0; j < dataGridView.ColumnCount; j++)
+            //{
+            //    dataGridView.Columns[j].Visible = true;
 
-            }
-            for (int i = 0; i < alist.Count; i++)
-            {
-                for (int j = 0; j < dataGridView.ColumnCount; j++)
-                {
-                    string MU = dataGridView.Columns[j].HeaderText;
-                    if (MU == alist[i])
-                        dataGridView.Columns[j].Visible = false;
-                    else
-                    {
+            //}
+            //for (int i = 0; i < alist.Count; i++)
+            //{
+            //    for (int j = 0; j < dataGridView.ColumnCount; j++)
+            //    {
+            //        string MU = dataGridView.Columns[j].HeaderText;
+            //        if (MU == alist[i])
+            //            dataGridView.Columns[j].Visible = false;
+            //        else
+            //        {
 
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -989,14 +1044,14 @@ namespace QCAuto
         private void checkedListBox2_SelectedValueChanged(object sender, EventArgs e)
         {
             List<string> alist = new List<string>();
-            if (this.checkedListBox2.CheckedItems.Count > 0)
-            {
-                foreach (string status in this.checkedListBox2.CheckedItems)
-                {
-                    alist.Add(status);
-                }
-                //选择显示列
-            }
+            //if (this.checkedListBox2.CheckedItems.Count > 0)
+            //{
+            //    foreach (string status in this.checkedListBox2.CheckedItems)
+            //    {
+            //        alist.Add(status);
+            //    }
+            //    //选择显示列
+            //}
 
             for (int j = 0; j < dataGridView3.ColumnCount; j++)
             {
@@ -1020,15 +1075,24 @@ namespace QCAuto
 
         private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (Convert.ToInt32(dataGridView3.CurrentCell.ColumnIndex.ToString()) >= 3 && Convert.ToInt32(dataGridView3.CurrentCell.ColumnIndex.ToString()) <= 3 + f_count - 1)
+            {
+               
+          
+           
+      //      MessageBox.Show(dataGridView3.CurrentCell.ColumnIndex.ToString());
+            string[] cf_dm = dataGridView3.Columns[dataGridView3.CurrentCell.ColumnIndex].HeaderText.Split(new char[] { '(' });         
             string chageva = "";
-
+            string dian_pu = "";
             var form = new frmChangequilty();
+            form.ayy = mdzz;
             if (form.ShowDialog() == DialogResult.OK)
             {
+                
                 chageva = form.txt;
-
+                dian_pu = form.cob;
             }
+          
             if (chageva == null || chageva == "")
                 return;
 
@@ -1036,9 +1100,150 @@ namespace QCAuto
             string MU = dataGridView3.Columns[cloumn].HeaderText;
             string value = dataGridView3.Rows[RowRemark].Cells["调货信息"].EditedFormattedValue.ToString();
             dataGridView3.Rows[RowRemark].Cells["调货信息"].Value = value + "-" + MU + "[" + chageva + "]";
+            try
+            {
+                dataGridView3.Rows[RowRemark].Cells["剩余"].Value = Convert.ToInt32(sls) - Convert.ToInt32(chageva);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("库存异常");
+            }
+           
+         // shib = new DataTable();
+           // int i = dataGridView3.CurrentCell.ColumnIndex;
+           
 
-            dataGridView3.Rows[RowRemark].Cells["剩余"].Value = Convert.ToInt32(sls) - Convert.ToInt32(chageva);
+          //  MessageBox.Show(dataGridView3.Rows[dataGridView3.CurrentRow.Index].Cells[dataGridView3.Columns[i].HeaderText].Value.ToString());
+            
+            for (int u = 0; u < cc; u++) 
+            {
+                shib.Rows.Add(shib.NewRow());
+            }
 
+            shib.Rows[cc][0] = dataGridView3.Rows[dataGridView3.CurrentRow.Index].Cells[dataGridView3.Columns[0].HeaderText].Value.ToString();
+
+            shib.Rows[cc][1] = cf_dm[0];
+
+            shib.Rows[cc][2] = dian_pu;
+            if (Regex.Matches(dataGridView3.Rows[dataGridView3.CurrentRow.Index].Cells[dataGridView3.Columns[2].HeaderText].Value.ToString().ToString(), "[a-zA-Z]").Count <= 0 && HasChineseTest(dataGridView3.Rows[dataGridView3.CurrentRow.Index].Cells[dataGridView3.Columns[2].HeaderText].Value.ToString()) == false)
+            {
+                for (int cm = 35; cm <= 48; cm++)
+                {
+                    if (Convert.ToInt32(dataGridView3.Rows[dataGridView3.CurrentRow.Index].Cells[dataGridView3.Columns[2].HeaderText].Value.ToString()) >= 35 && Convert.ToInt32(dataGridView3.Rows[dataGridView3.CurrentRow.Index].Cells[dataGridView3.Columns[2].HeaderText].Value.ToString()) <= 48)
+                    {
+
+
+                        if (dataGridView3.Rows[dataGridView3.CurrentRow.Index].Cells[dataGridView3.Columns[2].HeaderText].Value.ToString() == cm.ToString())
+                        {
+                            shib.Rows[cc][cm - 32] = chageva;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("尺码异常!");
+                        break;
+                    }
+                }
+
+            }
+            else 
+            {
+                string shibi_xh = dataGridView3.Rows[dataGridView3.CurrentRow.Index].Cells[dataGridView3.Columns[2].HeaderText].Value.ToString().ToUpper();
+                if (shibi_xh == "S")
+                {
+                    shib.Rows[cc][3] = chageva;
+                }
+                else if (shibi_xh == "M")
+                {
+                    shib.Rows[cc][4] = chageva;
+                }
+                else if (shibi_xh == "L")
+                {
+                    shib.Rows[cc][5] = chageva;
+                }
+                else if (shibi_xh == "XL")
+                {
+                    shib.Rows[cc][6] = chageva;
+                }
+                else if (shibi_xh == "2XL")
+                {
+                    shib.Rows[cc][7] = chageva;
+                }
+                else if (shibi_xh == "3XL")
+                {
+                    shib.Rows[cc][8] = chageva;
+                }
+                else if (shibi_xh == "4XL")
+                {
+                    shib.Rows[cc][9] = chageva;
+                }
+                else if (shibi_xh == "5XL")
+                {
+                    shib.Rows[cc][10] = chageva;
+                }
+                else if (shibi_xh == "6XL")
+                {
+                    shib.Rows[cc][11] = chageva;
+                }
+                else if (shibi_xh == "7XL")
+                {
+                    shib.Rows[cc][12] = chageva;
+                }
+                else if (shibi_xh == "8XL")
+                {
+                    shib.Rows[cc][13] = chageva;
+                }
+                else if (shibi_xh == "9XL")
+                {
+                    shib.Rows[cc][14] = chageva;
+                }
+                else if (shibi_xh == "10XL")
+                {
+                    shib.Rows[cc][15] = chageva;
+                }
+                else if (shibi_xh == "11XL")
+                {
+                    shib.Rows[cc][16] = chageva;
+                }
+                else 
+                {
+                    MessageBox.Show("尺码异常!");
+                  
+                }
+            }
+           
+
+           
+            cc += 1;
+           
+            dataGridView4.DataSource = shib;
+            ///////////////////////////////////////////////////////
+            }
+            else
+            {
+                MessageBox.Show("请选择对应凋拨店铺");
+            }
+        }
+
+        public bool HasChineseTest(string text)
+        {
+            //string text = "是不是汉字，ABC,keleyi.com";
+            char[] c = text.ToCharArray();
+            bool ischina = false;
+
+            for (int i = 0; i < c.Length; i++)
+            {
+                if (c[i] >= 0x4e00 && c[i] <= 0x9fbb)
+                {
+                    ischina = true;
+
+                }
+                else
+                {
+                    //  ischina = false;
+                }
+            }
+            return ischina;
 
         }
 
@@ -1046,6 +1251,7 @@ namespace QCAuto
         {
             RowRemark = e.RowIndex;
             cloumn = e.ColumnIndex;
+           
         }
 
         private void 清空单元格ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1212,8 +1418,8 @@ namespace QCAuto
             int s = this.tabControl1.SelectedIndex;
             if (s == 0)
             {
-                if (dataGridView.DataSource != null)
-                    toolStripLabel1.Text = "条数： " + dataGridView.RowCount;
+                //if (dataGridView.DataSource != null)
+                //    toolStripLabel1.Text = "条数： " + dataGridView.RowCount;
 
             }
             else if (s == 1)
@@ -1239,5 +1445,52 @@ namespace QCAuto
             }
 
         }
+
+        private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void checkedListBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void 隐藏ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+            try
+            {
+                int i = dataGridView3.CurrentCell.ColumnIndex;
+                List<string> alist = new List<string>();
+                dataGridView3.Columns[i].Visible = false;
+            }
+            catch (NullReferenceException)
+            {
+
+                MessageBox.Show("请选中列");
+            }
+                          
+         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            for (int j = 0; j < dataGridView3.ColumnCount; j++)
+            {
+                dataGridView3.Columns[j].Visible = true;
+
+            }
+        }
+
+        private void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        
     }
 }

@@ -13,7 +13,8 @@ namespace QCAuto
     {
 
         public string txt;
-
+        public string cob;
+        public List<string> ayy = new List<string>();
         public frmChangequilty()
         {
             InitializeComponent();
@@ -22,7 +23,7 @@ namespace QCAuto
         private void button1_Click(object sender, EventArgs e)
         {
             txt = this.textBox1.Text;
-
+            cob = this.dianpu_cob.SelectedItem.ToString();
             if (txt != null && txt != "")
                 this.Close();
             else
@@ -30,6 +31,12 @@ namespace QCAuto
 
 
 
+        }
+
+        private void frmChangequilty_Load(object sender, EventArgs e)
+        {
+          //  frm调拨系统 ff = new frm调拨系统();
+            this.dianpu_cob.DataSource = ayy;
         }
     }
 }

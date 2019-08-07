@@ -32,3 +32,12 @@ D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\bin\Debug\SDZdb.pdb
 D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.csprojResolveAssemblyReference.cache
 D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.dll
 D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.pdb
+D:\yhltd112\Excel_baojiadan\clsBuiness\bin\Debug\clsBuiness.dll
+D:\yhltd112\Excel_baojiadan\clsBuiness\bin\Debug\clsBuiness.pdb
+D:\yhltd112\Excel_baojiadan\clsBuiness\bin\Debug\China_System.Common.dll
+D:\yhltd112\Excel_baojiadan\clsBuiness\bin\Debug\SDZdb.dll
+D:\yhltd112\Excel_baojiadan\clsBuiness\bin\Debug\China_System.Common.pdb
+D:\yhltd112\Excel_baojiadan\clsBuiness\bin\Debug\SDZdb.pdb
+D:\yhltd112\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.csprojResolveAssemblyReference.cache
+D:\yhltd112\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.dll
+D:\yhltd112\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.pdb
