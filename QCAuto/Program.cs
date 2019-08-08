@@ -21,7 +21,10 @@ namespace QCAuto
             Sunisoft.IrisSkin.SkinEngine se = null;
             string pass = "";
 
-            var form = new Login();
+            string testvalue = "警告：由于客户未付清费用当前系统为测试系统，禁止转包模仿 破解等商业用途，如违反将追究相关法律责任";
+
+
+            var form = new Login(testvalue);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -51,8 +54,8 @@ namespace QCAuto
             int timeTotal = ts.Days;
             if (timeTotal < 0)
             {
-                MessageBox.Show("缺失系统文件，或电脑系统更新导致，请联系开发人员 !", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                //MessageBox.Show("缺失系统文件，或电脑系统更新导致，请联系开发人员 !", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //return;
             }
 
             #endregion

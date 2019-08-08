@@ -16,11 +16,15 @@ namespace QCAuto
 
         public string pass;
 
-        public Login()
+        public Login(string  testvalue   )
         {
             InitializeComponent();
             this.Text = String.Format("Login  Version {0}", AssemblyVersion);
-         
+
+
+            label2.Text = testvalue;
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)

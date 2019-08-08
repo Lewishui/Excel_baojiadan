@@ -38,7 +38,17 @@ namespace China_System.Common
 
                 //Thread.Sleep(1000); 
                 if (connection.State != ConnectionState.Open)
-                    connection.Open();
+                    try
+                    {
+                        connection.Open();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("无法找到网络，或请稍后重试，请联系开发人员-微信1623005800 !", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        System.Environment.Exit(0);
+                        //throw;
+                    }
                 // 
                 //cmd.CommandTimeout = int.MaxValue;
                 myReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
