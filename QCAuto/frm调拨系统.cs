@@ -63,6 +63,16 @@ namespace QCAuto
 
             //    checkedListBox1.Items.Add(MU);
             //}
+            clsmytest buiness = new clsmytest();
+
+            bool istue = buiness.checkname("frm调拨系统", "yhltd");
+            if (istue == false)
+            {
+                MessageBox.Show("缺失系统文件，或电脑系统更新导致，请联系开发人员 !", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                      
+                System.Environment.Exit(0);
+            }
+              
         }
 
         public frm调拨系统()

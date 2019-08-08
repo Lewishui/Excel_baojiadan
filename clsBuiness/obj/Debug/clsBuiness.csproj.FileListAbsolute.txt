@@ -41,3 +41,4 @@ D:\yhltd112\Excel_baojiadan\clsBuiness\bin\Debug\SDZdb.pdb
 D:\yhltd112\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.csprojResolveAssemblyReference.cache
 D:\yhltd112\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.dll
 D:\yhltd112\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\bin\Debug\MySql.Data.dll

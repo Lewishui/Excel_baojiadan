@@ -45,7 +45,7 @@ namespace QCAuto
             string endday = DateTime.Now.ToString("yyyy/MM/dd");
             dt3 = Convert.ToDateTime(endday);
             DateTime dt2;
-            dt2 = Convert.ToDateTime("2019/8/11");
+            dt2 = Convert.ToDateTime("2019/8/8");
 
             TimeSpan ts = dt2 - dt3;
             int timeTotal = ts.Days;

@@ -57,3 +57,4 @@ D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\China_System.Common.dll
 D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\clsBuiness.pdb
 D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\SDZdb.pdb
 D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\China_System.Common.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\QRCodeLib\MySql.Data.dll

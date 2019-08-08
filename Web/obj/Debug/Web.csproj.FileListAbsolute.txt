@@ -74,3 +74,4 @@ D:\Devlop\报价单\ewm\Excel_baojiadan\Web\bin\SDZdb.pdb
 D:\Devlop\报价单\ewm\Excel_baojiadan\Web\obj\Debug\Web.csprojResolveAssemblyReference.cache
 D:\Devlop\报价单\ewm\Excel_baojiadan\Web\obj\Debug\Web.dll
 D:\Devlop\报价单\ewm\Excel_baojiadan\Web\obj\Debug\Web.pdb
+D:\Devlop\报价单\ewm\Excel_baojiadan\Web\bin\MySql.Data.dll

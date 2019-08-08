@@ -29,7 +29,6 @@ D:\Devlop\VBA_tool\报价单\ewm\QCAuto\bin\Debug\Spire.Pdf.xml
 D:\Devlop\VBA_tool\报价单\ewm\QCAuto\bin\Debug\Spire.XLS.xml
 D:\Devlop\VBA_tool\报价单\ewm\QCAuto\obj\Debug\QCAuto.frmMessageShow.resources
 D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\bin\Debug\QCAuto.exe.config
-D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\Interop.Microsoft.Office.Core.dll
 D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\Interop.SHDocVw.dll
 D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\AxInterop.SHDocVw.dll
 D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\QCAuto.csproj.ResolveComReference.cache
@@ -59,10 +58,6 @@ D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\QCAuto.Login.resources
 D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\QCAuto.Properties.Resources.resources
 D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\QCAuto.csproj.GenerateResource.Cache
 D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\QCAuto.frmJiaqizhuantongjibiao.resources
-D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\bin\Debug\Interop.DSOFramer.dll
-D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\bin\Debug\AxInterop.DSOFramer.dll
-D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\Interop.DSOFramer.dll
-D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\AxInterop.DSOFramer.dll
 D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\QCAuto.frmshengfengshengchan.resources
 D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\QCAuto.frmquanshengcailiao.resources
 D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\QCAuto.frmGPS改造项目基本信息.resources
@@ -114,3 +109,4 @@ D:\yhltd112\Excel_baojiadan\QCAuto\bin\Debug\Spire.Pdf.xml
 D:\yhltd112\Excel_baojiadan\QCAuto\bin\Debug\Spire.XLS.xml
 D:\yhltd112\Excel_baojiadan\QCAuto\bin\Debug\Interop.SHDocVw.dll
 D:\yhltd112\Excel_baojiadan\QCAuto\bin\Debug\AxInterop.SHDocVw.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\bin\Debug\MySql.Data.dll
