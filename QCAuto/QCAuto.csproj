@@ -92,6 +92,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmAlterinfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAlterinfo.Designer.cs">
+      <DependentUpon>frmAlterinfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmChangequilty.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     <Compile Include="frmquanshengcailiao.Designer.cs">
       <DependentUpon>frmquanshengcailiao.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmAlterinfo.resx">
+      <DependentUpon>frmAlterinfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmChangequilty.resx">
       <DependentUpon>frmChangequilty.cs</DependentUpon>
     </EmbeddedResource>

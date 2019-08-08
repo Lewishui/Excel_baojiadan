@@ -110,3 +110,4 @@ D:\yhltd112\Excel_baojiadan\QCAuto\bin\Debug\Spire.XLS.xml
 D:\yhltd112\Excel_baojiadan\QCAuto\bin\Debug\Interop.SHDocVw.dll
 D:\yhltd112\Excel_baojiadan\QCAuto\bin\Debug\AxInterop.SHDocVw.dll
 D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\bin\Debug\MySql.Data.dll
+D:\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\QCAuto.frmAlterinfo.resources

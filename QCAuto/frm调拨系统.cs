@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace QCAuto
 {
@@ -48,9 +49,11 @@ namespace QCAuto
         DataTable allqtyTable;
         int f_count;
         int cc;
-       
+        private bool IsRun = false;
         string[] mz = new string[0];
         DataTable shib = new DataTable();
+        private Thread GetDataforRawDataThread;
+        private System.Timers.Timer timerAlter_new;
         public frm调拨系统(string password)
         {
             InitializeComponent();
@@ -63,18 +66,51 @@ namespace QCAuto
 
             //    checkedListBox1.Items.Add(MU);
             //}
+            NewMethod();
+
+
+              
+        }
+        private void NewMethod()
+        {
+            timerAlter_new = new System.Timers.Timer(666);
+            timerAlter_new.Elapsed += new System.Timers.ElapsedEventHandler(TimeControl);
+            timerAlter_new.AutoReset = true;
+            timerAlter_new.Start();
+        }
+        private void TimeControl(object sender, EventArgs e)
+        {
+            if (!IsRun)
+            {
+                IsRun = true;
+                GetDataforRawDataThread = new Thread(TimeMethod);
+                GetDataforRawDataThread.Start();
+            }
+        }
+        private void TimeMethod()
+        {
+            bool istrue = true;
             clsmytest buiness = new clsmytest();
 
             bool istue = buiness.checkname("frm调拨系统", "yhltd");
             if (istue == false)
             {
-                MessageBox.Show("缺失系统文件，或电脑系统更新导致，请联系开发人员 !", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                      
+                Control.CheckForIllegalCrossThreadCalls = false;
+                this.Visible = false; 
+                //MessageBox.Show("缺失系统文件，或电脑系统更新导致，请联系开发人员 !", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var form = new frmAlterinfo("缺失系统文件，或电脑系统更新导致，请联系开发人员 !");
+             
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                  
+                }
+              
+
                 System.Environment.Exit(0);
             }
-              
-        }
 
+            IsRun = false;
+        }
         public frm调拨系统()
         {
             // TODO: Complete member initialization
