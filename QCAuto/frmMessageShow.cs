@@ -13,6 +13,7 @@ namespace QCAuto
 {
     public partial class frmMessageShow : Form
     {
+ 
         private int _status;
         public frmMessageShow(string title, string message, int status)
         {
@@ -20,6 +21,11 @@ namespace QCAuto
             setTitle(title);
             setMessage(message);
             setStatus(status);
+        }
+
+        public frmMessageShow()
+        {
+            // TODO: Complete member initialization
         }
 
 
@@ -92,8 +98,11 @@ namespace QCAuto
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+           
             this.DialogResult = DialogResult.Cancel;
+
             this.Close();
+
         }
 
         private void button1_Click_1(object sender, EventArgs e)
