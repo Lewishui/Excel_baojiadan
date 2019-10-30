@@ -21,3 +21,7 @@ D:\yhltd112\Excel_baojiadan\SDZdb\bin\Debug\SDZdb.pdb
 D:\yhltd112\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.csprojResolveAssemblyReference.cache
 D:\yhltd112\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.dll
 D:\yhltd112\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.pdb
+D:\yho110\Godd\Excel_baojiadan\SDZdb\bin\Debug\SDZdb.dll
+D:\yho110\Godd\Excel_baojiadan\SDZdb\bin\Debug\SDZdb.pdb
+D:\yho110\Godd\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.dll
+D:\yho110\Godd\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.pdb

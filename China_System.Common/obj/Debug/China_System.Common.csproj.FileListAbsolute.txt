@@ -52,3 +52,10 @@ D:\yhltd112\Excel_baojiadan\China_System.Common\bin\Debug\SDZdb.pdb
 D:\yhltd112\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.csprojResolveAssemblyReference.cache
 D:\yhltd112\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.dll
 D:\yhltd112\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.pdb
+D:\yho110\Godd\Excel_baojiadan\China_System.Common\bin\Debug\China_System.Common.dll
+D:\yho110\Godd\Excel_baojiadan\China_System.Common\bin\Debug\China_System.Common.pdb
+D:\yho110\Godd\Excel_baojiadan\China_System.Common\bin\Debug\SDZdb.dll
+D:\yho110\Godd\Excel_baojiadan\China_System.Common\bin\Debug\SDZdb.pdb
+D:\yho110\Godd\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.csprojResolveAssemblyReference.cache
+D:\yho110\Godd\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.dll
+D:\yho110\Godd\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.pdb

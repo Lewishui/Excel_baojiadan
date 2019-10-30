@@ -36,14 +36,8 @@
     <ApplicationIcon>35.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AxInterop.DSOFramer, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\AxInterop.DSOFramer.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.DSOFramer, Version=2.2.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>bin\Debug\Interop.DSOFramer.dll</HintPath>
+    <Reference Include="AxInterop.SHDocVw">
+      <HintPath>E:\文件\AxInterop.SHDocVw.dll</HintPath>
     </Reference>
     <Reference Include="Interop.Microsoft.Office.Core">
       <HintPath>obj\Debug\Interop.Microsoft.Office.Core.dll</HintPath>
@@ -172,6 +166,18 @@
     <Compile Include="frmquanshengcailiao.Designer.cs">
       <DependentUpon>frmquanshengcailiao.cs</DependentUpon>
     </Compile>
+    <Compile Include="辣皇后fm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="辣皇后fm.Designer.cs">
+      <DependentUpon>辣皇后fm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="辣皇后Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="辣皇后Login.Designer.cs">
+      <DependentUpon>辣皇后Login.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmAlterinfo.resx">
       <DependentUpon>frmAlterinfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -221,6 +227,12 @@
     <EmbeddedResource Include="frmquanshengcailiao.resx">
       <DependentUpon>frmquanshengcailiao.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="辣皇后fm.resx">
+      <DependentUpon>辣皇后fm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="辣皇后Login.resx">
+      <DependentUpon>辣皇后Login.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -251,14 +263,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="AxSHDocVw">
-      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>1</VersionMinor>
+    <COMReference Include="AxDSOFramer">
+      <Guid>{00460180-9E5E-11D5-B7C8-B8269041DD57}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>2</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DSOFramer">
+      <Guid>{00460180-9E5E-11D5-B7C8-B8269041DD57}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>2</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
     <COMReference Include="Microsoft.Office.Interop.Excel">
       <Guid>{00020813-0000-0000-C000-000000000046}</Guid>

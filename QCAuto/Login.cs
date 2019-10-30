@@ -144,5 +144,10 @@ namespace QCAuto
           //  button1_Click(null, EventArgs.Empty);
 
         }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

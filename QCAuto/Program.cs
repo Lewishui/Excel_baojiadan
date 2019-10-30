@@ -24,8 +24,8 @@ namespace QCAuto
             string testvalue = "警告：由于客户未付清费用当前系统为测试系统，禁止转包模仿 破解等商业用途，如违反将追究相关法律责任";
 
 
-            var form = new Login(testvalue);
-
+            //var form = new Login(testvalue);
+            var form = new 辣皇后Login(testvalue);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 pass = form.pass;
@@ -68,7 +68,9 @@ namespace QCAuto
             //Application.Run(new frmGPS改造项目基本信息(pass));//GPS改造项目基本信息-5-13
             //Application.Run(new frmhljlc_excelcovet_json(pass));//hljlc   01-项目计划汇总表.xlsm
             //Application.Run(new frmNVZhuangAuto(pass));//徐圣博  女装6.3-2.xlsx
-            Application.Run(new frm调拨系统(pass));//key恒淘宝  调拨系统 D:\Devlop\VBA_tool\杂七杂八\antaxtep
+            //Application.Run(new frm调拨系统(pass));//key恒淘宝  调拨系统 D:\Devlop\VBA_tool\杂七杂八\antaxtep
+            Application.Run(new 辣皇后fm(pass));//辣皇后 登录判断excel D:\yho110\辣皇后
+            
         }
         private static void bat_dsoframer()
         {

@@ -43,3 +43,13 @@ D:\yhltd112\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.dll
 D:\yhltd112\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.pdb
 D:\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\bin\Debug\MySql.Data.dll
 D:\yhltd112\Excel_baojiadan\clsBuiness\bin\Debug\MySql.Data.dll
+D:\yho110\Godd\Excel_baojiadan\clsBuiness\bin\Debug\clsBuiness.dll
+D:\yho110\Godd\Excel_baojiadan\clsBuiness\bin\Debug\clsBuiness.pdb
+D:\yho110\Godd\Excel_baojiadan\clsBuiness\bin\Debug\China_System.Common.dll
+D:\yho110\Godd\Excel_baojiadan\clsBuiness\bin\Debug\SDZdb.dll
+D:\yho110\Godd\Excel_baojiadan\clsBuiness\bin\Debug\MySql.Data.dll
+D:\yho110\Godd\Excel_baojiadan\clsBuiness\bin\Debug\China_System.Common.pdb
+D:\yho110\Godd\Excel_baojiadan\clsBuiness\bin\Debug\SDZdb.pdb
+D:\yho110\Godd\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.csprojResolveAssemblyReference.cache
+D:\yho110\Godd\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.dll
+D:\yho110\Godd\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.pdb

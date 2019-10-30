@@ -267,6 +267,17 @@ namespace SDZdb
 
 
     }
+    /// <summary>
+    /// 文件夹名：辣皇后，登录人员信息获取
+    /// </summary>
+    public class lhh_LoginList_info
+    {
+        //账号，密码，开始日期，结束日期
+        public string loginid { get; set; }
+        public string pwd { get; set; }
+        public string startTime { get; set; }
+        public DateTime endTime { get; set; }
+    }
     public class cls_xiaoshou_info
     {
         //单据类型	店铺名称	款号	款名	颜色	尺码	数量	吊牌价	性别	季节	类别	年份
