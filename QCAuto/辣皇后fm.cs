@@ -14,11 +14,14 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
+using WEBIBM;
 using Excel = Microsoft.Office.Interop.Excel;
 namespace QCAuto
 {
@@ -40,7 +43,8 @@ namespace QCAuto
         //private AxSHDocVw.AxWebBrowser axWebBrowser1;
         string ZFCEPath;
         List<cls_sixzhuanjiagebiao_info> MAPPINGResult;
-
+        string FileDownURL = string.Empty;
+        string FileName = "";
         private China_System.Common.clsCommHelp.SortableBindingList<cls_sixzhuanjiagebiao_info> sortabledinningsOrderList;
         Excel.Application oApp;
         Excel.Workbooks oBooks;
@@ -51,6 +55,59 @@ namespace QCAuto
         string netuser;
         string netpassword;
         int axFramerControl1_is = 0;
+        private Form viewForm;
+        private DateTime strFileName;
+        private string publicPDFName;
+        private bool isReadyForSearch = false;
+        bool blFresh = false;
+        #region Import API
+        System.Timers.Timer aTimer = new System.Timers.Timer(50);//实例化Timer类，设置间隔时间为10000毫秒； 
+        System.Timers.Timer t = new System.Timers.Timer(50);//实例化Timer类，设置间隔时间为10000毫秒； 
+
+        private int ScreenStatus, intCnt;
+        private bool RUNING = false;
+        private const int WM_KEYDOWN = 0x100;
+        private const int WM_KEYUP = 0x101;
+        private const int VK_TAB = 0x9;
+        private const int VK_CONTROL = 0x11;
+        private const int VK_PRIOR = 0x21;
+        private const int VK_UP = 0x26;
+        private const int VK_HOME = 0x24;
+        private const int BM_CLICK = 0xF5;
+        private const int WM_LBUTTONDOWN = 0x0201;
+        private const int WM_LBUTTONUP = 0x0202;
+        private const int SYSKEYDOWN = 0x104;
+        private const int WM_SETTEXT = 0x000C;
+        private bool WebSiteStatus = false;
+        private bool IntialFinish = false;
+        private IntPtr hwnd_main, hwnd_ReportTree, hwnd_ReportTree1, hwnd_Control;
+        [DllImport("user32.dll")]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("User32.dll", EntryPoint = "SendMessage")]
+        private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+
+        [DllImport("user32.dll", EntryPoint = "GetParent")]
+        public static extern IntPtr GetParent(IntPtr hwndChild);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern bool IsWindowVisible(IntPtr hwnd);
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+
+
+        [DllImport("User32.dll ")]
+        public static extern IntPtr GetDlgItem(IntPtr parent, long childe);
+
+
+        [DllImport("User32.dll", EntryPoint = "SendMessage")]
+        private static extern int SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, string lParam);
+        #endregion
+
 
         public 辣皇后fm(string password)
         {
@@ -66,7 +123,7 @@ namespace QCAuto
                 int ssd = 0;
                 #region test
                 tabControl1.TabPages[2].Parent = null;//调用的是 AxDSOFramer  也好用，但是打开保存后共享Excel就变位只读了
-                tabControl1.TabPages[2].Parent = null;//统计表wb 按钮好用
+               // tabControl1.TabPages[2].Parent = null;//统计表wb 按钮好用
                 //toolStripButton5.Visible = false;
 
                 #endregion
@@ -416,15 +473,15 @@ namespace QCAuto
         }
         private void ExcelExit()
         {
-            if (this.axFramerControl1 != null)
-                this.axFramerControl1.Close();
-            if (this.m_axFramerControl != null && axFramerControl1_is == 1)
-            {
-                Save();
-                this.m_axFramerControl.Close();
-            }
-            if (webBrowser1.Document != null)
-                webBrowser1.Stop();
+            //if (this.axFramerControl1 != null)
+            //    this.axFramerControl1.Close();
+            //if (this.m_axFramerControl != null && axFramerControl1_is == 1)
+            //{
+            //    Save();
+            //    this.m_axFramerControl.Close();
+            //}
+            if (this.webBrowser1.Document != null)
+                this.webBrowser1.Stop();
 
             NAR(oSheet);
             if (oBook != null)
@@ -476,6 +533,25 @@ namespace QCAuto
 
         private void frmPrice_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+            if (MessageBox.Show("是否已经保存桌面其他Excel文件, 继续 ?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+
+            }
+            else
+                return;
+
+            toolStripLabel3.Text = "刷新中,请稍等...";
+
+            string folderpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ClearTask.bat");
+
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.WorkingDirectory = folderpath;
+            p.StartInfo.UseShellExecute = true;
+            p.StartInfo.FileName = folderpath;
+            p.Start();
+
+
             ExcelExit();
 
 
@@ -490,6 +566,23 @@ namespace QCAuto
 
         private void toolStripButton12_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("是否已经保存桌面其他Excel文件, 继续 ?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+
+            }
+            else
+                return;
+
+            toolStripLabel3.Text = "刷新中,请稍等...";
+
+            string folderpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ClearTask.bat");
+
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.WorkingDirectory = folderpath;
+            p.StartInfo.UseShellExecute = true;
+            p.StartInfo.FileName = folderpath;
+            p.Start();
+
             ExcelExit();
 
             this.Close();
@@ -503,7 +596,7 @@ namespace QCAuto
 
         private void toolStripButton11_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("是否已经保存其他桌面Excel文件, 继续 ?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (MessageBox.Show("是否已经保存桌面其他Excel文件, 继续 ?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
 
             }
@@ -521,7 +614,7 @@ namespace QCAuto
             p.Start();
 
             if (this.tabControl1.SelectedIndex == 2)
-                toolStripButton1_Click_1(null, EventArgs.Empty);
+                toolStripButton4_Click(null, EventArgs.Empty);
             //if (this.tabControl1.SelectedIndex == 1)
             else
 
@@ -801,50 +894,6 @@ namespace QCAuto
                 }
             }
         }
-
-        private void toolStripButton1_Click_1(object sender, EventArgs e)
-        {
-            axFramerControl1_is = 1;
-
-            this.tabControl1.SelectedIndex = 1;
-            toolStripLabel1.Text = "读取中，请耐心等待...(打开快慢受网络情况影响)";
-
-
-            Init(ZFCEPath);
-            //this.axFramerControl1.Open(ZFCEPath);
-            toolStripLabel1.Text = "读取完成,马上显示";
-            this.tabControl1.SelectedIndex = 1;
-
-            MessageBox.Show("读取完成，请查看", "信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            return;
-
-            try
-            {
-
-
-                InitialBackGroundWorker();
-                Control.CheckForIllegalCrossThreadCalls = false;
-                bgWorker.DoWork += new DoWorkEventHandler(CheckBankCharge);
-
-                bgWorker.RunWorkerAsync();
-                // 启动消息显示画面
-                frmMessageShow = new frmMessageShow(clsShowMessage.MSG_001,
-                                                    clsShowMessage.MSG_007,
-                                                    clsConstant.Dialog_Status_Disable);
-                frmMessageShow.ShowDialog();
-                // 数据读取成功后在画面显示
-                if (blnBackGroundWorkIsOK)
-                {
-                    this.tabControl1.SelectedIndex = 1;
-                    this.WindowState = FormWindowState.Maximized;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
         private void CheckBankCharge(object sender, DoWorkEventArgs e)
         {
             DateTime oldDate = DateTime.Now;
@@ -1014,13 +1063,7 @@ namespace QCAuto
 
         private void toolStripButton2_Click_1(object sender, EventArgs e)
         {
-            if (this.m_axFramerControl != null)
-            {
-                Save();
 
-                toolStripLabel1.Text = "已保存";
-
-            }
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -1081,38 +1124,7 @@ namespace QCAuto
         }
         private void toolStripButton3_Click_1(object sender, EventArgs e)
         {
-            try
-            {
-                MyWebBrower = new WbBlockNewUrl();
-                MyWebBrower.ScriptErrorsSuppressed = true;
-                MyWebBrower.BeforeNewWindow += new EventHandler<WebBrowserExtendedNavigatingEventArgs>(MyWebBrower_BeforeNewWindow2);
-                MyWebBrower.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(AnalysisWebInfo2);
-                MyWebBrower.Dock = DockStyle.Fill;
-                MyWebBrower.IsWebBrowserContextMenuEnabled = true;
 
-
-
-                MyWebBrower.Url = new Uri(ZFCEPath);
-
-                this.panel1.Controls.Add(MyWebBrower);
-
-                toolStripLabel2.Text = "读取中，请耐心等待...(打开快慢受网络情况影响)";
-                this.tabControl1.SelectedIndex = 2;
-
-                //this.webBrowser1.Navigate(ZFCEPath);
-
-                toolStripLabel2.Text = "读取完成,马上显示";
-
-                return;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("异常：" + ex);
-
-                return;
-
-                throw;
-            }
         }
 
         private void webBrowser1_DocumentCompleted_1(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -1161,20 +1173,695 @@ namespace QCAuto
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
+
+            MessageBox.Show("提示：" + "1.如上次系统非正常关闭请点击强制刷新按钮即可重新打开\r\n2.如个别系统有二次认证需要到桌面查看登陆！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+
+
+            //ZFCEPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "辣皇后\\Gongchuang.xlsm");
+
+            //InitialWebbroswer1();
+            timerstart();
+
+            //return;
+
             this.panel1.Controls.Add(MyWebBrower);
 
             toolStripLabel2.Text = "读取中，请耐心等待...(打开快慢受网络状况和表格大小影响)";
             this.tabControl1.SelectedIndex = 1;
-            ZFCEPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "辣皇后\\Gongchuang.xlsm");
 
             this.webBrowser1.Navigate(ZFCEPath);
 
             toolStripLabel2.Text = "读取完成,马上显示";
-            打开制定的本地文件
+            // 打开制定的本地文件
             //axf.Open( Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "辣皇后\\共创联盟系统(4-139).xlsm"));
             //制定用Word来打开c:\plain.txt文件
-           
 
+
+        }
+
+        public void InitialWebbroswer1()
+        {
+            try
+            {
+                MyWebBrower = new WbBlockNewUrl();
+                //不显示弹出错误继续运行框（HP方可）
+                MyWebBrower.ScriptErrorsSuppressed = true;
+                MyWebBrower.BeforeNewWindow += new EventHandler<WebBrowserExtendedNavigatingEventArgs>(MyWebBrower_BeforeNewWindow);
+                MyWebBrower.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(AnalysisWebInfo1);
+                MyWebBrower.Dock = DockStyle.Fill;
+                //显示用的窗体
+                viewForm = new Form();
+                //viewForm.Icon=
+                viewForm.ClientSize = new System.Drawing.Size(800, 600);
+                viewForm.StartPosition = FormStartPosition.CenterScreen;
+                viewForm.Controls.Clear();
+                viewForm.Controls.Add(MyWebBrower);
+                viewForm.FormClosing += new FormClosingEventHandler(viewForm_FormClosing);
+                //显示窗体
+                viewForm.Show();
+
+                //string ZFCEPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "System\\报价单.xls");
+
+                //MyWebBrower.Url = new Uri(ZFCEPath);
+
+                Object refmissing = System.Reflection.Missing.Value;
+                MyWebBrower.Navigate(ZFCEPath, refmissing.ToString());
+
+                //MyWebBrower.Navigate(ZFCEPath);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        void MyWebBrower_BeforeNewWindow(object sender, WebBrowserExtendedNavigatingEventArgs e)
+        {
+            string ZFCEPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "System\\报价单.xls");
+
+            #region 在原有窗口导航出新页
+            e.Cancel = false;//http://pro.wwpack-crest.hp.com/wwpak.online/regResults.aspx
+            //   MyWebBrower.Navigate(ZFCEPath);
+            #endregion
+        }
+        private void viewForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //if (toolStripStatusLabel1.Text != " Search Finished  !")
+            {
+                if (MessageBox.Show("正在进行，是否中止?", "Sign Out", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    if (MyWebBrower != null)
+                    {
+                        if (MyWebBrower.IsBusy)
+                        {
+                            MyWebBrower.Stop();
+                        }
+                        MyWebBrower.Dispose();
+                        MyWebBrower = null;
+                    }
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+        protected void AnalysisWebInfo1(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+            timerstart();
+
+        }
+
+        private void timerstart()
+        {
+            int file = 0;
+
+            {
+                strFileName = DateTime.Now;//开始时间
+                aTimer.Elapsed += new ElapsedEventHandler(steap_tocover);
+                aTimer.Start();
+                file = 1;
+                //HtmlElement btnAdd = doc.GetElementById("addDiv").FirstChild;
+                //btnAdd.InvokeMember("Click");
+
+            }
+        }
+        private void stoprefeach(object sender, EventArgs e)
+        {
+            DateTime rq2 = DateTime.Now;  //结束时间
+            int a = rq2.Second - strFileName.Second;
+            if (a >= 3 || rq2.Second < strFileName.Second)
+            {
+                aTimer.Stop();
+                return;
+            }
+        }
+        private void steap_tocover(object sender, EventArgs e)
+        {
+            SaveAs();
+
+        }
+
+        #region AＰI
+
+        //第一步保存
+        //private void SaveAs(object sender, EventArgs e)
+        private void SaveAs()
+        {
+            DateTime rq2 = DateTime.Now;  //结束时间               
+            TimeSpan ts = rq2 - strFileName;
+            int a = rq2.Second - strFileName.Second;
+            //if (a >= 10 || rq2.Second < strFileName.Second)
+            if (ts.Minutes > 3)
+            {
+                isReadyForSearch = true;
+                aTimer.Stop();
+                //  isOneFinished = true;
+                return;
+
+            }
+
+            List<IntPtr> arrHwnd_Sap_before = getSAPWindow();
+
+
+            // log4net.ILog objLogger = log4net.LogManager.GetLogger("SystemExceptionLogger");
+
+            //bool blFresh = false;
+            RUNING = true;
+            try
+            {
+                //得到File Download窗体对象
+                IntPtr h1 = FindWindow("#32770", "File Download - Security Warning");
+                IntPtr h2 = FindWindow("#32770", "文件下载 - 安全警告");
+                if (h2.ToInt32() <= 0)
+                    h2 = FindWindow("#32770", "File Download");
+                if (h2.ToInt32() <= 0)
+                    h2 = FindWindow("#32770", "文件下载");
+
+                if (h2.ToInt32() > 0 || h1.ToInt32() > 0)
+                {
+                    //得到Save按钮对象
+                    IntPtr duixiang;
+
+                    if (h1.ToInt32() > 0)
+                    {
+                        duixiang = WinAPIuser32.FindWindowEx(h1, 0, "Button", "&Save");
+                    }
+                    else
+                    {
+                        //duixiang = WinAPIuser32.FindWindowEx(h2, 0, "BUTTON", "&Save");
+                        duixiang = WinAPIuser32.FindWindowEx(h2, 0, "BUTTON", "打开(&O)");
+                    }
+                    //objLogger.Fatal("BUTTON 保存(&S):" + duixiang.ToString());
+                    //如果得到点击Save按钮
+                    if (duixiang.ToInt32() > 0)
+                    {
+                        Thread.Sleep(600);
+                        blFresh = true;
+                        SendMessage(duixiang, 0xF5, 0, 0);
+                        SendMessage(duixiang, 0xF5, 0, 0);
+                        WinAPIuser32.SendMessage(duixiang, WM_LBUTTONUP, IntPtr.Zero, null);
+                        WinAPIuser32.SendMessage(duixiang, WM_LBUTTONUP, IntPtr.Zero, null);
+                        //设定File Download窗体是否点击变量为已点击
+
+                    }
+                    IntPtr hwnd = WinAPIuser32.FindWindow("#32770", "另存为");
+                    IntPtr hwnd2 = WinAPIuser32.FindWindow("#32770", "&Save");
+                    if (hwnd2.ToInt32() <= 0)
+                        hwnd2 = WinAPIuser32.FindWindow("#32770", "Save");
+                    //objLogger.Fatal("另存为" + hwnd.ToString() + hwnd2.ToString());
+                }
+
+                RUNING = false;
+                #region MyRegion
+                //if (true)
+                //{
+
+                //    //得到Save As窗体对象
+                //    IntPtr hwnd = WinAPIuser32.FindWindow("#32770", "另存为");
+                //    IntPtr hwnd2 = WinAPIuser32.FindWindow("#32770", "Save As");
+                //    if (hwnd2.ToInt32() <= 0)
+                //        hwnd2 = WinAPIuser32.FindWindow("#32770", "名前を付けて保存");
+
+                //    //objLogger.Fatal("另存为" + hwnd.ToString() + hwnd2.ToString());
+
+                //    if (hwnd.ToInt32() > 0 || hwnd2.ToInt32() > 0)
+                //    {
+                //        //得到其下的一系列子窗体对象
+
+                //        IntPtr htextbox;
+                //        IntPtr htextbox1;
+
+                //        if (hwnd.ToInt32() > 0)
+                //        {
+                //            htextbox = WinAPIuser32.FindWindowEx(hwnd, 0, "ComboBoxEx32", null);
+                //            htextbox1 = WinAPIuser32.FindWindowEx(hwnd, 0, "DUIViewWndClassName", null);
+                //        }
+                //        else
+                //        {
+                //            htextbox = WinAPIuser32.FindWindowEx(hwnd2, 0, "ComboBoxEx32", null);
+                //            htextbox1 = WinAPIuser32.FindWindowEx(hwnd2, 0, "DUIViewWndClassName", null);
+                //        }
+
+                //        //objLogger.Fatal("ComboBoxEx32" + htextbox.ToString() + htextbox1.ToString());
+
+                //        if (htextbox.ToInt32() > 0)
+                //        {
+                //            IntPtr htextbox4 = WinAPIuser32.FindWindowEx(htextbox, 0, "ComboBox", null);
+                //            if (htextbox4.ToInt32() > 0)
+                //            {
+                //                Thread.Sleep(1000);
+                //                //得到子窗体中输入保存路径文本框
+
+                //                IntPtr htextbox5 = WinAPIuser32.FindWindowEx(htextbox4, 0, "Edit", null);
+                //                string strPath = FileDownURL + FileName;
+                //                WinAPIuser32.SendMessage(htextbox5, WM_SETTEXT, IntPtr.Zero, strPath);
+
+                //                //得到Save按钮对象
+                //                IntPtr hbutton;
+                //                if (hwnd.ToInt32() > 0)
+                //                {
+                //                    hbutton = WinAPIuser32.FindWindowEx(hwnd, 0, "BUTTON", "保存(&S)");
+                //                }
+                //                else
+                //                {
+                //                    hbutton = WinAPIuser32.FindWindowEx(hwnd2, 0, "BUTTON", "&Save");
+                //                    if (hbutton.ToInt32() <= 0)
+                //                        hbutton = WinAPIuser32.FindWindowEx(hwnd2, 0, "BUTTON", "保存(&S)");
+                //                }
+
+                //                //如果得到点击Save按钮
+                //                if (hbutton.ToInt32() > 0)
+                //                {
+                //                    WinAPIuser32.SendMessage(hbutton, WM_LBUTTONDOWN, IntPtr.Zero, null);
+                //                    WinAPIuser32.SendMessage(hbutton, WM_LBUTTONUP, IntPtr.Zero, null);
+                //                    //停止每5秒点击Save As窗体Timer控件
+                //                    WebSiteStatus = true;
+                //                }
+                //            }
+                //        }
+                //        else if (htextbox1.ToInt32() > 0)
+                //        {
+                //            IntPtr htextbox2 = WinAPIuser32.FindWindowEx(htextbox1, 0, "DirectUIHWND", null);
+                //            if (htextbox2.ToInt32() > 0)
+                //            {
+                //                IntPtr htextbox3 = WinAPIuser32.FindWindowEx(htextbox2, 0, "FloatNotifySink", null);
+                //                if (htextbox3.ToInt32() > 0)
+                //                {
+                //                    IntPtr htextbox4 = WinAPIuser32.FindWindowEx(htextbox3, 0, "ComboBox", null);
+                //                    if (htextbox4.ToInt32() > 0)
+                //                    {
+                //                        Thread.Sleep(1000);
+                //                        //得到子窗体中输入保存路径文本框
+                //                        // FileName = @"C:";
+
+
+                //                        ///////////////////////////////////////////////////////////路径保存地址
+                //                        FileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\PDF\\");
+                //                        string strPath = FileDownURL + FileName + publicPDFName + ".pdf";
+                //                        if (File.Exists(strPath))
+                //                        {
+                //                            File.Delete(strPath);
+
+                //                        }
+                //                        IntPtr htextbox5 = WinAPIuser32.FindWindowEx(htextbox4, 0, "Edit", null);
+                //                        WinAPIuser32.SendMessage(htextbox5, WM_SETTEXT, IntPtr.Zero, strPath);
+
+                //                        //得到Save按钮对象
+                //                        IntPtr hbutton;
+                //                        if (hwnd.ToInt32() > 0)
+                //                        {
+                //                            hbutton = WinAPIuser32.FindWindowEx(hwnd, 0, "BUTTON", "保存(&S)");
+                //                        }
+                //                        else
+                //                        {
+                //                            hbutton = WinAPIuser32.FindWindowEx(hwnd2, 0, "BUTTON", "&Save");
+                //                            if (hbutton.ToInt32() <= 0)
+                //                                hbutton = WinAPIuser32.FindWindowEx(hwnd2, 0, "BUTTON", "保存(&S)");
+                //                        }
+                //                        //如果得到点击Save按钮
+                //                        if (hbutton.ToInt32() > 0)
+                //                        {
+                //                            WinAPIuser32.SendMessage(hbutton, WM_LBUTTONDOWN, IntPtr.Zero, null);
+                //                            WinAPIuser32.SendMessage(hbutton, WM_LBUTTONUP, IntPtr.Zero, null);
+                //                            //停止每5秒点击Save As窗体Timer控件
+                //                            WebSiteStatus = true;
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+
+                //} 
+                #endregion
+
+            }
+            catch (Exception ex)
+            {
+                RUNING = false;
+                throw;
+            }
+            //    isReadyForSearch = false;
+            //    WebSiteStatus = false;
+            //    aTimer.Stop();
+
+
+        }
+
+        //第二部保存
+        private void OnTimedEvent(object sender, EventArgs e)
+        {
+            Thread.Sleep(3000);
+            //IntPtr hwnd = FindWindow("#32770", "另存为");
+            IntPtr hwnd = FindWindow("#32770", "Save As");
+            if (int.Parse(hwnd.ToString()) == 0)
+            {
+                hwnd = FindWindow("#32770", "Save");
+            }
+            if (int.Parse(hwnd.ToString()) > 0)
+            {
+                IntPtr hbutton = GetDlgItem(hwnd, 1);
+                if (int.Parse(hbutton.ToString()) > 0)
+                {
+                    SendMessage(hbutton, WM_LBUTTONDOWN, IntPtr.Zero, null);
+                    SendMessage(hbutton, WM_LBUTTONUP, IntPtr.Zero, null);
+                    aTimer.Stop();
+                }
+            }
+
+        }
+
+
+        public void SaveAPIButton()
+        {
+            bool RUNING = false;
+
+            //  List<IntPtr> arrHwnd_Sap_before = getSAPWindow();
+
+
+            // log4net.ILog objLogger = log4net.LogManager.GetLogger("SystemExceptionLogger");
+
+            bool blFresh = false;
+            RUNING = true;
+            try
+            {
+                //得到File Download窗体对象
+                IntPtr h1 = FindWindow("#32770", "File Download - Security Warning");
+                IntPtr h2 = FindWindow("#32770", "文件下载 - 安全警告");
+                if (h2.ToInt32() <= 0)
+                    h2 = FindWindow("#32770", "ファイルのダウンロード");
+                if (h2.ToInt32() <= 0)
+                    h2 = FindWindow("#32770", "文件下载");
+
+                if (h2.ToInt32() > 0 || h1.ToInt32() > 0)
+                {
+                    //得到Save按钮对象
+                    IntPtr duixiang;
+
+                    if (h1.ToInt32() > 0)
+                    {
+                        duixiang = WinAPIuser32.FindWindowEx(h1, 0, "Button", "&Save");
+                    }
+                    else
+                    {
+                        duixiang = WinAPIuser32.FindWindowEx(h2, 0, "BUTTON", "保存(&S)");
+                    }
+                    //objLogger.Fatal("BUTTON 保存(&S):" + duixiang.ToString());
+                    //如果得到点击Save按钮
+                    if (duixiang.ToInt32() > 0)
+                    {
+                        SendMessage(duixiang, 0xF5, 0, 0);
+                        SendMessage(duixiang, 0xF5, 0, 0);
+                        WinAPIuser32.SendMessage(duixiang, WM_LBUTTONUP, IntPtr.Zero, null);
+
+                        //设定File Download窗体是否点击变量为已点击
+                        blFresh = true;
+                    }
+                    IntPtr hwnd = WinAPIuser32.FindWindow("#32770", "另存为");
+                    IntPtr hwnd2 = WinAPIuser32.FindWindow("#32770", "Save As");
+                    if (hwnd2.ToInt32() <= 0)
+                        hwnd2 = WinAPIuser32.FindWindow("#32770", "名前を付けて保存");
+
+                    //objLogger.Fatal("另存为" + hwnd.ToString() + hwnd2.ToString());
+                }
+                RUNING = false;
+
+                #region MyRegion
+                //if (true)
+                //{
+                //    //得到Save As窗体对象
+                //    IntPtr hwnd = WinAPIuser32.FindWindow("#32770", "另存为");
+                //    IntPtr hwnd2 = WinAPIuser32.FindWindow("#32770", "Save As");
+                //    if (hwnd2.ToInt32() <= 0)
+                //        hwnd2 = WinAPIuser32.FindWindow("#32770", "名前を付けて保存");
+
+                //    //objLogger.Fatal("另存为" + hwnd.ToString() + hwnd2.ToString());
+
+                //    if (hwnd.ToInt32() > 0 || hwnd2.ToInt32() > 0)
+                //    {
+                //        //得到其下的一系列子窗体对象
+
+                //        IntPtr htextbox;
+                //        IntPtr htextbox1;
+
+                //        if (hwnd.ToInt32() > 0)
+                //        {
+                //            htextbox = WinAPIuser32.FindWindowEx(hwnd, 0, "ComboBoxEx32", null);
+                //            htextbox1 = WinAPIuser32.FindWindowEx(hwnd, 0, "DUIViewWndClassName", null);
+                //        }
+                //        else
+                //        {
+                //            htextbox = WinAPIuser32.FindWindowEx(hwnd2, 0, "ComboBoxEx32", null);
+                //            htextbox1 = WinAPIuser32.FindWindowEx(hwnd2, 0, "DUIViewWndClassName", null);
+                //        }
+
+                //        //objLogger.Fatal("ComboBoxEx32" + htextbox.ToString() + htextbox1.ToString());
+
+                //        if (htextbox.ToInt32() > 0)
+                //        {
+                //            IntPtr htextbox4 = WinAPIuser32.FindWindowEx(htextbox, 0, "ComboBox", null);
+                //            if (htextbox4.ToInt32() > 0)
+                //            {
+                //                Thread.Sleep(1000);
+                //                //得到子窗体中输入保存路径文本框
+
+                //                IntPtr htextbox5 = WinAPIuser32.FindWindowEx(htextbox4, 0, "Edit", null);
+                //                string strPath = FileDownURL + FileName;
+                //                WinAPIuser32.SendMessage(htextbox5, WM_SETTEXT, IntPtr.Zero, strPath);
+
+                //                //得到Save按钮对象
+                //                IntPtr hbutton;
+                //                if (hwnd.ToInt32() > 0)
+                //                {
+                //                    hbutton = WinAPIuser32.FindWindowEx(hwnd, 0, "BUTTON", "保存(&S)");
+                //                }
+                //                else
+                //                {
+                //                    hbutton = WinAPIuser32.FindWindowEx(hwnd2, 0, "BUTTON", "&Save");
+                //                    if (hbutton.ToInt32() <= 0)
+                //                        hbutton = WinAPIuser32.FindWindowEx(hwnd2, 0, "BUTTON", "保存(&S)");
+                //                }
+
+                //                //如果得到点击Save按钮
+                //                if (hbutton.ToInt32() > 0)
+                //                {
+                //                    WinAPIuser32.SendMessage(hbutton, WM_LBUTTONDOWN, IntPtr.Zero, null);
+                //                    WinAPIuser32.SendMessage(hbutton, WM_LBUTTONUP, IntPtr.Zero, null);
+                //                    //停止每5秒点击Save As窗体Timer控件
+                //                    WebSiteStatus = true;
+                //                }
+                //            }
+                //        }
+                //        else if (htextbox1.ToInt32() > 0)
+                //        {
+                //            IntPtr htextbox2 = WinAPIuser32.FindWindowEx(htextbox1, 0, "DirectUIHWND", null);
+                //            if (htextbox2.ToInt32() > 0)
+                //            {
+                //                IntPtr htextbox3 = WinAPIuser32.FindWindowEx(htextbox2, 0, "FloatNotifySink", null);
+                //                if (htextbox3.ToInt32() > 0)
+                //                {
+                //                    IntPtr htextbox4 = WinAPIuser32.FindWindowEx(htextbox3, 0, "ComboBox", null);
+                //                    if (htextbox4.ToInt32() > 0)
+                //                    {
+                //                        Thread.Sleep(1000);
+                //                        //得到子窗体中输入保存路径文本框
+                //                        FileName = @"C:";
+                //                        IntPtr htextbox5 = WinAPIuser32.FindWindowEx(htextbox4, 0, "Edit", null);
+                //                        string strPath = FileDownURL + FileName;
+                //                        WinAPIuser32.SendMessage(htextbox5, WM_SETTEXT, IntPtr.Zero, strPath);
+
+                //                        //得到Save按钮对象
+                //                        IntPtr hbutton;
+                //                        if (hwnd.ToInt32() > 0)
+                //                        {
+                //                            hbutton = WinAPIuser32.FindWindowEx(hwnd, 0, "BUTTON", "保存(&S)");
+                //                        }
+                //                        else
+                //                        {
+                //                            hbutton = WinAPIuser32.FindWindowEx(hwnd2, 0, "BUTTON", "&Save");
+                //                            if (hbutton.ToInt32() <= 0)
+                //                                hbutton = WinAPIuser32.FindWindowEx(hwnd2, 0, "BUTTON", "保存(&S)");
+                //                        }
+                //                        //如果得到点击Save按钮
+                //                        if (hbutton.ToInt32() > 0)
+                //                        {
+                //                            WinAPIuser32.SendMessage(hbutton, WM_LBUTTONDOWN, IntPtr.Zero, null);
+                //                            WinAPIuser32.SendMessage(hbutton, WM_LBUTTONUP, IntPtr.Zero, null);
+                //                            //停止每5秒点击Save As窗体Timer控件
+                //                            WebSiteStatus = true;
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //} 
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                RUNING = false;
+                throw;
+            }
+        }
+
+        #region Windows API Function
+
+        private List<IntPtr> getSAPWindow()
+        {
+            IntPtr hwnd_sap = IntPtr.Zero;
+            List<IntPtr> arrHwnd = new List<IntPtr>();
+
+            while (true)
+            {
+                hwnd_sap = FindWindowEx(IntPtr.Zero, hwnd_sap, "SAP_FRONTEND_SESSION", null);
+                if (hwnd_sap != IntPtr.Zero)
+                {
+                    arrHwnd.Add(hwnd_sap);
+                }
+                else
+                {
+
+                    break;
+                }
+            }
+
+            return arrHwnd;
+        }
+
+        private void monitorSAP()
+        {
+            if (hwnd_main == IntPtr.Zero)
+            {
+                //MessageBox.Show("找不到SAP主窗口！");
+                return;
+            }
+
+            if (IsWindowVisible(hwnd_main))
+            {
+                if (ScreenStatus == 0)
+                {
+                    hwnd_ReportTree1 = findReportTree1();
+                    //MessageBox.Show(hwnd_ReportTree1.ToInt32().ToString());
+                    selectReport(intCnt);
+
+                    IntPtr btnExecute = findExecuteButton();
+                    SendMessage(btnExecute, BM_CLICK, 0, 0);
+                    ScreenStatus = 1;
+                }
+                //clickYes(btnExecute);
+            }
+        }
+
+        private IntPtr findExecuteButton()
+        {
+            IntPtr children = FindWindowEx(hwnd_main, IntPtr.Zero, null, "");
+            while (children != IntPtr.Zero)
+            {
+                children = FindWindowEx(hwnd_main, children, null, "");
+                int nRet;
+                StringBuilder ClassName = new StringBuilder(100);
+                //Get the window class name
+                nRet = GetClassName(children, ClassName, ClassName.Capacity);
+                Regex r = new Regex("Afx:[(a-z)|(A-Z)|(0-9)]{8}:8:[0-9]{8}:00000000:00000000");
+                if (nRet != 0 && r.Match(ClassName.ToString()).Success)
+                {
+                    IntPtr hwnd_level2 = FindWindowEx(children, IntPtr.Zero, "Button", null);
+                    if (hwnd_level2 != IntPtr.Zero)
+                    {
+                        return hwnd_level2;
+                    }
+                }
+            }
+            return IntPtr.Zero;
+        }
+
+        private void clickYes(IntPtr hwnd_Control)
+        {
+            IntPtr hwnd_Button = FindWindowEx(hwnd_Control, new IntPtr(0), "Button", null);
+            SendMessage(hwnd_Button, BM_CLICK, 0, 0);
+        }
+
+        private void selectReport(int intCount)
+        {
+            sendPageUp();
+            sendTab(intCount);
+        }
+
+        private void sendPageUp()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                SendMessage(hwnd_ReportTree1, WM_KEYDOWN, VK_CONTROL, 0);
+                SendMessage(hwnd_ReportTree1, WM_KEYDOWN, VK_PRIOR, 0);
+                SendMessage(hwnd_ReportTree1, WM_KEYUP, VK_PRIOR, 0);
+                SendMessage(hwnd_ReportTree1, WM_KEYUP, VK_CONTROL, 0);
+            }
+        }
+
+        private void sendTab(int intCount)
+        {
+            //Tab
+            for (int i = 0; i < intCount; i++)
+            {
+                SendMessage(hwnd_ReportTree1, WM_KEYDOWN, VK_TAB, 0);
+                SendMessage(hwnd_ReportTree1, WM_KEYUP, VK_TAB, 0);
+            }
+        }
+
+        private IntPtr findReportTree1()
+        {
+            IntPtr hwnd_level1, hwnd_level2, hwnd_level3;
+            hwnd_level1 = FindWindowEx(hwnd_main, IntPtr.Zero, "Docking Container Class", null);
+            //MessageBox.Show("Docking Container Class:" + hwnd_level1.ToInt32().ToString());
+            if (hwnd_level1 != IntPtr.Zero)
+            {
+                hwnd_level2 = FindWindowEx(hwnd_level1, IntPtr.Zero, "Shell Window Class", "Control  Container");
+                //MessageBox.Show("Control  Container:" + hwnd_level2.ToInt32().ToString());
+                if (hwnd_level2 != IntPtr.Zero)
+                {
+                    hwnd_level3 = FindWindowEx(hwnd_level2, IntPtr.Zero, "AfxOleControl80", null);
+                    if (hwnd_level3 == IntPtr.Zero)
+                        hwnd_level3 = FindWindowEx(hwnd_level2, IntPtr.Zero, "AfxOleControl90", null);
+                    //MessageBox.Show("AfxOleControl80:" + hwnd_level3.ToInt32().ToString());
+                    if (hwnd_level3 != IntPtr.Zero)
+                    {
+                        //MessageBox.Show("SAPTreeList:" + FindWindowEx(hwnd_level3, IntPtr.Zero, "SAPTreeList", "SAP's Advanced Treelist").ToInt32().ToString());
+                        return FindWindowEx(hwnd_level3, IntPtr.Zero, "SAPTreeList", "SAP's Advanced Treelist");
+                        //return FindWindowEx(hwnd_level2, IntPtr.Zero, "SAPTreeList", "SAP's Advanced Treelist");
+                    }
+                }
+            }
+            return IntPtr.Zero;
+        }
+
+        private IntPtr findControlWindow()
+        {
+            string strCaption = "Execute Project Report: Initial Screen";
+
+            IntPtr hwnd_Child = IntPtr.Zero;
+            while (true)
+            {
+                hwnd_Child = FindWindowEx(IntPtr.Zero, hwnd_Child, "#32770", strCaption);
+                if (GetParent(hwnd_Child) == hwnd_main || hwnd_Child == IntPtr.Zero)
+                {
+                    break;
+                }
+            }
+            return hwnd_Child;
+        }
+        #endregion
+        #endregion
+
+        private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        {
+            //自动点击弹出确认或弹出提示
+            //IHTMLDocument2 vDocument = (IHTMLDocument2)webBrowser1.Document.DomDocument;
+            //vDocument.parentWindow.execScript("function confirm(str){return true;} ", "javascript"); //弹出确认
+            //vDocument.parentWindow.execScript("function alert(str){return true;} ", "javaScript");//弹出提示
         }
 
         private void toolStripButton5_Click(object sender, EventArgs e)
@@ -1246,26 +1933,36 @@ namespace QCAuto
 
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
-            this.tabControl1.SelectedIndex = 1;
-            if (MessageBox.Show("是否已经保存其他桌面Excel文件, 继续 ?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            try
             {
+                this.tabControl1.SelectedIndex = 1;
+                if (MessageBox.Show("是否已经保存其他桌面Excel文件, 继续 ?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+
+                }
+                else
+                    return;
+
+                toolStripLabel2.Text = "查询中,请稍等...";
+
+                string folderpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ClearTask.bat");
+
+                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                p.StartInfo.WorkingDirectory = folderpath;
+                p.StartInfo.UseShellExecute = true;
+                p.StartInfo.FileName = folderpath;
+                p.Start();
+
+                MessageBox.Show("已关闭");
 
             }
-            else
+            catch (Exception ex)
+            {
+                MessageBox.Show("异常：" + ex.Message);
                 return;
 
-            toolStripLabel2.Text = "查询中,请稍等...";
 
-            string folderpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ClearTask.bat");
-
-            System.Diagnostics.Process p = new System.Diagnostics.Process();
-            p.StartInfo.WorkingDirectory = folderpath;
-            p.StartInfo.UseShellExecute = true;
-            p.StartInfo.FileName = folderpath;
-            p.Start();
-
-            MessageBox.Show("已关闭");
-
+            }
         }
     }
 }

@@ -46,23 +46,17 @@
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.axFramerControl1 = new AxDSOFramer.AxFramerControl();
-            this.axf = new AxDSOFramer.AxFramerControl();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.toolStripLabel3.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axFramerControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axf)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -134,7 +128,6 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 38);
             this.tabControl1.Name = "tabControl1";
@@ -191,7 +184,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.axf);
             this.tabPage3.Controls.Add(this.webBrowser1);
             this.tabPage3.Controls.Add(this.toolStripLabel3);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -249,42 +241,12 @@
             this.panel1.Size = new System.Drawing.Size(935, 341);
             this.panel1.TabIndex = 4;
             // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.axFramerControl1);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(941, 347);
-            this.tabPage4.TabIndex = 7;
-            this.tabPage4.Text = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Font = new System.Drawing.Font("微软雅黑", 15F);
             this.toolStripLabel1.ForeColor = System.Drawing.Color.Black;
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(0, 22);
-            // 
-            // axFramerControl1
-            // 
-            this.axFramerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.axFramerControl1.Enabled = true;
-            this.axFramerControl1.Location = new System.Drawing.Point(3, 3);
-            this.axFramerControl1.Name = "axFramerControl1";
-            this.axFramerControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axFramerControl1.OcxState")));
-            this.axFramerControl1.Size = new System.Drawing.Size(935, 341);
-            this.axFramerControl1.TabIndex = 8;
-            // 
-            // axf
-            // 
-            this.axf.Enabled = true;
-            this.axf.Location = new System.Drawing.Point(6, 3);
-            this.axf.Name = "axf";
-            this.axf.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axf.OcxState")));
-            this.axf.Size = new System.Drawing.Size(927, 338);
-            this.axf.TabIndex = 11;
             // 
             // 辣皇后fm
             // 
@@ -309,10 +271,7 @@
             this.toolStripLabel3.ResumeLayout(false);
             this.toolStripLabel3.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axFramerControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axf)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -339,10 +298,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage4;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
-        private AxDSOFramer.AxFramerControl axFramerControl1;
-        private AxDSOFramer.AxFramerControl axf;
     }
 }
 

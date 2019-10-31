@@ -1,3 +1,4 @@
-\\192.168.1.12\d:\Cunfang\Gongchuang.xlsm
+﻿\\User-20190910kf\辣皇后交付\辣皇后\Gongchuang.xlsm
 administrator
 111111
+\\User-20190910kf\辣皇后交付\辣皇后\user control.txt

@@ -166,6 +166,7 @@
     <Compile Include="frmquanshengcailiao.Designer.cs">
       <DependentUpon>frmquanshengcailiao.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinAPIuser32.cs" />
     <Compile Include="辣皇后fm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -59,3 +59,10 @@ D:\yho110\Godd\Excel_baojiadan\China_System.Common\bin\Debug\SDZdb.pdb
 D:\yho110\Godd\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.csprojResolveAssemblyReference.cache
 D:\yho110\Godd\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.dll
 D:\yho110\Godd\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.pdb
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\bin\Debug\China_System.Common.dll
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\bin\Debug\China_System.Common.pdb
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\bin\Debug\SDZdb.dll
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\bin\Debug\SDZdb.pdb
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.csprojResolveAssemblyReference.cache
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.dll
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.pdb
