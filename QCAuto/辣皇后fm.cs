@@ -1173,30 +1173,39 @@ namespace QCAuto
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
+            try
+            {
 
-            MessageBox.Show("提示：" + "1.如上次系统非正常关闭请点击强制刷新按钮即可重新打开\r\n2.如个别系统有二次认证需要到桌面查看登陆！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("提示：" + "1.如上次系统非正常关闭请点击强制刷新按钮即可重新打开\r\n2.如个别系统有二次认证需要到桌面查看登陆！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
 
 
-            //ZFCEPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "辣皇后\\Gongchuang.xlsm");
+                //ZFCEPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "辣皇后\\Gongchuang.xlsm");
 
-            //InitialWebbroswer1();
-            timerstart();
+                //InitialWebbroswer1();
+                timerstart();
 
-            //return;
+                //return;
 
-            this.panel1.Controls.Add(MyWebBrower);
+                this.panel1.Controls.Add(MyWebBrower);
 
-            toolStripLabel2.Text = "读取中，请耐心等待...(打开快慢受网络状况和表格大小影响)";
-            this.tabControl1.SelectedIndex = 1;
+                toolStripLabel2.Text = "读取中，请耐心等待...(打开快慢受网络状况和表格大小影响)";
+                this.tabControl1.SelectedIndex = 1;
 
-            this.webBrowser1.Navigate(ZFCEPath);
+                this.webBrowser1.Navigate(ZFCEPath);
 
-            toolStripLabel2.Text = "读取完成,马上显示";
-            // 打开制定的本地文件
-            //axf.Open( Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "辣皇后\\共创联盟系统(4-139).xlsm"));
-            //制定用Word来打开c:\plain.txt文件
+                toolStripLabel2.Text = "读取完成,马上显示";
+                // 打开制定的本地文件
+                //axf.Open( Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "辣皇后\\共创联盟系统(4-139).xlsm"));
+                //制定用Word来打开c:\plain.txt文件
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("异常：" + ex);
+
+                throw;
+            }
 
         }
 

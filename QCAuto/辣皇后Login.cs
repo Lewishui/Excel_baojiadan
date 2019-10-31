@@ -242,6 +242,9 @@ namespace QCAuto
         }
         private void Local_IP()
         {
+
+
+
             string A_Path = AppDomain.CurrentDomain.BaseDirectory + "辣皇后\\ip.txt";
             string[] fileText = File.ReadAllLines(A_Path);
             if (fileText.Length > 0 && fileText[0] != null && fileText[0] != "")
@@ -256,6 +259,18 @@ namespace QCAuto
         }
         private List<lhh_LoginList_info> Local_IP1()
         {
+            string[] ob = Regex.Split(ZFCEPath, @"\\", RegexOptions.IgnoreCase);
+            //bool status = SharedTool.connectState(@"\\192.168.1.2", @"administrator", "333333");
+            string ipadd = "\\\\" + ob[2];
+            bool status = SharedTool.connectState(ipadd, @netuser, netpassword);
+
+            if (!File.Exists(ZFCEPath) && status != true)
+            {
+                MessageBox.Show("没有找到此路径或此文件，请保证共享文件存在或权限共享机登录账户密码配置正确!");
+                System.Environment.Exit(0);
+                return null;
+            }
+
             InfoList = new List<lhh_LoginList_info>();
 
             //string A_Path = AppDomain.CurrentDomain.BaseDirectory + "辣皇后\\user control.txt";

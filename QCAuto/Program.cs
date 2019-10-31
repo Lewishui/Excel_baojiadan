@@ -20,7 +20,7 @@ namespace QCAuto
             Application.SetCompatibleTextRenderingDefault(false);
             Sunisoft.IrisSkin.SkinEngine se = null;
             string pass = "";
-
+            string projectname = "";
             string testvalue = "警告：由于客户未付清费用当前系统为测试系统，禁止转包模仿 破解等商业用途，如违反将追究相关法律责任";
 
 
@@ -29,7 +29,7 @@ namespace QCAuto
             if (form.ShowDialog() == DialogResult.OK)
             {
                 pass = form.pass;
-
+                projectname = "辣皇后";
 
             }
             else
@@ -38,9 +38,13 @@ namespace QCAuto
                 return;
             //暂时不用到dsoframer.ocx
             //  bat_dsoframer();
-            se = new Sunisoft.IrisSkin.SkinEngine();
-            se.SkinAllForm = true;
-            se.SkinFile = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""), "PageColor1.ssk");
+            if (projectname != "辣皇后")
+            {
+                se = new Sunisoft.IrisSkin.SkinEngine();
+                se.SkinAllForm = true;
+                se.SkinFile = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""), "PageColor1.ssk");
+            }
+
 
             #region Noway
             DateTime oldDate = DateTime.Now;
