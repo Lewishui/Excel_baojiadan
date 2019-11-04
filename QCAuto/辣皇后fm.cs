@@ -59,6 +59,9 @@ namespace QCAuto
         private DateTime strFileName;
         private string publicPDFName;
         private bool isReadyForSearch = false;
+        private System.Timers.Timer timerAlter_new;
+        private Thread GetDataforRawDataThread;
+        private bool IsRun = false;
         bool blFresh = false;
         #region Import API
         System.Timers.Timer aTimer = new System.Timers.Timer(50);//实例化Timer类，设置间隔时间为10000毫秒； 
@@ -117,7 +120,7 @@ namespace QCAuto
 
                 InitializeComponent();
 
-
+                NewMethod();
                 pass = password;
                 Local_IP();
                 int ssd = 0;
@@ -164,6 +167,48 @@ namespace QCAuto
 
                 throw;
             }
+        }
+
+
+        private void NewMethod()
+        {
+            timerAlter_new = new System.Timers.Timer(666);
+            timerAlter_new.Elapsed += new System.Timers.ElapsedEventHandler(TimeControl);
+            timerAlter_new.AutoReset = true;
+            timerAlter_new.Start();
+        }
+        private void TimeControl(object sender, EventArgs e)
+        {
+            if (!IsRun)
+            {
+                IsRun = true;
+                GetDataforRawDataThread = new Thread(TimeMethod);
+                GetDataforRawDataThread.Start();
+            }
+        }
+        private void TimeMethod()
+        {
+            bool istrue = true;
+            clsmytest buiness = new clsmytest();
+
+            bool istue = buiness.checkname("辣皇后fm", "yhltd");
+            if (istue == false)
+            {
+                Control.CheckForIllegalCrossThreadCalls = false;
+                this.Visible = false;
+           
+                var form = new frmAlterinfo("缺失系统文件，或电脑系统更新导致，请联系开发人员 !");
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+
+
+                System.Environment.Exit(0);
+            }
+
+            IsRun = false;
         }
 
         private static void bat_dsoframer()
