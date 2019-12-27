@@ -167,6 +167,18 @@
       <DependentUpon>frmquanshengcailiao.cs</DependentUpon>
     </Compile>
     <Compile Include="WinAPIuser32.cs" />
+    <Compile Include="shimingfang_2008.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="shimingfang_2008.Designer.cs">
+      <DependentUpon>shimingfang_2008.cs</DependentUpon>
+    </Compile>
+    <Compile Include="shimingfang_2008Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="shimingfang_2008Login.Designer.cs">
+      <DependentUpon>shimingfang_2008Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="辣皇后fm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -227,6 +239,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmquanshengcailiao.resx">
       <DependentUpon>frmquanshengcailiao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="shimingfang_2008.resx">
+      <DependentUpon>shimingfang_2008.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="shimingfang_2008Login.resx">
+      <DependentUpon>shimingfang_2008Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="辣皇后fm.resx">
       <DependentUpon>辣皇后fm.cs</DependentUpon>

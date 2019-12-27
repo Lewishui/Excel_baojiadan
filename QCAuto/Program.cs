@@ -25,11 +25,12 @@ namespace QCAuto
 
 
             //var form = new Login(testvalue);
-            var form = new 辣皇后Login(testvalue);
+            //var form = new 辣皇后Login(testvalue);
+            var form = new shimingfang_2008Login(testvalue);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 pass = form.pass;
-                projectname = "辣皇后";
+                projectname = "shimingfang_2008";
 
             }
             else
@@ -73,8 +74,8 @@ namespace QCAuto
             //Application.Run(new frmhljlc_excelcovet_json(pass));//hljlc   01-项目计划汇总表.xlsm
             //Application.Run(new frmNVZhuangAuto(pass));//徐圣博  女装6.3-2.xlsx
             //Application.Run(new frm调拨系统(pass));//key恒淘宝  调拨系统 D:\Devlop\VBA_tool\杂七杂八\antaxtep
-            Application.Run(new 辣皇后fm(pass));//辣皇后 登录判断excel D:\yho110\辣皇后
-            
+            //Application.Run(new 辣皇后fm(pass));//辣皇后 登录判断excel D:\yho110\辣皇后
+            Application.Run(new shimingfang_2008(pass));//shimingfang_2008
         }
         private static void bat_dsoframer()
         {
