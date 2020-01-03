@@ -276,6 +276,10 @@
       <Project>{e7bbc086-51fe-4b4a-a4bb-94ccb17b76b0}</Project>
       <Name>clsBuiness</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QCAuto_Admin\QCAuto_Admin.csproj">
+      <Project>{7d625a09-c0c5-4c05-9078-fce0dc61882d}</Project>
+      <Name>QCAuto_Admin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SDZdb\SDZdb.csproj">
       <Project>{0a37e57d-9e55-4378-935d-acd76fab4609}</Project>
       <Name>SDZdb</Name>

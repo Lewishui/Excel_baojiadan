@@ -1,4 +1,5 @@
 ﻿using China_System.Common;
+using QCAuto_Admin;
 using SDZdb;
 using System;
 using System.Collections.Generic;
@@ -249,6 +250,13 @@ namespace QCAuto
 
             string A_Path = AppDomain.CurrentDomain.BaseDirectory + "shimingfang_2008\\ip.txt";
             string[] fileText = File.ReadAllLines(A_Path);
+            //解密
+
+            string s = DESEncrypt.Decrypt(System.IO.File.ReadAllText(A_Path, Encoding.Default));
+            fileText = System.Text.RegularExpressions.Regex.Split(s, "\r\n");
+
+
+
             if (fileText.Length > 0 && fileText[0] != null && fileText[0] != "")
             {
                 if (fileText[0] != null && fileText[0] != "")
@@ -296,6 +304,10 @@ namespace QCAuto
                 if (File.Exists(ZFCEPath))
                 {
                     string[] fileText = File.ReadAllLines(ZFCEPath);
+                    //解密
+
+                    string s = DESEncrypt.Decrypt(System.IO.File.ReadAllText(ZFCEPath, Encoding.Default));
+                    fileText = System.Text.RegularExpressions.Regex.Split(s, "\r\n");
 
                     if (fileText.Length > 0 && fileText[0] != null && fileText[0] != "")
                     {
@@ -303,13 +315,13 @@ namespace QCAuto
                         {
                             string[] texttemp = System.Text.RegularExpressions.Regex.Split(fileText[i], "\t");
                             lhh_LoginList_info temp = new lhh_LoginList_info();
-                            if (texttemp[0] != null)
+                            if (texttemp.Length > 0 && texttemp[0] != null && texttemp[0] != "")
                                 temp.loginid = texttemp[0].ToString().Trim();
-                            if (texttemp[1] != null)
+                            if (texttemp.Length > 1 && texttemp[1] != null)
                                 temp.pwd = texttemp[1].ToString().Trim();
-                            if (texttemp[2] != null)
+                            if (texttemp.Length > 2 && texttemp[2] != null)
                                 temp.startTime = texttemp[2].ToString().Trim();
-                            if (texttemp[3] != null)
+                            if (texttemp.Length > 3 && texttemp[3] != null)
                                 temp.endTime = Convert.ToDateTime(texttemp[3].ToString());
                             InfoList.Add(temp);
 

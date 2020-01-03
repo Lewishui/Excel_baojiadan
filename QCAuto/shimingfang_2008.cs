@@ -2,6 +2,7 @@
 using clsBuiness;
 using ISR_System;
 using Microsoft.Office.Interop.Excel;
+using QCAuto_Admin;
 using SDZdb;
 using Spire.Xls;
 //using Microsoft.Office.Interop.Excel;
@@ -338,6 +339,13 @@ namespace QCAuto
         {
             string A_Path = AppDomain.CurrentDomain.BaseDirectory + "shimingfang_2008\\ip.txt";
             string[] fileText = File.ReadAllLines(A_Path);
+            //解密
+
+            string s = DESEncrypt.Decrypt(System.IO.File.ReadAllText(A_Path, Encoding.Default));
+            fileText = System.Text.RegularExpressions.Regex.Split(s, "\r\n");
+
+
+
             if (fileText.Length > 0 && fileText[0] != null && fileText[0] != "")
             {
                 if (fileText[0] != null && fileText[0] != "")

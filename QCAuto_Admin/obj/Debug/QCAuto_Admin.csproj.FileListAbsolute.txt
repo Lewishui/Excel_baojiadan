@@ -1,0 +1,10 @@
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\obj\Debug\QCAuto_Admin.csprojResolveAssemblyReference.cache
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\obj\Debug\QCAuto_Admin.Form1.resources
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\obj\Debug\QCAuto_Admin.Properties.Resources.resources
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\obj\Debug\QCAuto_Admin.shimingfang_2008Admin.resources
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\obj\Debug\QCAuto_Admin.csproj.GenerateResource.Cache
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\bin\Debug\QCAuto_Admin.exe.config
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\bin\Debug\QCAuto_Admin.exe
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\bin\Debug\QCAuto_Admin.pdb
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\obj\Debug\QCAuto_Admin.exe
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\obj\Debug\QCAuto_Admin.pdb

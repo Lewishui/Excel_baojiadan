@@ -206,3 +206,5 @@ C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\bin\Debug\Interop.DSOF
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\bin\Debug\AxInterop.DSOFramer.dll
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\QCAuto.shimingfang_2008.resources
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\obj\Debug\QCAuto.shimingfang_2008Login.resources
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\bin\Debug\QCAuto_Admin.exe
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto\bin\Debug\QCAuto_Admin.pdb

@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{15911A
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QCAuto_Admin", "QCAuto_Admin\QCAuto_Admin.csproj", "{7D625A09-C0C5-4C05-9078-FCE0DC61882D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{2CC9E842-7346-4EAC-9F63-ACC91C0478F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CC9E842-7346-4EAC-9F63-ACC91C0478F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CC9E842-7346-4EAC-9F63-ACC91C0478F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D625A09-C0C5-4C05-9078-FCE0DC61882D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D625A09-C0C5-4C05-9078-FCE0DC61882D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D625A09-C0C5-4C05-9078-FCE0DC61882D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D625A09-C0C5-4C05-9078-FCE0DC61882D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
