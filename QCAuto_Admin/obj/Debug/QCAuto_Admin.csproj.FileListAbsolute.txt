@@ -8,3 +8,8 @@ C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\bin\Debug\QCAuto
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\bin\Debug\QCAuto_Admin.pdb
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\obj\Debug\QCAuto_Admin.exe
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\obj\Debug\QCAuto_Admin.pdb
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\bin\Debug\China_System.Common.dll
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\bin\Debug\SDZdb.dll
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\bin\Debug\MySql.Data.dll
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\bin\Debug\China_System.Common.pdb
+C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\QCAuto_Admin\bin\Debug\SDZdb.pdb

@@ -73,6 +73,7 @@
     <Compile Include="clsKeyMyExcelProcess.cs" />
     <Compile Include="clsmytest.cs" />
     <Compile Include="clsShowMessage.cs" />
+    <Compile Include="DESEncrypt.cs" />
     <Compile Include="MockEntity.cs" />
     <Compile Include="NewMySqlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -41,7 +41,11 @@ namespace QCAuto_Admin
             string FilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "shimingfang_2008");
             FilePath = FilePath.Replace("QCAuto_Admin", "QCAuto");
             string strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\shimingfang_2008";
-            if (Directory.Exists(strDesktopPath))
+
+            if (!Directory.Exists(FilePath))
+                Directory.CreateDirectory(FilePath);
+ 
+            if (Directory.Exists(strDesktopPath) && Directory.Exists(FilePath))
             {
                 List<string> Alist = new List<string>();
                 if (Directory.Exists(FilePath))
@@ -283,7 +287,7 @@ namespace QCAuto_Admin
             string FilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "shimingfang_2008");
             FilePath = FilePath.Replace("QCAuto_Admin", "QCAuto");
 
-            string strDesktopPath = @"C:\Program Files\shimingfang_2008";
+            string strDesktopPath = @"C:\Program Files\shimingfang_2008\shimingfang_2008";
 
 
             CopyFolder(FilePath, strDesktopPath);

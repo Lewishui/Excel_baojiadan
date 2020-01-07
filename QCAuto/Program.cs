@@ -43,6 +43,7 @@ namespace QCAuto
             {
                 se = new Sunisoft.IrisSkin.SkinEngine();
                 se.SkinAllForm = true;
+                se.SkinDialogs = false;
                 se.SkinFile = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""), "PageColor1.ssk");
             }
 
