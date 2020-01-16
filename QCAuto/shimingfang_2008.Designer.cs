@@ -46,20 +46,20 @@
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.webBrowser2 = new System.Windows.Forms.WebBrowser();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.webBrowser2 = new System.Windows.Forms.WebBrowser();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.toolStripLabel3.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -207,6 +207,7 @@
             this.webBrowser1.Size = new System.Drawing.Size(935, 316);
             this.webBrowser1.TabIndex = 7;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted_1);
+            this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.webBrowser1_NewWindow);
             // 
             // toolStripLabel3
             // 
@@ -245,13 +246,6 @@
             this.panel1.Size = new System.Drawing.Size(935, 341);
             this.panel1.TabIndex = 4;
             // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Font = new System.Drawing.Font("微软雅黑", 15F);
-            this.toolStripLabel1.ForeColor = System.Drawing.Color.Black;
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(0, 22);
-            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.webBrowser2);
@@ -271,6 +265,14 @@
             this.webBrowser2.Name = "webBrowser2";
             this.webBrowser2.Size = new System.Drawing.Size(935, 341);
             this.webBrowser2.TabIndex = 8;
+            this.webBrowser2.NewWindow += new System.ComponentModel.CancelEventHandler(this.webBrowser2_NewWindow);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Font = new System.Drawing.Font("微软雅黑", 15F);
+            this.toolStripLabel1.ForeColor = System.Drawing.Color.Black;
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(0, 22);
             // 
             // shimingfang_2008
             // 
@@ -296,8 +298,8 @@
             this.toolStripLabel3.ResumeLayout(false);
             this.toolStripLabel3.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

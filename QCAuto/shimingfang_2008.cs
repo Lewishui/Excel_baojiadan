@@ -215,7 +215,7 @@ namespace QCAuto
             bool istrue = true;
             clsmytest buiness = new clsmytest();
 
-            bool istue = buiness.checkname("辣皇后fm", "yhltd");
+            bool istue = buiness.checkname("shimingfang_2008", "yhltd");
             if (istue == false)
             {
                 Control.CheckForIllegalCrossThreadCalls = false;
@@ -2066,6 +2066,18 @@ namespace QCAuto
 
 
             }
+        }
+
+        private void webBrowser1_NewWindow(object sender, CancelEventArgs e)
+        {
+            webBrowser1.Url = new Uri(((WebBrowser)sender).StatusText);
+            e.Cancel = true;
+        }
+
+        private void webBrowser2_NewWindow(object sender, CancelEventArgs e)
+        {
+            webBrowser2.Url = new Uri(((WebBrowser)sender).StatusText);
+            e.Cancel = true;
         }
     }
 }
