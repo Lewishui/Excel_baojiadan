@@ -124,12 +124,17 @@ namespace QCAuto
                 InitializeComponent();
 
                 NewMethod();
+                //检查 WPS是否安装 是否是第一是使用本软件
+                NewMethod_check();
+
                 pass = password;
+
+
                 Local_IP();
                 int ssd = 0;
                 #region test
                 //tabControl1.TabPages[2].Parent = null;//调用的是 AxDSOFramer  也好用，但是打开保存后共享Excel就变位只读了
-               tabControl1.TabPages[2].Parent = null;//统计表wb 按钮好用
+                tabControl1.TabPages[2].Parent = null;//统计表wb 按钮好用
                 //toolStripButton5.Visible = false;
 
                 #endregion
@@ -145,7 +150,7 @@ namespace QCAuto
                     string ipadd = "\\\\" + ob[2];
                     if (!ZFCEPath.Contains("D:\\Devlop\\报价单\\ewm\\Excel_baojiadan\\QCAuto\\bin\\Debug"))
                     {
-                       // bool status = SharedTool.connectState(ipadd, @netuser, netpassword);
+                        // bool status = SharedTool.connectState(ipadd, @netuser, netpassword);
                         if (islocalpath == false)
                             status = SharedTool.connectState(ipadd, @netuser, netpassword);
                         else
@@ -192,7 +197,56 @@ namespace QCAuto
                 throw;
             }
         }
+        #region 检查是否执行过E_fix.reg   必加
+        private void NewMethod_check()
+        {
 
+            try
+            {
+                List<string> lsit = check_wps_officeVersion();
+
+
+                string c = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "isonetime.txt");
+
+                if (File.Exists(c))
+                {
+
+
+
+                }
+                else
+                {
+                    //如果安装的不是office2013版本则运行E_fix.reg
+                    if (lsit.Count > 1 && Convert.ToDouble(lsit[1].Replace("ExcelVersion:", "")) != 15)
+                    {
+
+                        MessageBox.Show("提示：" + "系统第一次安装如提示安装[注册表编辑器]一定选择>是<按钮， 否则此系统无法正常使用", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        
+                        string E_fix = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "E_fix.reg");
+                        System.Diagnostics.Process.Start("explorer.exe", E_fix);
+                    }
+                    //标记此软件已经在机器上安装了
+
+                    StreamWriter sw = new StreamWriter(c);
+                    sw.WriteLine("");
+                    sw.Flush();
+                    sw.Close();
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("异常：098012" + ex);
+                throw;
+            }
+
+
+
+        }
+
+
+        #endregion
 
         private void NewMethod()
         {
@@ -215,12 +269,12 @@ namespace QCAuto
             bool istrue = true;
             clsmytest buiness = new clsmytest();
 
-            bool istue = buiness.checkname("shimingfang_2008", "yhltd");
+            bool istue = buiness.checkname("shimingfang_2008_2", "yhltd");
             if (istue == false)
             {
                 Control.CheckForIllegalCrossThreadCalls = false;
                 this.Visible = false;
-           
+
                 var form = new frmAlterinfo("缺失系统文件，或电脑系统更新导致，请联系开发人员 !");
 
                 if (form.ShowDialog() == DialogResult.OK)
@@ -703,7 +757,7 @@ namespace QCAuto
             p.StartInfo.UseShellExecute = true;
             p.StartInfo.FileName = folderpath;
             p.Start();
-
+            Thread.Sleep(3000);
             if (this.tabControl1.SelectedIndex == 2)
                 toolStripButton4_Click(null, EventArgs.Empty);
             //if (this.tabControl1.SelectedIndex == 1)
@@ -1222,35 +1276,35 @@ namespace QCAuto
         {
             try
             {
-                Microsoft.Office.Interop.Excel.Workbook wbb = null;
-                Object refmissing = System.Reflection.Missing.Value;
+                //Microsoft.Office.Interop.Excel.Workbook wbb = null;
+                //Object refmissing = System.Reflection.Missing.Value;
 
-                object[] args = new object[4];
+                //object[] args = new object[4];
 
-                args[0] = SHDocVw.OLECMDID.OLECMDID_HIDETOOLBARS;
+                //args[0] = SHDocVw.OLECMDID.OLECMDID_HIDETOOLBARS;
 
-                args[1] = SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER;
+                //args[1] = SHDocVw.OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER;
 
-                args[2] = refmissing;
+                //args[2] = refmissing;
 
-                args[3] = refmissing;
-                object axWebBrowser = this.webBrowser1.ActiveXInstance;
+                //args[3] = refmissing;
+                //object axWebBrowser = this.webBrowser1.ActiveXInstance;
 
-                axWebBrowser.GetType().InvokeMember("ExecWB", BindingFlags.InvokeMethod, null, axWebBrowser, args);
+                //axWebBrowser.GetType().InvokeMember("ExecWB", BindingFlags.InvokeMethod, null, axWebBrowser, args);
 
 
-                object oApplication = axWebBrowser.GetType().InvokeMember("Document", BindingFlags.GetProperty, null, axWebBrowser, null);
+                //object oApplication = axWebBrowser.GetType().InvokeMember("Document", BindingFlags.GetProperty, null, axWebBrowser, null);
 
-                wbb = (Microsoft.Office.Interop.Excel.Workbook)oApplication;
+                //wbb = (Microsoft.Office.Interop.Excel.Workbook)oApplication;
 
-                Microsoft.Office.Interop.Excel.Worksheet WS = (Microsoft.Office.Interop.Excel.Worksheet)wbb.Worksheets[1];
-                oBook = wbb;
+                //Microsoft.Office.Interop.Excel.Worksheet WS = (Microsoft.Office.Interop.Excel.Worksheet)wbb.Worksheets[1];
+                //oBook = wbb;
 
-                //Microsoft.Office.Interop.Excel.Application ExcelApp;
-                //ExcelApp = new Microsoft.Office.Interop.Excel.Application();
-                //oApp = (Microsoft.Office.Interop.Excel.Application)oApplication;
+                ////Microsoft.Office.Interop.Excel.Application ExcelApp;
+                ////ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+                ////oApp = (Microsoft.Office.Interop.Excel.Application)oApplication;
 
-                oSheet = WS;
+                //oSheet = WS;
             }
             catch (Exception ex)
             {
@@ -1266,6 +1320,12 @@ namespace QCAuto
         {
             try
             {
+
+                check_wps_officeVersion();
+                //13版本是15
+
+
+
 
                 MessageBox.Show("提示：" + "1.如上次系统非正常关闭请点击强制刷新按钮即可重新打开\r\n2.如个别系统有二次认证需要到桌面查看登陆！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -1285,6 +1345,7 @@ namespace QCAuto
 
                 this.webBrowser1.Navigate(ZFCEPath);
                 //读取文件2
+                Thread.Sleep(5000);
                 this.webBrowser2.Navigate(ZFCEPath2);
 
 
@@ -1297,9 +1358,38 @@ namespace QCAuto
             catch (Exception ex)
             {
                 MessageBox.Show("异常：" + ex);
+                return;
 
                 throw;
             }
+
+        }
+
+        private List<string> check_wps_officeVersion()
+        {
+            List<string> sdl = new List<string>();
+            string isinstallWPS = "";
+
+            bool isps = clsCommHelp.isWpsInstall();
+            if (isps == false)
+            {
+                isinstallWPS = "未安装WPS";
+
+                sdl.Add("wps_meizhuang");
+
+            }
+            else
+            {
+                isinstallWPS = "已安装WPS";
+
+                sdl.Add("wps_zhuangle");
+            }
+            double excelver = clsCommHelp.JongCheckExcelVer();// ExistsExcelRegedit();
+            sdl.Add("ExcelVersion:" + excelver.ToString());
+
+            label4.Text = "本机Excel版本：" + excelver + "  " + isinstallWPS;
+
+            return sdl;
 
         }
 
@@ -1403,6 +1493,7 @@ namespace QCAuto
         }
         private void steap_tocover(object sender, EventArgs e)
         {
+            //Thread.Sleep(1000);
             SaveAs();
 
         }
@@ -1464,6 +1555,7 @@ namespace QCAuto
                         Thread.Sleep(600);
                         blFresh = true;
                         SendMessage(duixiang, 0xF5, 0, 0);
+                        Thread.Sleep(1000);
                         SendMessage(duixiang, 0xF5, 0, 0);
                         WinAPIuser32.SendMessage(duixiang, WM_LBUTTONUP, IntPtr.Zero, null);
                         WinAPIuser32.SendMessage(duixiang, WM_LBUTTONUP, IntPtr.Zero, null);

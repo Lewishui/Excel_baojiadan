@@ -1,7 +1,9 @@
-﻿using SDZdb;
+﻿using Microsoft.Win32;
+using SDZdb;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -525,5 +527,52 @@ namespace China_System.Common
 
         #endregion
 
+        #region 判断是否是装了WPS
+
+
+        public static bool isWpsInstall()
+        {
+            bool isInstall = false;
+            RegistryKey wpsLibrary = Registry.CurrentUser.OpenSubKey(@"Software\Kingsoft\Office\6.0\common");
+            if (wpsLibrary != null)
+            {
+                if (wpsLibrary.GetValue("InstallRoot") != null)
+                {
+                    string strpath = wpsLibrary.GetValue("InstallRoot").ToString();
+                    if (File.Exists(strpath + @"\office6\wps.exe"))
+                    {
+                        isInstall = true;
+                    }
+                }
+            }
+            return isInstall;
+        }
+        #endregion
+        #region 获取Excel版本
+
+        public static double JongCheckExcelVer()
+        {
+            Type objExcelType = Type.GetTypeFromProgID("Excel.Application");
+            if (objExcelType == null)
+            {
+                return 0;
+            }
+            object objApp = Activator.CreateInstance(objExcelType);
+            if (objApp == null)
+            {
+                return 0;
+            }
+            object objVer = objApp.GetType().InvokeMember("Version", BindingFlags.GetProperty, null, objApp, null);
+            double iVer = Convert.ToDouble(objVer.ToString());
+            objVer = null;
+            objApp = null;
+            objExcelType = null;
+            GC.Collect();
+            return iVer;
+        }
+
+        #endregion
+
+     
     }
 }
