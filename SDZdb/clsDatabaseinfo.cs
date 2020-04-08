@@ -201,30 +201,41 @@ namespace SDZdb
     }
     public class cls_xiangmujihuazongbiao_info
     {
-        public string Order_id { get; set; }//=FItemID
-        public string xuhao_A { get; set; }
-        public string tiaomaneirong_B { get; set; }
-        public string tuhao_C { get; set; }
-        public string mingcheng_D { get; set; }
-        public string caizhi_E { get; set; }
-        public string shuliang_F { get; set; }
-        public string danwei_G { get; set; }
-        public string taoshu_H { get; set; }
-        public string xiangmujiaoqi_I { get; set; }
-        public string zongshuliang_J { get; set; }
-        public string wuliuzhouqi_K { get; set; }
-        public string zhuangpeizhouqi_L { get; set; }
-        public string lingjianchengpinzhouqi_M { get; set; }
-        public string shifouxuyao_N { get; set; }
-        public string bianmianchulizhouqi_O { get; set; }
-        public string lingjianbanchengpinzhouqi_P { get; set; }
-        public string beizhu_Q { get; set; }
-        public string genchuineirong_R { get; set; }
-        public string genchuijiedian_S { get; set; }
-        public string xiatushijian_T { get; set; }
-        public string xiaruriqi_U { get; set; }
-        public string xiangmubiaohao_V { get; set; }
-        public string tuhao1_W { get; set; }
+        //public string Order_id { get; set; }//=FItemID
+        //public string xuhao_A { get; set; }
+        //public string tiaomaneirong_B { get; set; }
+        //public string tuhao_C { get; set; }
+        //public string mingcheng_D { get; set; }
+        //public string caizhi_E { get; set; }
+        //public string shuliang_F { get; set; }
+        //public string danwei_G { get; set; }
+        //public string taoshu_H { get; set; }
+        //public string xiangmujiaoqi_I { get; set; }
+        //public string zongshuliang_J { get; set; }
+        //public string wuliuzhouqi_K { get; set; }
+        //public string zhuangpeizhouqi_L { get; set; }
+        //public string lingjianchengpinzhouqi_M { get; set; }
+        //public string shifouxuyao_N { get; set; }
+        //public string bianmianchulizhouqi_O { get; set; }
+        //public string lingjianbanchengpinzhouqi_P { get; set; }
+        //public string beizhu_Q { get; set; }
+        //public string genchuineirong_R { get; set; }
+        //public string genchuijiedian_S { get; set; }
+        //public string xiatushijian_T { get; set; }
+        //public string xiaruriqi_U { get; set; }
+        //public string xiangmubiaohao_V { get; set; }
+        //public string tuhao1_W { get; set; }
+
+        //2020408
+
+        public string tuhao_A{ get; set; }
+        public string mingcheng_B { get; set; }
+        public string zongshuliang_C { get; set; }
+        public string dangqianzhuangtai_D { get; set; }
+        public string changshang_E { get; set; }
+
+      
+
 
     }
 

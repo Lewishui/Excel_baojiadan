@@ -30,3 +30,8 @@ C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\SDZdb\bin\Debug\SDZdb.pdb
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.dll
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.pdb
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.csprojResolveAssemblyReference.cache
+D:\git_version\Excel_baojiadan\SDZdb\bin\Debug\SDZdb.dll
+D:\git_version\Excel_baojiadan\SDZdb\bin\Debug\SDZdb.pdb
+D:\git_version\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.csprojResolveAssemblyReference.cache
+D:\git_version\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.dll
+D:\git_version\Excel_baojiadan\SDZdb\obj\Debug\SDZdb.pdb

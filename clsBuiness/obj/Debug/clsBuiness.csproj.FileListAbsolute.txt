@@ -63,3 +63,13 @@ C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\bin\Debug\SDZdb.pd
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.csprojResolveAssemblyReference.cache
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.dll
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.pdb
+D:\git_version\Excel_baojiadan\clsBuiness\bin\Debug\clsBuiness.dll
+D:\git_version\Excel_baojiadan\clsBuiness\bin\Debug\clsBuiness.pdb
+D:\git_version\Excel_baojiadan\clsBuiness\bin\Debug\China_System.Common.dll
+D:\git_version\Excel_baojiadan\clsBuiness\bin\Debug\SDZdb.dll
+D:\git_version\Excel_baojiadan\clsBuiness\bin\Debug\MySql.Data.dll
+D:\git_version\Excel_baojiadan\clsBuiness\bin\Debug\China_System.Common.pdb
+D:\git_version\Excel_baojiadan\clsBuiness\bin\Debug\SDZdb.pdb
+D:\git_version\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.csprojResolveAssemblyReference.cache
+D:\git_version\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.dll
+D:\git_version\Excel_baojiadan\clsBuiness\obj\Debug\clsBuiness.pdb

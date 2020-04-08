@@ -108,7 +108,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmhljlc_excelcovet_json";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "hljlc项目计划汇总表";
+            this.Text = "赛飞项目状态查询";
             this.ResumeLayout(false);
             this.PerformLayout();
 

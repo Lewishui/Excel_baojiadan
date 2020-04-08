@@ -66,3 +66,10 @@ C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\bin\Debug
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.csprojResolveAssemblyReference.cache
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.dll
 C:\bake40mypc\Devlop\报价单\ewm\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.pdb
+D:\git_version\Excel_baojiadan\China_System.Common\bin\Debug\China_System.Common.dll
+D:\git_version\Excel_baojiadan\China_System.Common\bin\Debug\China_System.Common.pdb
+D:\git_version\Excel_baojiadan\China_System.Common\bin\Debug\SDZdb.dll
+D:\git_version\Excel_baojiadan\China_System.Common\bin\Debug\SDZdb.pdb
+D:\git_version\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.csprojResolveAssemblyReference.cache
+D:\git_version\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.dll
+D:\git_version\Excel_baojiadan\China_System.Common\obj\Debug\China_System.Common.pdb

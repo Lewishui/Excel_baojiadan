@@ -117,7 +117,10 @@ namespace QCAuto
                     "htc", Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
                     Type.Missing, Type.Missing, Type.Missing, Type.Missing);
 
-                Microsoft.Office.Interop.Excel.Worksheet WS = (Microsoft.Office.Interop.Excel.Worksheet)analyWK.Worksheets[1];
+                //Microsoft.Office.Interop.Excel.Worksheet WS = (Microsoft.Office.Interop.Excel.Worksheet)analyWK.Worksheets[1];
+                //20200408 新模板
+
+                Microsoft.Office.Interop.Excel.Worksheet WS = (Microsoft.Office.Interop.Excel.Worksheet)analyWK.Worksheets["模板1"];
                 Microsoft.Office.Interop.Excel.Range rng;
                 rng = WS.get_Range(WS.Cells[2, 1], WS.Cells[WS.UsedRange.Rows.Count, 30]);
                 int rowCount = WS.UsedRange.Rows.Count - 1;
@@ -132,109 +135,138 @@ namespace QCAuto
 
                     #region 基础信息
 
-                    temp.xuhao_A = "";
-                    if (o[i, 1] != null)
-                        temp.xuhao_A = o[i, 1].ToString().Trim();
+                    //temp.xuhao_A = "";
+                    //if (o[i, 1] != null)
+                    //    temp.xuhao_A = o[i, 1].ToString().Trim();
 
 
-                    temp.tiaomaneirong_B = "";
-                    if (o[i, 2] != null)
-                        temp.tiaomaneirong_B = o[i, 2].ToString().Trim();
+                    //temp.tiaomaneirong_B = "";
+                    //if (o[i, 2] != null)
+                    //    temp.tiaomaneirong_B = o[i, 2].ToString().Trim();
 
-                    temp.tuhao_C = "";
-                    if (o[i, 3] != null)
-                        temp.tuhao_C = o[i, 3].ToString().Trim();
+                    //temp.tuhao_C = "";
+                    //if (o[i, 3] != null)
+                    //    temp.tuhao_C = o[i, 3].ToString().Trim();
 
-                    temp.mingcheng_D = "";
-                    if (o[i, 4] != null)
-                        temp.mingcheng_D = o[i, 4].ToString().Trim();
-                    if (temp.mingcheng_D == "" || temp.mingcheng_D == null)
-                        continue;
+                    //temp.mingcheng_D = "";
+                    //if (o[i, 4] != null)
+                    //    temp.mingcheng_D = o[i, 4].ToString().Trim();
+                    //if (temp.mingcheng_D == "" || temp.mingcheng_D == null)
+                    //    continue;
 
-                    temp.caizhi_E = "";
-                    if (o[i, 5] != null)
-                        temp.caizhi_E = o[i, 5].ToString().Trim(); //clsCommHelp.objToDateTime(o[i, 5]);
-                    temp.shuliang_F = "";
-                    if (o[i, 6] != null)
-                        temp.shuliang_F = o[i, 6].ToString().Trim(); //clsCommHelp.objToDateTime(o[i, 6]);
+                    //temp.caizhi_E = "";
+                    //if (o[i, 5] != null)
+                    //    temp.caizhi_E = o[i, 5].ToString().Trim(); //clsCommHelp.objToDateTime(o[i, 5]);
+                    //temp.shuliang_F = "";
+                    //if (o[i, 6] != null)
+                    //    temp.shuliang_F = o[i, 6].ToString().Trim(); //clsCommHelp.objToDateTime(o[i, 6]);
 
-                    temp.danwei_G = "";
-                    if (o[i, 7] != null)
-                        temp.danwei_G = o[i, 7].ToString().Trim();
-                    temp.taoshu_H = "";
-                    if (o[i, 8] != null)
-                        temp.taoshu_H = o[i, 8].ToString().Trim();
+                    //temp.danwei_G = "";
+                    //if (o[i, 7] != null)
+                    //    temp.danwei_G = o[i, 7].ToString().Trim();
+                    //temp.taoshu_H = "";
+                    //if (o[i, 8] != null)
+                    //    temp.taoshu_H = o[i, 8].ToString().Trim();
 
-                    temp.xiangmujiaoqi_I = "";
-                    if (o[i, 9] != null)
-                        temp.xiangmujiaoqi_I = o[i, 9].ToString().Trim();
+                    //temp.xiangmujiaoqi_I = "";
+                    //if (o[i, 9] != null)
+                    //    temp.xiangmujiaoqi_I = o[i, 9].ToString().Trim();
 
-                    temp.zongshuliang_J = "";
-                    if (o[i, 10] != null)
-                        temp.zongshuliang_J = o[i, 10].ToString().Trim();
+                    //temp.zongshuliang_J = "";
+                    //if (o[i, 10] != null)
+                    //    temp.zongshuliang_J = o[i, 10].ToString().Trim();
 
-                    temp.wuliuzhouqi_K = "";
-                    if (o[i, 11] != null)
-                        temp.wuliuzhouqi_K = o[i, 11].ToString().Trim();
-                    temp.zhuangpeizhouqi_L = "";
-                    if (o[i, 12] != null)
-                        temp.zhuangpeizhouqi_L = o[i, 12].ToString().Trim();
+                    //temp.wuliuzhouqi_K = "";
+                    //if (o[i, 11] != null)
+                    //    temp.wuliuzhouqi_K = o[i, 11].ToString().Trim();
+                    //temp.zhuangpeizhouqi_L = "";
+                    //if (o[i, 12] != null)
+                    //    temp.zhuangpeizhouqi_L = o[i, 12].ToString().Trim();
 
-                    temp.lingjianchengpinzhouqi_M = "";
-                    if (o[i, 13] != null)
-                        temp.lingjianchengpinzhouqi_M = clsCommHelp.objToDateTime(o[i, 13]);
-
-
-                    temp.shifouxuyao_N = "";
-                    if (o[i, 14] != null)
-                        temp.shifouxuyao_N = o[i, 14].ToString().Trim();
+                    //temp.lingjianchengpinzhouqi_M = "";
+                    //if (o[i, 13] != null)
+                    //    temp.lingjianchengpinzhouqi_M = clsCommHelp.objToDateTime(o[i, 13]);
 
 
-                    temp.bianmianchulizhouqi_O = "";
-                    if (o[i, 15] != null)
-                        temp.bianmianchulizhouqi_O = o[i, 15].ToString().Trim();
+                    //temp.shifouxuyao_N = "";
+                    //if (o[i, 14] != null)
+                    //    temp.shifouxuyao_N = o[i, 14].ToString().Trim();
 
 
-                    temp.lingjianbanchengpinzhouqi_P = "";
-                    if (o[i, 16] != null)
-                        temp.lingjianbanchengpinzhouqi_P = clsCommHelp.objToDateTime(o[i, 16]);
+                    //temp.bianmianchulizhouqi_O = "";
+                    //if (o[i, 15] != null)
+                    //    temp.bianmianchulizhouqi_O = o[i, 15].ToString().Trim();
 
 
-                    temp.beizhu_Q = "";
-                    if (o[i, 17] != null)
-                        temp.beizhu_Q = o[i, 17].ToString().Trim();
-
-                    temp.genchuineirong_R = "";
-                    if (o[i, 18] != null)
-                        temp.genchuineirong_R = o[i, 18].ToString().Trim();
+                    //temp.lingjianbanchengpinzhouqi_P = "";
+                    //if (o[i, 16] != null)
+                    //    temp.lingjianbanchengpinzhouqi_P = clsCommHelp.objToDateTime(o[i, 16]);
 
 
-                    temp.genchuijiedian_S = "";
-                    if (o[i, 19] != null)
-                        temp.genchuijiedian_S = clsCommHelp.objToDateTime(o[i, 19]);
+                    //temp.beizhu_Q = "";
+                    //if (o[i, 17] != null)
+                    //    temp.beizhu_Q = o[i, 17].ToString().Trim();
+
+                    //temp.genchuineirong_R = "";
+                    //if (o[i, 18] != null)
+                    //    temp.genchuineirong_R = o[i, 18].ToString().Trim();
 
 
-                    temp.xiatushijian_T = "";
-                    if (o[i, 20] != null)
-                        temp.xiatushijian_T = clsCommHelp.objToDateTime(o[i, 20]);
+                    //temp.genchuijiedian_S = "";
+                    //if (o[i, 19] != null)
+                    //    temp.genchuijiedian_S = clsCommHelp.objToDateTime(o[i, 19]);
 
 
-                    temp.xiaruriqi_U = "";
-                    if (o[i, 21] != null)
-                        temp.xiaruriqi_U = o[i, 21].ToString().Trim();
+                    //temp.xiatushijian_T = "";
+                    //if (o[i, 20] != null)
+                    //    temp.xiatushijian_T = clsCommHelp.objToDateTime(o[i, 20]);
 
 
-                    temp.xiangmubiaohao_V = "";
-                    if (o[i, 22] != null)
-                        temp.xiangmubiaohao_V = o[i, 22].ToString().Trim();
+                    //temp.xiaruriqi_U = "";
+                    //if (o[i, 21] != null)
+                    //    temp.xiaruriqi_U = o[i, 21].ToString().Trim();
 
 
-                    temp.tuhao1_W = "";
-                    if (o[i, 23] != null)
-                        temp.tuhao1_W = o[i, 23].ToString().Trim();
+                    //temp.xiangmubiaohao_V = "";
+                    //if (o[i, 22] != null)
+                    //    temp.xiangmubiaohao_V = o[i, 22].ToString().Trim();
+
+
+                    //temp.tuhao1_W = "";
+                    //if (o[i, 23] != null)
+                    //    temp.tuhao1_W = o[i, 23].ToString().Trim();
 
                     #endregion
 
+
+                    #region 新模板  20200408
+
+                    temp.tuhao_A = "";
+                    if (o[i, 1] != null)
+                        temp.tuhao_A = o[i, 1].ToString().Trim();
+                    if (temp.tuhao_A == "" || temp.tuhao_A == null)
+                        continue;
+
+                    temp.mingcheng_B = "";
+                    if (o[i, 2] != null)
+                        temp.mingcheng_B = o[i, 2].ToString().Trim();
+
+                    temp.zongshuliang_C = "";
+                    if (o[i, 3] != null)
+                        temp.zongshuliang_C = o[i, 3].ToString().Trim();
+
+                    temp.dangqianzhuangtai_D = "";
+                    if (o[i, 4] != null)
+                        temp.dangqianzhuangtai_D = o[i, 4].ToString().Trim();
+              
+
+                    temp.changshang_E = "";
+                    if (o[i, 5] != null)
+                        temp.changshang_E = o[i, 5].ToString().Trim(); //clsCommHelp.objToDateTime(o[i, 5]);
+
+
+
+                    #endregion
                     Result.Add(temp);
                 }
 

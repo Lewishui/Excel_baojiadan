@@ -37,8 +37,17 @@
     <ApplicationIcon>35.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxInterop.DSOFramer, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\AxInterop.DSOFramer.dll</HintPath>
+    </Reference>
     <Reference Include="AxInterop.SHDocVw">
       <HintPath>E:\文件\AxInterop.SHDocVw.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.DSOFramer, Version=2.2.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Debug\Interop.DSOFramer.dll</HintPath>
     </Reference>
     <Reference Include="Interop.Microsoft.Office.Core">
       <HintPath>obj\Debug\Interop.Microsoft.Office.Core.dll</HintPath>
